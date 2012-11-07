@@ -62,12 +62,12 @@ body {
   top: 36px;
   text-align: center;
   width: 100%;
-  display: none;
 }
 #userBadge {
   position: absolute;
   top: 11px;
   width: 100%;
+  display: none;
 }
 #userPic {
   width: 50px;
@@ -102,7 +102,7 @@ body {
   height: 28px;
   position: relative;
   top: -1px;
-  margin: 0px -2px;
+  margin: 0px 0px;
 }
 #content {
   margin: 10px 0px;
