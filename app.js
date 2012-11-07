@@ -26,6 +26,12 @@ app.configure(function(){
   app.use(express.static(path.join(__dirname, 'public')));
 });
 
+app.configure(function(){
+  app.use(express.errorHandler());
+  app.locals.pretty = true;
+});
+
+
 app.configure('development', function(){
   app.use(express.errorHandler());
 });
