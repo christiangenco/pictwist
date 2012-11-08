@@ -9,13 +9,14 @@ var express = require('express')
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'pictwist',
-  password : 'secret'
+  password : 'secret',
+  database : 'pictwist'
 });
 
 // run MySQL querries with:
-connection.query('SELECT * FROM pictures', function(err, rows){
-  if(err) console.log("Failed to connect to the database");
-  console.log("All pictures: ")
+connection.query('SELECT * FROM photos', function(err, rows){
+  if(err) console.log(err);
+  console.log("All photos: ")
   console.log(rows);
 });
 
