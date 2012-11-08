@@ -19,8 +19,8 @@ CREATE TABLE users(
   country VARCHAR(255),
   bio TEXT,
   admin BOOLEAN DEFAULT FALSE,
-  date_created TIMESTAMP,
-  date_modified TIMESTAMP
+  date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  date_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
   -- no security questions - you're not supposed to use them
 );
 
@@ -28,8 +28,8 @@ CREATE TABLE albums(
   id INTEGER PRIMARY KEY AUTO_INCREMENT,
   title VARCHAR(255),
   private BOOLEAN DEFAULT FALSE,
-  date_created TIMESTAMP,
-  date_modified TIMESTAMP,
+  date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  date_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   user_id INTEGER,
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
@@ -38,8 +38,8 @@ CREATE TABLE photos(
   id INTEGER PRIMARY KEY AUTO_INCREMENT,
   title VARCHAR(255) DEFAULT "photo",
   private BOOLEAN DEFAULT FALSE,
-  date_created TIMESTAMP,
-  date_modified TIMESTAMP,
+  date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  date_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   parent_photo_id INTEGER,
   album_id INTEGER,
   FOREIGN KEY (parent_photo_id) REFERENCES photos(id),
@@ -57,7 +57,7 @@ CREATE TABLE tags(
 CREATE TABLE comments(
   id INTEGER PRIMARY KEY AUTO_INCREMENT,
   text TEXT,
-  date_created TIMESTAMP,
+  date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   user_id INTEGER,
   photo_id INTEGER,
   FOREIGN KEY (user_id) REFERENCES users(id),
