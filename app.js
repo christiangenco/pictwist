@@ -16,8 +16,11 @@ var connection = mysql.createConnection({
 // run MySQL querries with:
 connection.query('SELECT * FROM photos', function(err, rows){
   if(err) console.log(err);
-  console.log("All photos: ")
-  console.log(rows);
+  
+  for (var i in rows) {
+    console.log("Properities of the picture titled '" + rows[i]['title'] + "': ")
+    console.log(rows[i]);
+  }
 });
 
 var app = express();
