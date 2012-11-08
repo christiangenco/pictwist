@@ -1,13 +1,23 @@
-
-/**
- * Module dependencies.
- */
-
 var express = require('express')
-  , routes = require('./routes')
-  , user = require('./routes/user')
-  , http = require('http')
-  , path = require('path');
+  , routes  = require('./routes')
+  , user    = require('./routes/user')
+  , http    = require('http')
+  , path    = require('path')
+  , mysql   = require('mysql');
+
+// from https://github.com/felixge/node-mysql
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'pictwist',
+  password : 'secret'
+});
+
+// run MySQL querries with:
+connection.query('SELECT * FROM pictures', function(err, rows){
+  if(err) console.log("Failed to connect to the database");
+  console.log("All pictures: ")
+  console.log(rows);
+});
 
 var app = express();
 
