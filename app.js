@@ -13,14 +13,28 @@ var connection = mysql.createConnection({
   database : 'pictwist'
 });
 
-// run MySQL querries with:
+// EXAMPLE MySQL QUERIES
 connection.query('SELECT * FROM photos', function(err, rows){
   if(err) console.log(err);
-  
+
   for (var i in rows) {
     console.log("Properities of the picture titled '" + rows[i]['title'] + "': ")
     console.log(rows[i]);
   }
+});
+
+console.log("Select a particular record");
+var user_provided_album_title = "The Beach";
+connection.query('SELECT * FROM albums WHERE title = ?', [user_provided_album_title], function(err, album){
+  console.log("Selecting the album with title=" + user_provided_album_title + ": ")
+  console.log(album);
+
+  // insert a new record
+  connection.query('INSERT INTO photos SET ?', {title: "new pic", path: "/tmp/new.png", album_id: album['id']}, function(err, result) {
+    if (err) throw err;
+
+    console.log("New photo id=" + result.insertId);
+  });
 });
 
 var app = express();
