@@ -6,6 +6,9 @@ DROP DATABASE pictwist;
 CREATE DATABASE pictwist;
 USE pictwist;
 
+-- create a user with access to this database
+GRANT ALL PRIVILEGES ON pictwist.* TO 'pictwist'@'localhost' IDENTIFIED BY 'secret';
+
 CREATE TABLE users(
   id INTEGER PRIMARY KEY AUTO_INCREMENT,
   email VARCHAR(255) UNIQUE NOT NULL,
