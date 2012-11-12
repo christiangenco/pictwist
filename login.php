@@ -7,7 +7,7 @@
 	
 	// URL of login handler script (AKA login.processor.php)
 	$loginHandler = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'login.processor.php';
-	//echo $indexHandler . '<br/>';
+	echo $indexHandler . '<br/>';
 	
 	// URL of login script (AKA login.php)
 	$login = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'login.php';
