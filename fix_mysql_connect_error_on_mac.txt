@@ -1,0 +1,11 @@
+Getting this error? 
+
+    Warning: mysql_connect() [function.mysql-connect]: [2002] No such file or directory (trying to connect via unix:///var/mysql/mysql.sock) in /Users/cgenco/Sites/pictwist/login.processor.php on line 18
+
+    Warning: mysql_connect() [function.mysql-connect]: No such file or directory in /Users/cgenco/Sites/pictwist/login.processor.php on line 18
+
+
+Run this:
+
+    sudo mkdir /var/mysql/
+    sudo ln -s /tmp/mysql.sock /var/mysql/mysql.sock
