@@ -3,10 +3,11 @@
     // filename: upload.processor.php
     
     // current working directory, relative to the root (AKA: /pictwist/)
-    $directory_self = str_replace(basename($_SERVER['PHP_SELF']), '', $_SERVER['PHP_SELF']);
-    
+    // $directory_self = str_replace(basename($_SERVER['PHP_SELF']), '', $_SERVER['PHP_SELF']);
+    $directory_self = getcwd()."/";
+
     // directory that will recieve the uploaded file 
-    $uploadsDirectory = $_SERVER['DOCUMENT_ROOT'] . $directory_self . 'uploaded_files/';
+    $uploadsDirectory = $directory_self . 'uploaded_files/';
     
     //relative path to image from current directory
     $localDirectory = 'uploaded_files/';
@@ -45,7 +46,7 @@
     else
     {
         $_SESSION['error'] = 'Error! You need to select an album to save you photo.';
-        $_SESSION['redirect'] = $upload;
+        // $_SESSION['redirect'] = $upload;
         header('Location: ' . $error);
     }
     
@@ -56,7 +57,7 @@
     // check for PHP's built-in uploading errors 
     ($_FILES[$fieldname]['error'] == 0) 
         or error($errors[$_FILES[$fieldname]['error']], $upload); 
-         
+
     // check that the file we are working on really was the subject of an HTTP upload 
     @is_uploaded_file($_FILES[$fieldname]['tmp_name']) 
         or error('not an HTTP upload', $upload); 
@@ -78,6 +79,12 @@
     } 
     
     // move the file to its final location and allocate the new filename to it 
+    echo "tmpname=".$_FILES[$fieldname]['tmp_name'];
+    echo "\n<br />";
+    echo "uploadFilename=".$uploadFilename;
+    echo "\n<br />";
+    // /private/var/tmp/phpH9wGcU/Library/WebServer/Documents/
+    // ~cgenco/pictwist/uploaded_files/1352753624-favicon.ico
     @move_uploaded_file($_FILES[$fieldname]['tmp_name'], $uploadFilename) 
         or error('receiving directory insuffiecient permission', $upload); 
          
