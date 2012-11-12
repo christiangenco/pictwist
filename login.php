@@ -49,7 +49,7 @@
 			</p>
 			
 			<p>
-				<input type="submit" name="submit" value="Login">
+				<input type="submit" name="submit" value="LLogin">
 			</p>
 		</form>
 	</body>
