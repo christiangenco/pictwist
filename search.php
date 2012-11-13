@@ -68,7 +68,7 @@
 				echo ''.
 					'	<li><a href="'.$profile.'">My Photos</a></li>'.
 					'	<li><a href="'.$upload.'">Upload Photos</a></li>'.
-					'	<li><a href="'.$search.'>Search Photos</a></li>'.
+					'	<li><a href="'.$search.'">Search Photos</a></li>'.
 					'	<li style="float:right;"><a href="'.$killSession.'">Logout</a></li>'.
 					'</ul>'.
 				'';

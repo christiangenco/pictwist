@@ -83,7 +83,7 @@
      
     <body>
         <ul>
-            <li><a href="<?php echo $list ?>">My Photos</a></li>
+            <li><a href="<?php echo $profile ?>">My Photos</a></li>
             <li><a href="<?php echo $upload ?>">Upload Photos</a></li>
             <li><a href="<?php echo $search ?>">Search Photos</a></li>
             <li style="float:right;"><a href="<?php echo $killSession ?>">Logout</a></li>
