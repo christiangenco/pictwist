@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<head>
+<title>PicTwist</title>
+	<link href="styles/styles.css" rel="stylesheet" type="text/css">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>	
+	<script type="text/javascript" src="js/script.js"></script>
+	<link href="metro/css/m-styles.min.css" rel="stylesheet"> 
+</head>
+<body>
+
+	<div id="pageContainer">	
+
+		<div id="header">
+
+			<a href="#">
+				<img id="logotext" src="img/logotext.png" />
+				<img id="logoswirl" src="img/swirl.png" />
+			</a>
+
+			<div id="header_right">
+
+				<div id="userBadgeContainer">
+
+					<!-- only one of these will actually be shown -->
+					<div id="notSignedIn">
+						<a href="#">Sign in</a> or <a href="#">Join PicTwist</a>
+					</div>
+
+					<div id="userBadge">
+						<img id="userPic" src="img/default_pic.png" />
+						<div id="userInfo">
+							<div id="userName">Username1234</div>
+							<div id="userLinks"><a href="#">My Albums</a> | <a href="#">Sign out</a></div>
+						</div>
+					</div>
+
+				</div>					
+			</div>
+
+			<div id="searchContainer">
+				<div class="m-input-append">
+					<input class="m-wrap m-ctrl-large" type="text" placeholder="Search for photos">
+					<a class="m-btn icn-only blue"><i class="icon-search icon-white"></i></a>
+					<a id="advSearchToggle" href="#" class="m-btn blue icn-only"><i class="icon-chevron-down icon-white"></i></a>
+				</div>
+				<div id="advSearch">
+					<p>Advanced option 1</p>
+					<p>Advanced option 2</p>
+					<p>Advanced option 3</p>
+				</div>
+			</div>
+		</div>		
+
+		<div id="content">
+			<h2>Edit Account Information</h2>
+			<form id="EditInfo" action="editInfo_parse.php" method="POST" disablebuttons="all">
+				<table cellpadding="2" cellspacing="0" border="0">
+					<tr>
+						<td width="170">
+							<label>Old Password: </label>
+						</td>
+						<td width="170">
+							<input name="OldPassword" type="password" class="control" id="OldPassword" size="15">
+						</td>
+					</tr>
+					<tr>
+						<td width="170">
+							<label>New Password: </label>
+						</td>
+						<td>
+							<input name="NewPassword" type="password" class="control" id="NewPassword" size="15">
+						</td>
+					</tr>
+					<tr>
+						<td width="170">
+							<label>Confirm New Password: </label>
+						</td>
+						<td>
+							<input name="NewPassword2" type="PASSWORD" class="control" id="NewPassword2" size="15">
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<input type="submit" class="control" value="Save Changes">
+							<input type="reset" class="control" value="Reset">
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+
+	</div>				
+
+	<div id="footer">
+		<p>PicTwist &copy; 2012</p>
+		<p>Another footer line</p>
+	</div>
+
+</body>
+</html>
