@@ -1,24 +1,69 @@
 <?php
+  session_start();
+
   // ### LINKS ###
   // current working directory, relative to the root (AKA: /pictwist/)
   $directory_self = str_replace(basename($_SERVER['PHP_SELF']), '', $_SERVER['PHP_SELF']);
   
+  // URL of login script (AKA login.php)
+  $login = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'login.php';
+
   // URL of login handler script (AKA login.processor.php)
   $loginHandler = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'login.processor.php';
   
-  // URL of login script (AKA login.php)
-  $login = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'login.php';
-  
-  // URL of search script (AKA profile.processor.php)
+  // URL of search script (AKA search.php)
   $search = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'search.php';
+
+  // ### ADDITIONAL LINKS ###
+  // URL of search handler script (AKA search.php)
+  $searchHandler = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'search.processor.php';
+
+  // URL of user profile page script (AKA profile.php)
+  $profile = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'profile.php';
+
+  // URL of view script (AKA view.php)
+  $view = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'view.php';
+
+  // URL of photo edit script (AKA edit.php)
+  $edit = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'edit.photo.php';
+
+  // URL of photo edit handler script (AKA edit.php)
+  $editHandler = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'edit.photo.processor.php';
+  
+  // URL of upload script (AKA upload.php)
+  $upload = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'upload.php';
+
+  // URL of upload handler script (AKA upload.php)
+  $uploadHandler = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'upload.processor.php';
+
+  // URL of tag script (AKA upload.php)
+  $tag = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'tag.php';
+
+  // URL of tag handler script (AKA upload.php)
+  $tagHandler = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'tag.processor.php';
+
+  // URL of logout script (AKA killSession.php)
+  $killSession = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'killSession.php';
 
   // ### PERMISSION CONTROL ###
   function isLoggedIn(){
-    return true;
+    if(isset($_SESSION['uid'])) 
+      { return true; }
+    else 
+      { return false; }
   }
 
   function getCurrentUser(){
-    $currentUser = array("username" => "test_username", "id" => -1, "name" => "Test Username");
+    if(isset($_SESSION['uid'])) { $uid = $_SESSION['uid']; }
+    else { $uid = 2; $_SESSION['uid'] = $uid;}
+
+    if(isset($_SESSION['uname'])) { $uname = $_SESSION['uname']; }
+    else { $uname = "nsliwa@smu.edu"; $_SESSION['uname'] = $uname;}
+
+    if(isset($_SESSION['mname'])) { $mname = $_SESSION['mname']; }
+    else { $mname = "Nicole Sliwa"; $_SESSION['mname'] = $mname;}
+
+    $currentUser = array("username" => $uname, "id" => $uid, "name" => $mname);
     return $currentUser;
   }
   $currentUser = getCurrentUser();
@@ -56,7 +101,7 @@
           <div id="userBadge">
             <img id="userPic" src="img/default_pic.png" />
             <div id="userInfo">
-              <div id="userName">Username1234</div>
+              <div id="userName"><? echo $currentUser['username'] ?></div>
               <div id="userLinks"><a href="#">My Albums</a> | <a href="#">Sign out</a></div>
             </div>
           </div>

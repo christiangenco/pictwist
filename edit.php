@@ -1,31 +1,24 @@
 <?php
 	session_start();
-	// filename: list.php
+	// filename: edit.php
 	
 	// current working directory, relative to the root (AKA: /pictwist/)
 	$directory_self = str_replace(basename($_SERVER['PHP_SELF']), '', $_SERVER['PHP_SELF']);
-	//echo $directory_self . '<br/>';
 	
 	// URL of logout script (AKA killSession.php)
 	$killSession = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'killSession.php';
-	//echo $index . '<br/>'; 
 	
 	// URL of user profile page script (AKA list.php)
 	$list = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'list.php';
-	//echo $index . '<br/>';
 	
 	// URL of search script (AKA search.php)
 	$search = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'search.php';
-	//echo $index . '<br/>';
 	
 	// URL of edit script (AKA edit.php)
 	$edit = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'edit.php';
-	//echo $index . '<br/>'; 
 	
 	// URL of upload script (AKA upload.php)
 	$upload = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'upload.php';
-	//echo $index . '<br/>';
-	//echo "uid: " . $_SESSION['uid'];
 	
 	if(isset($_SESSION['uid']))
 	{

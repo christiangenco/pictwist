@@ -1,40 +1,9 @@
+<?php INCLUDE 'include/head.php'; ?>
+
 <?php 
-    session_start();
-    // filename: upload.php 
-
-    // current working directory, relative to the root (AKA: /pictwist/)
-    $directory_self = str_replace(basename($_SERVER['PHP_SELF']), '', $_SERVER['PHP_SELF']); 
-
-    // URL of upload handler script (AKA upload.processor.php)
-    $uploadHandler = 'http://' . $_SERVER['HTTP_HOST'] . $directory_self . 'upload.processor.php';
-    
-    // URL of login script (AKA login.php) - in case of invalid login
-    $login = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'login.php';
-    //echo $login . '<br/>';
-    
-    // URL of user profile page script (AKA profile.php)
-    $profile = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'profile.php';
-    
-    // URL of search script (AKA search.php)
-    $search = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'search.php';
-    
-    // URL of upload script (AKA upload.php)
-    $upload = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'upload.php';
-    
-    // URL of logout script (AKA killSession.php)
-    $killSession = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'killSession.php';
-    
-    // URL of error script (AKA error.php)
-    $error = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'error.php';
-    
-    // URL of view script (AKA view.php)
-    $view = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'view.php';
-    
-    // URL of edit script (AKA edit.php)
-    $edit = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'edit.php';
 
     // set a max file size for the html upload form 
-    $max_file_size = 100000; // size in bytes (AKA 100 KB)
+    $max_file_size = 10000000; // size in bytes (AKA 10 MB)
     
     if(isset($_SESSION['uid']))
     {
@@ -71,46 +40,25 @@
     }
 ?>
 
-<html> 
-    <head> 
-        <title>Upload a Picture</title> 
-        <style type="text/css">
-            ul{list-style-type:none; margin:0; padding:0; background-color:blue; padding:5px;}
-            li{display:inline; color:white; padding:0px 50px 0px 10px;}
-            li a{color:white;}
-	</style>
-    </head> 
+<form id="Upload" action="<?php echo $uploadHandler ?>" enctype="multipart/form-data" method="post"> 
+ 
+    <h1> 
+        Upload a Picture! 
+    </h1> 
      
-    <body>
-        <ul>
-            <li><a href="<?php echo $profile ?>">My Photos</a></li>
-            <li><a href="<?php echo $upload ?>">Upload Photos</a></li>
-            <li><a href="<?php echo $search ?>">Search Photos</a></li>
-            <li style="float:right;"><a href="<?php echo $killSession ?>">Logout</a></li>
-        </ul>
+    <p> 
+        <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $max_file_size ?>"> 
+    </p> 
      
-        <form id="Upload" action="<?php echo $uploadHandler ?>" enctype="multipart/form-data" method="post"> 
-         
-            <h1> 
-                Upload a Picture! 
-            </h1> 
+    <p> 
+        <label for="file">File to upload:</label> 
+        <input id="file" type="file" name="file"> 
+    </p> 
              
-            <p> 
-                <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $max_file_size ?>"> 
-            </p> 
-             
-            <p> 
-                <label for="file">File to upload:</label> 
-                <input id="file" type="file" name="file"> 
-            </p> 
-                     
-            <p> 
-                <input id="submit" type="submit" name="submit" value="Upload me!"> 
-            </p> 
+    <p> 
+        <input id="submit" type="submit" name="submit" value="Upload me!"> 
+    </p> 
+ 
+</form> 
          
-        </form> 
-         
-     
-    </body> 
-
-</html> 
+<?php INCLUDE 'include/foot.php' ?> 
