@@ -11,5 +11,5 @@
 </html>
 
 <?php
-  mysql_close($con);
+  if(!is_null($con)) mysql_close($con);
 ?>
