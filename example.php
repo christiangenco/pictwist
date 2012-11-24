@@ -15,4 +15,6 @@ Current user name: <?php echo $currentUser["name"] ?>
 
 Current user id: <?php echo $currentUser["id"] ?>
 
+<? echo $baseURL ?>
+
 <?php INCLUDE 'include/foot.php' ?>

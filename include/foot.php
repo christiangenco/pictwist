@@ -9,3 +9,7 @@
 
 </body>
 </html>
+
+<?php
+  if(!is_null($con)) mysql_close($con);
+?>

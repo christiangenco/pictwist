@@ -3,50 +3,71 @@
 
   // ### LINKS ###
   // current working directory, relative to the root (AKA: /pictwist/)
-  $directory_self = str_replace(basename($_SERVER['PHP_SELF']), '', $_SERVER['PHP_SELF']);
+  $relativeDirectory = str_replace(basename($_SERVER['PHP_SELF']), '', $_SERVER['PHP_SELF']);
+  $baseURL = "http://" . $_SERVER['HTTP_HOST'] . $relativeDirectory;
+  
+  // URL of login handler script
+  $loginHandlerURL = $baseURL . 'login.processor.php';
   
   // URL of login script (AKA login.php)
-  $login = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'login.php';
-
-  // URL of login handler script (AKA login.processor.php)
-  $loginHandler = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'login.processor.php';
+  $loginURL = $baseURL . 'login.php';
   
-  // URL of search script (AKA search.php)
-  $search = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'search.php';
+  // URL of logout script
+  $logoutURL = $baseURL . 'logout.php';
+  
+  // URL of search script
+  $searchURL = $baseURL . 'search.php';
+  
+  // URL of error script
+  $errorURL = $baseURL . 'error.php';
+  
+  // URL of view script
+  $viewURL = $baseURL . 'view.php';
+  
+  // URL of edit script
+  $editURL = $baseURL . 'edit.php';
 
   // ### ADDITIONAL LINKS ###
-  // URL of search handler script (AKA search.php)
-  $searchHandler = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'search.processor.php';
+  // URL of search handler script 
+  $searchHandlerURL = $baseURL . 'search.processor.php';
 
-  // URL of user profile page script (AKA profile.php)
-  $profile = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'profile.php';
+  // URL of user profile page script
+  $profileURL = $baseURL . 'profile.php';
 
-  // URL of view script (AKA view.php)
-  $view = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'view.php';
-
-  // URL of photo edit script (AKA edit.php)
-  $edit = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'edit.photo.php';
-
-  // URL of photo edit handler script (AKA edit.php)
-  $editHandler = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'edit.photo.processor.php';
+  // URL of photo edit handler script
+  $editHandlerURL = $baseURL . 'edit.processor.php';
   
   // URL of upload script (AKA upload.php)
-  $upload = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'upload.php';
+  $uploadURL = $baseURL . 'upload.php';
 
   // URL of upload handler script (AKA upload.php)
-  $uploadHandler = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'upload.processor.php';
+  $uploadHandlerURL = $baseURL . 'upload.processor.php';
 
   // URL of tag script (AKA upload.php)
-  $tag = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'tag.php';
+  $tagURL = $baseURL . 'tag.php';
 
   // URL of tag handler script (AKA upload.php)
-  $tagHandler = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'tag.processor.php';
+  $tagHandlerURL = $baseURL . 'tag.processor.php';
 
-  // URL of logout script (AKA killSession.php)
-  $killSession = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'killSession.php';
+  // ### DATABASE ###
+
+  // usage: call connectToDb() on every page you need to
+  // use the database on
+  function connectToDb(){
+    $con = mysql_connect("localhost", "pictwist", 'secret');
+    if(!$con) die('Could not connect: ' . mysql_error());
+    mysql_select_db("pictwist", $con) or die("Unable to select database: " . mysql_error());
+  }
+
+  function sql($query){
+    $result = mysql_query($query) or die (mysql_error());
+    return $result;
+  }
 
   // ### PERMISSION CONTROL ###
   function isLoggedIn(){
+    // TODO: make this actually return true if user is logged in
+    // false if not
     if(isset($_SESSION['uid'])) 
       { return true; }
     else 
@@ -54,6 +75,7 @@
   }
 
   function getCurrentUser(){
+    // TODO: make this actually get the current user
     if(isset($_SESSION['uid'])) { $uid = $_SESSION['uid']; }
     else { $uid = 2; $_SESSION['uid'] = $uid;}
 
@@ -64,9 +86,32 @@
     else { $mname = "Nicole Sliwa"; $_SESSION['mname'] = $mname;}
 
     $currentUser = array("username" => $uname, "id" => $uid, "name" => $mname);
+    
     return $currentUser;
   }
+  
   $currentUser = getCurrentUser();
+
+  function logout(){
+    // TODO: make this actually log you out
+    redirect('index.php');
+  }
+
+  // usage: redirect("http://google.com")
+  function redirect($url){
+    header("HTTP/1.1 307 Temporary Redirect");
+    header("Location: $url");
+  }
+
+  // usage: params("username")
+  // escapes the strings so you can insert things returned by
+  // this method directly into the database
+  function params($key){
+    return $_REQUEST[$key] ? mysql_real_escape_string(stripslashes($_REQUEST[$key])) : null;
+  }
+
+  // if the user is on a page (s)he shouldn't be on,
+  // redirect them to the homepage and tell them they shouldn't be here.
 
 ?>
 
