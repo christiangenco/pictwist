@@ -36,9 +36,9 @@
         }
         //"select title, path from photos where id='$pid';";
     }
-    else if(isset($_POST['p_id']))
+    else if(isset($_REQUEST['p_id']))
     {
-        $photo_id = $_POST['p_id'];
+        $photo_id = $_REQUEST['p_id'];
         $_SESSION['photo_id'] = $photo_id;
     }
     if(!isset($photo_id))

@@ -13,9 +13,8 @@
 	$result = mysql_query($query);
 	while($row = mysql_fetch_array($result))
 	{
-		echo '<form id="' . $row[id] . '" action ="'.$editURL.'" method="post">'.
-			'<input type="hidden" name="p_id" value="'.$row[id].'">'.
-			'<img src="'.$row[path].'" alt="pic" style="cursor:pointer;" onclick="document.getElementById(' . $row[id] . ').submit();"></form>';
+		echo '<a id="' . $row[id] . '" href="'.$editURL.'?p_id=' . $row[id] . '">'.
+			'<img src="'.$row[path].'" alt="pic"></a>';
 	}
 ?>
 		
