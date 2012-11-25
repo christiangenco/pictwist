@@ -167,8 +167,8 @@
 
       <div id="searchContainer">
         <div class="m-input-append">
-          <form method="post" action=<?php echo $searchURL;?>>
-            <input class="m-wrap m-ctrl-large" name="query" type="text" placeholder="Search for photos">
+          <form method="get" action=<?php echo $searchURL;?>>
+            <input class="m-wrap m-ctrl-large" name="query" type="text" placeholder="Search for photos" value="<? echo $_REQUEST['query'] ?>">
             <a class="m-btn icn-only blue" href="#"><i class="icon-search icon-white"></i></a>
             <a id="advSearchToggle" href="#" class="m-btn blue icn-only"><i class="icon-chevron-down icon-white"></i></a>
           </form>

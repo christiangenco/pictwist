@@ -2,13 +2,13 @@
 
 <?php
 	connectToDb();
-	if(isset($_POST['query']))
+	if(isset($_REQUEST['query']))
 	{
 		$query = "SELECT id, path from photos WHERE";
 
-		if($_POST['query'][0] == '#')
+		if($_REQUEST['query'][0] == '#')
 		{
-			$adv_search = $_POST['query'];
+			$adv_search = $_REQUEST['query'];
 			$adv_search = substr($adv_search, 1);
 			$search_tag = (explode("#", $adv_search));
 			foreach ($search_tag as $index => $tags) {
@@ -38,8 +38,8 @@
 		}
 		else
 		{
-			//echo '<p>'.$_POST['query'].'</p>';
-			$search_query = (explode(" ",$_POST['query']));
+			//echo '<p>'.$_REQUEST['query'].'</p>';
+			$search_query = (explode(" ",$_REQUEST['query']));
 
 			foreach ($search_query as $key => $q) {
 				$query = $query . " (id IN (SELECT p.id FROM photos p JOIN tags t"
