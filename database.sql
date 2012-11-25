@@ -51,6 +51,7 @@ FOR EACH ROW SET NEW.updated_at = NOW(), NEW.created_at = OLD.created_at;
 CREATE TABLE photos(
   id INTEGER PRIMARY KEY AUTO_INCREMENT,
   title VARCHAR(255) DEFAULT "photo",
+  description TEXT,
   path VARCHAR(255) NOT NULL,
   private BOOLEAN DEFAULT FALSE,
   views INTEGER DEFAULT 0,

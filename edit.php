@@ -58,7 +58,10 @@
     }
     else
     {
-        $query = "select title, path, private, album_id from photos where id = '".$photo_id."';";
+        // ######## add to views.php!!!!
+        $query = "UPDATE photos SET views = views + 1 WHERE id = ".$photo_id.";";
+        $result = sql($query);
+        $query = "select title, description, path, private, album_id from photos where id = '".$photo_id."';";
         $result_photo = sql($query);
         while($row = mysql_fetch_array($result_photo))
         {
@@ -66,7 +69,7 @@
             $pathname = $row[path];
             $private = $row['private'];
             $album_id = $row[album_id];
-            $description = "describe your photo";
+            $description = $row[description];;
         }
         $query = "select id, type, text from tags where photo_id = '".$photo_id."';";
         $result_tags = sql($query);

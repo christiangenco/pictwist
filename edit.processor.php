@@ -14,11 +14,14 @@
         $result = sql($query);
         // -> update private/public
         // -> update description
+        $description = "\"".$_POST['description']."\"";
+        $query = "Update photos SET description = '". $description . "' where id = " . $_SESSION['photo_id'] . ";";
+        $result = sql($query);
         if(!$result)
         {
-            $_SESSION['error'] = "Title could not be updated";
+            $_SESSION['error'] = "Photo information could not be updated.";
             $_SESSION['redirect'] = $editURL;
-            redirect($errorURL);
+            //redirect($errorURL);
         }
 
         // add new tags
@@ -39,7 +42,7 @@
             $temp = $temp . $result . " tags could not be added.";
             $_SESSION['error'] = $temp;
             $_SESSION['redirect'] = $editURL;
-            redirect($errorURL);
+            //redirect($errorURL);
         }
         
         if(isset($_SESSION['error']) && isset($_SESSION['redirect']))
