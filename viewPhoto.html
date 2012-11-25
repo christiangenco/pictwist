@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<head>
+<title>PicTwist</title>	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script type="text/javascript" src="fancyBox/source/jquery.fancybox.pack.js?v=2.1.3"></script>
+	<script type="text/javascript" src="js/script.js"></script>
+	<script type="text/javascript" src="js/viewPhotoScripts.js"></script>
+	<link rel="stylesheet" href="fancyBox/source/jquery.fancybox.css?v=2.1.3" type="text/css" media="screen" />
+	<link href="styles/styles.css" rel="stylesheet" type="text/css">
+	<link href="styles/viewPhotoStyles.css" rel="stylesheet" type="text/css">	
+	<link rel="stylesheet" type="text/css" href="fancyBox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" />
+	<script type="text/javascript" src="fancyBox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+		
+			$(".fancybox").fancybox();
+			
+			$(".fancybox-custom3").fancybox({
+				
+				prevEffect : 'fade',
+				nextEffect : 'fade',
+				openEffect : 'none',
+				closeEffect : 'none',
+				margin : [20, 60, 20, 60],				
+				
+				closeBtn : true,
+				arrows : true,
+				nextClick : false,
+				
+				helpers: {
+					title : {
+						type : 'inside'
+					}
+				},
+				
+				afterLoad : function() {
+					this.content = this.content.html();
+				}
+			});
+			
+		});
+	</script>
+	
+
+	
+</head>
+<body>
+	<div id="pageContainer">
+		<div id="pageContainer2">
+	
+			<div id="header">
+			
+				<img id="logotext" src="img/logotext.png" />
+				<img id="logoswirl" src="img/swirl.png" />
+				
+				<div id="header_right">
+				
+					<div id="userBadgeContainer">
+					
+						<!-- only one of these will actually be shown -->
+						<div id="notSignedIn">
+							<a href="#">Sign in</a> or <a href="#">Join PicTwist</a>
+						</div>
+						
+						<div id="userBadge">
+							<img id="userPic" src="img/default_pic.png" />
+							<div id="userInfo">
+								<div id="userName">Username1234</div>
+								<div id="userLinks"><a href="#">My Albums</a> | <a href="#">Sign out</a></div>
+							</div>
+						</div>
+						
+					</div>					
+				</div>
+				
+				<div id="searchContainer">
+					<input id="search" type="textbox" placeholder="Search for photos">
+					<input class="searchButton" type="button" value="Search"/>
+					<input class="searchButton" type="button" value="More Options"/>
+				</div>
+			</div>
+			
+			
+			<div id="content">
+			
+			
+				<p>
+					<a href="#test1" class="fancybox-custom3" data-fancybox-group="customGallery"><img src="fancybox/demo/1_s.jpg" alt="" /></a>
+					<a href="#test2" class="fancybox-custom3" data-fancybox-group="customGallery"><img src="fancybox/demo/9_s.jpg" alt="" /></a>
+					<a href="#test3" class="fancybox-custom3" data-fancybox-group="customGallery"><img src="fancybox/demo/6_b.jpg" alt="" /></a>
+				</p>
+				
+				
+				<div id="test1" style="display:none;">
+				
+					<div class="container">
+						<div class="fancyimage">
+							<img src="fancybox/demo/1_b.jpg" />
+						</div>
+						<div class="fancycontent">
+							<p>Photo 1</p>
+							<p>Tags: </p>
+							<div class="tags">
+								<a>mist</a>
+							</div>
+							<input type="text" class="newTag" rows="1" cols="10" placeholder="Add tag"/>
+							<input type="button" class="submitTag" value="+"/></br>
+							<input type="button" class="control" id="favoriteButton" value="Favorite"/>
+						</div>
+					</div>
+					
+					<div class="comments">
+						<div class="comment">
+							<h5>Example User</h5>
+							<p>I hate this photo</p>
+						</div>
+						<div class="comment">
+							<h5>Example User 2</h5>
+							<p>I also hate this photo</p>
+						</div>
+					</div>
+					
+					<div class="newComment">
+						<textarea class="commentText" rows="3" cols="33">Add a comment</textarea></br>
+						<input type="button" class="submitComment" value="Post Comment"/>
+					</div>
+					
+				</div>
+				
+				
+				<div id="test2" style="display:none;">
+				
+					<div class="container">
+						<div class="fancyimage">
+							<img src="fancybox/demo/9_b.jpg" />
+						</div>
+						<div class="fancycontent">
+							<p>Photo 2</p>
+							<p>Tags: </p>
+							<div class="tags">
+								<a>sunset</a>
+							</div>
+							<input type="text" class="newTag" rows="1" cols="10" placeholder="Add tag"/>
+							<input type="button" class="submitTag" value="+"/></br>
+							<input type="button" class="control" id="favoriteButton" value="Favorite"/>
+						</div>
+					</div>
+					
+					<div class="comments">
+						<div class="comment">
+							<h5>Example User</h5>
+							<p>I hate this photo</p>
+						</div>
+						<div class="comment">
+							<h5>Example User 2</h5>
+							<p>I also hate this photo</p>
+						</div>
+					</div>
+					
+					<div class="newComment">
+						<textarea class="commentText" rows="3" cols="33">Add a comment</textarea></br>
+						<input type="button" class="submitComment" value="Post Comment"/>
+					</div>
+					
+				</div>
+				
+				
+				<div id="test3" style="display:none;">
+				
+					<div class="container">
+						<div class="fancyimage">
+							<img src="fancybox/demo/6_big.jpg" />
+						</div>
+						<div class="fancycontent">
+							<p>Photo 3</p>
+							<p>Tags: </p>
+							<div class="tags">
+								<a>mountain</a>
+							</div>
+							<input type="text" class="newTag" rows="1" cols="10" placeholder="Add tag"/>
+							<input type="button" class="submitTag" value="+"/></br>
+							<input type="button" class="control" id="favoriteButton" value="Favorite"/>
+						</div>
+					</div>
+					
+					<div class="comments">
+						<div class="comment">
+							<h5>Example User</h5>
+							<p>I hate this photo</p>
+						</div>
+						<div class="comment">
+							<h5>Example User 2</h5>
+							<p>I also hate this photo</p>
+						</div>
+					</div>
+					
+					<div class="newComment">
+						<textarea class="commentText" rows="3" cols="33">Add a comment</textarea></br>
+						<input type="button" class="submitComment" value="Post Comment"/>
+					</div>
+					
+				</div>
+				
+				
+			</div>
+			
+
+			<div id="footer">
+				Some footer info &copy; 2012
+			</div>
+			
+		</div>		
+	</div>
+</body>
+
+
+
+</html>
+
