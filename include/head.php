@@ -1,4 +1,5 @@
 <?php
+  ob_start();
   session_start();
 
   // ### LINKS ###
@@ -40,14 +41,23 @@
   // URL of upload script (AKA upload.php)
   $uploadURL = $baseURL . 'upload.php';
 
-  // URL of upload handler script (AKA upload.php)
+  // URL of upload handler script (AKA upload.processor.php)
   $uploadHandlerURL = $baseURL . 'upload.processor.php';
 
-  // URL of tag script (AKA upload.php)
+  // URL of upload script (AKA upload.success.php)
+  $uploadSuccessURL = $baseURL . 'upload.success.php';
+
+  // URL of tag script (AKA tag.php)
   $tagURL = $baseURL . 'tag.php';
 
-  // URL of tag handler script (AKA upload.php)
+  // URL of tag handler script (AKA tag.processor.php)
   $tagHandlerURL = $baseURL . 'tag.processor.php';
+
+  // URL of registration script (AKA register.php)
+  $tagURL = $baseURL . 'register.php';
+
+  // URL of registration handler script (AKA register.processor.php)
+  $tagHandlerURL = $baseURL . 'register.processor.php';
 
   // ### DATABASE ###
 
@@ -89,7 +99,7 @@
     
     return $currentUser;
   }
-  
+
   $currentUser = getCurrentUser();
 
   function logout(){
@@ -122,6 +132,7 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> 
   <script type="text/javascript" src="js/script.js"></script>
   <link href="metro/css/m-styles.min.css" rel="stylesheet"> 
+
 </head>
 <body>
 
@@ -140,14 +151,14 @@
 
           <!-- only one of these will actually be shown -->
           <div id="notSignedIn">
-            <a href="#">Sign in</a> or <a href="#">Join PicTwist</a>
+            <a href=<?php echo $loginURL;?>>Sign in</a> or <a href=<?php echo $registerURL;?>>Join PicTwist</a>
           </div>
 
           <div id="userBadge">
             <img id="userPic" src="img/default_pic.png" />
             <div id="userInfo">
-              <div id="userName"><? echo $currentUser['username'] ?></div>
-              <div id="userLinks"><a href="#">My Albums</a> | <a href="#">Sign out</a></div>
+              <div id="userName"><?echo $currentUser['username'];?></div>
+              <div id="userLinks"><a href=<?php echo $profileURL;?>>My Albums</a> | <a href=<?php echo $logoutURL;?>>Sign out</a></div>
             </div>
           </div>
 
@@ -156,9 +167,11 @@
 
       <div id="searchContainer">
         <div class="m-input-append">
-          <input class="m-wrap m-ctrl-large" type="text" placeholder="Search for photos">
-          <a class="m-btn icn-only blue"><i class="icon-search icon-white"></i></a>
-          <a id="advSearchToggle" href="#" class="m-btn blue icn-only"><i class="icon-chevron-down icon-white"></i></a>
+          <form method="post" action=<?php echo $searchHandlerURL;?>>
+            <input class="m-wrap m-ctrl-large" name="query" type="text" placeholder="Search for photos">
+            <a class="m-btn icn-only blue" href="#"><i class="icon-search icon-white"></i></a>
+            <a id="advSearchToggle" href="#" class="m-btn blue icn-only"><i class="icon-chevron-down icon-white"></i></a>
+          </form>
         </div>
         <div id="advSearch">
           <p>Advanced option 1</p>
