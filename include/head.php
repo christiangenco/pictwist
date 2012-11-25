@@ -140,7 +140,7 @@
   
     <div id="header">
 
-      <a href="#">
+      <a href="<? echo $baseURL ?>">
         <img id="logotext" src="img/logotext.png" />
         <img id="logoswirl" src="img/swirl.png" />
       </a>
