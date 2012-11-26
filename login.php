@@ -1,3 +1,4 @@
+<?php INCLUDE 'include/head.php'; ?>
 <?php
 	// filename: login.php
 	
@@ -59,3 +60,4 @@
 		</form>
 	</body>
 </html>
+<?php INCLUDE 'include/foot.php' ?>
