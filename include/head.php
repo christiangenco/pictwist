@@ -139,6 +139,7 @@
 <title>PicTwist</title>
 	<link href="styles/styles.css" rel="stylesheet" type="text/css">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>	
+  <script src="js/jquery-ui-1.9.2.custom.min.js"></script> 
 	<script type="text/javascript" src="js/script.js"></script>
 	<link href="metro/css/m-styles.min.css" rel="stylesheet" />
 	<link rel="shortcut icon" href="img/icon.ico" />
@@ -161,7 +162,6 @@
 				
 					<!-- only one of these will actually be shown -->
 					<? if ($currentUser['id'] == -1): ?>
-					
 						<div id="notSignedIn">
 							<a id="gotoSignIn" href="#" class="m-btn blue thinShadow">Sign In</a><a  id="gotoRegister" href="<?php echo $registerURL;?>" class="m-btn blue thinShadow">Join PicTwist</a>
 						</div>
@@ -179,7 +179,6 @@
 					
 					
 					<? else: ?>
-					
 						<div id="userBadge">
 							<img id="userPic" src="img/default_pic.png" />
 							<div id="userInfo">
@@ -194,8 +193,9 @@
 			
 				<div id="searchContainer">
 					<form id="searchForm" action="<?php echo $searchURL;?>">
-					<input id="searchField" class="m-wrap" type="text" placeholder="Search for photos" value="<? echo $_REQUEST['query'] ?>"/>
-					<a id="searchBtn" class="m-btn icn-only blue thinShadow"><i class="icon-search icon-white"></i></a>
+  					<input id="searchField" class="m-wrap" type="text" placeholder="Search for photos" value="<? echo $_REQUEST['query'] ?>"/>
+  					<a id="searchBtn" class="m-btn icn-only blue thinShadow"><i class="icon-search icon-white"></i></a>
+          </form>
 				</div>					
 				
 			</div>
