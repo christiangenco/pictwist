@@ -5,24 +5,23 @@
     {
         unset($_SESSION['error']);
     }
-    if(isset($currentUser['id']) && $currentUser['id'] > 0 && isset($_REQUEST['p_id']))
+    if(isset($_REQUEST['p_id']))
     {
         connectToDb();
-
-        $query = "Insert INTO Favorites(photo_id, user_id) VALUES(".$_REQUEST['p_id'].", ".$currentUser['id'].");";
-        $result = sql($query);
         
+        $query = "Delete from Photos WHERE id = ".$_REQUEST['p_id'];
+        $result = sql($query); 
         if(!$result)
         {
-            $_SESSION['error'] = "Photo could not be added to your favorites.";
+            $_SESSION['error'] = "Photo could not be deleted.";
             $_SESSION['redirect'] = $viewURL;
             redirect($errorURL);
         }
-        redirect($viewURL);
-    } 
+        redirect($profileURL);
+    }
     else
     {
-        $_SESSION['error'] = 'Error! No photo selected for favoriting.';
+        $_SESSION['error'] = 'Error! No photo selected for deletion.';
         $_SESSION['redirect'] = $profileURL;
         redirect($errorURL);
     }

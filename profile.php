@@ -1,3 +1,5 @@
+<?php INCLUDE 'include/head.php'; ?>
+
 <?php
 	session_start();
 	// filename: profile.php
@@ -31,13 +33,20 @@
 	
 	
 	if(isset($_SESSION['uid']))
+	$con = mysql_connect("localhost", "pictwist", 'secret');
+	if(!$con)
 	{
-		$uid = $_SESSION['uid'];	
+		die('Could not connect: ' . mysql_error());
 	}
-	else
+    
+	mysql_select_db("pictwist", $con)
+	    or die("Unable to select database: " . mysql_error());
+	$query = "select a.title, p.id, p.path from albums a JOIN photos p where a.id = p.album_id AND user_id='$currentUser[id]' order by a.id desc;";
+	$result = mysql_query($query);
+	while($row = mysql_fetch_array($result))
 	{
-		$_SESSION['error'] = 'Error! You must be logged in to view your photos!';
-		header('Location: ' . $killSession); 
+		echo '<a id="' . $row[id] . '" href="'.$viewURL.'?p_id=' . $row[id] . '">'.
+			'<img src="'.$row[path].'" alt="pic"></a>';
 	}
 ?>
 
@@ -89,5 +98,4 @@
 		?>
 		
 		
-	</body>
-</html>
+<?php INCLUDE 'include/foot.php' ?>	

@@ -1,168 +1,170 @@
+<?php INCLUDE 'include/head.php';?>
 <?php
-	session_start();
-	// filename: view.php
-	
-	// current working directory, relative to the root (AKA: /pictwist/)
-	$directory_self = str_replace(basename($_SERVER['PHP_SELF']), '', $_SERVER['PHP_SELF']);
-	
-	// URL of login script (AKA login.php) - in case of invalid login
-	$login = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'login.php';
-	//echo $login . '<br/>';
-	
-	// URL of user profile page script (AKA profile.php)
-	$profile = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'profile.php';
-	
-	// URL of search script (AKA search.php)
-	$search = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'search.php';
-	
-	// URL of upload script (AKA upload.php)
-	$upload = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'upload.php';
-	
-	// URL of logout script (AKA killSession.php)
-	$killSession = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'killSession.php';
-	
-	// URL of error script (AKA error.php)
-	$error = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'error.php';
-	
-	// URL of view script (AKA view.php)
-	$view = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'view.php';
-	
-	// URL of edit script (AKA edit.php)
-	$edit = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'edit.php';
-	
-	//echo "p: " . $_POST['p_id'];
-?>
+    connectToDb();
+    //$upload = false;
+    if(!isset($currentUser['id']) || $currentUser['id'] <= 0)
+    {
+        $_SESSION['error'] = 'Error! You must be logged in to upload photos!';
+        redirect($logoutURL);
+    } 
+    /*
+    if(isset($_SESSION['photo_path']) && isset($_SESSION['album_id']))
+    {
+        $album_id = $_SESSION['album_id'];
+        $pathname = $_SESSION['photo_path'];
+        unset ($_SESSION['album_id']);
+        unset ($_SESSION['photo_path']);
 
-<html>
-	<head>
-		<title>View Photo</title>
-			<style type="text/css">
-				ul{list-style-type:none; margin:0; padding:0; background-color:blue; padding:5px;}
-				li{display:inline; color:white; padding:0px 50px 0px 10px;}
-				li a{color:white;}
-			</style>
-	</head>
-	<body>
-
-<?php	
-	if(isset($_POST['p_id']) || $_SESSION['img'])
-	{
-		if(isset($_POST['p_id']))
-		{
-			$pid = $_POST['p_id'];
-			$_SESSION['img'] = $pid;
-		}
-		else {$pid = $_SESSION['img'];}
-		
-		echo ''.
-		'		<ul>'.
-		'';
-		if(isset($_SESSION['uid']))
-		{
-			$uid = $_SESSION['uid'];
-			
-			echo ''.
-				'	<li><a href="'.$profile.'">My Photos</a></li>'.
-				'	<li><a href="'.$upload.'">Upload Photos</a></li>'.
-				'	<li><a href="'.$search.'>Search Photos</a></li>'.
-				'	<li style="float:right;"><a href="'.$killSession.'">Logout</a></li>'.
-				'</ul>'.
-			'';
-		}
-		else
-		{
-			echo ''.
-				'	<li><a href="'.$search.'">Search Photos</a></li>'.
-				'	<li style="float:right;"><a href="'.$login.'">Login</a></li>'.
-				'</ul>'.
-			'';
-		}
-		
-		$con = mysql_connect("localhost", "pictwist", 'secret');
-		if(!$con)
-		{
-			die('Could not connect: ' . mysql_error());
-		}
-	    
-		mysql_select_db("pictwist", $con)
-		    or die("Unable to select database: " . mysql_error());
-		    
-		$query = "select title, path from photos where id='$pid';";
-		$result = mysql_query($query);
-		$row = mysql_fetch_array($result);
-		$path = $row[path];
-		$title = $row[title];
-		
-		$query = "select text, c.updated_at, p.id from photos p JOIN comments c where p.id = '$pid' AND p.id = 'c.photo_id' order by c.updated_at desc;";
-		$result_comments = mysql_query($query);
-		$query = "select text, t.updated_at, p.id, type from photos p JOIN tags t where p.id = '$pid' AND p.id = 't.photo_id' order by t.type desc;";
-		$result_tags = mysql_query($query);
-		while($row = mysql_fetch_array($result))
-		{
-			//echo '"'.$row[path] . '<br/>';
-			echo '<form id="' . $row[id] . '" action ="'.$view.'" method="post">'.
-				'<input type="hidden" name="p_id" value="'.$row[id].'">'.
-				'<img src="'.$row[path].'" alt="pic" style="cursor:pointer;" onclick="document.getElementById(' . $row[id] . ').submit();"></form>';
-			//echo '<img src="'.$row[path].'" alt="pic"><br/>';
-			//echo '<a onclick="viewImg(' . $row['id'] .');" href="' . $view . '"> <img src="'.$row[path].'" alt="pic"> </a><br/>';
-		}
-		
-	}
-	else
-	{
-		$_SESSION['error'] = 'You must select a photo to view!';
-		header('Location: ' . $error); 
-	}
+        $query = "insert into photos(path, album_id) values('" . $pathname . "', " . $album_id . ");";
+        $result = sql($query);
+        if(!$result)
+        {
+            $_SESSION['error'] = 'Error! Your photo could not be uploaded. Please try again.';
+            $_SESSION['redirect'] = $uploadURL;
+            unlink($pathname);
+            redirect($errorURL);
+        }
+        else
+        {
+            $query = "select id from photos where path = '".$pathname."';";
+            $result_id = sql($query);
+            while($row = mysql_fetch_array($result_id))
+            {
+                $photo_id = $row[id];
+            }
+            $_SESSION['photo_id'] = $photo_id;
+            $upload = true;
+        }
+        //"select title, path from photos where id='$pid';";
+    }
+    else*/ if(isset($_REQUEST['p_id']))
+    {
+        $photo_id = $_REQUEST['p_id'];
+        $_SESSION['photo_id'] = $photo_id;
+    }
+    else if(isset($_SESSION['photo_id']))
+    {
+        $photo_id = $_SESSION['photo_id'];
+    }
+    if(!isset($photo_id))
+    {
+        if($upload == true)
+        {
+            $_SESSION['error'] = 'Error! Your photo could not be uploaded. Please try again.';
+            $_SESSION['redirect'] = $uploadURL;
+            redirect($errorURL);
+        }
+        else
+        {
+            $_SESSION['error'] = 'Error! You need to select a photo to edit.';
+            $_SESSION['redirect'] = $profileURL;
+            redirect($errorURL);
+        }
+    }
+    else
+    {
+        // ######## add to views.php!!!!
+        $query = "UPDATE photos SET views = views + 1 WHERE id = ".$photo_id.";";
+        $result = sql($query);
+        $query = "select title, description, path, private, album_id from photos where id = '".$photo_id."';";
+        $result_photo = sql($query);
+        while($row = mysql_fetch_array($result_photo))
+        {
+            $photo_title = $row[title];
+            $pathname = $row[path];
+            $private = $row['private'];
+            $album_id = $row[album_id];
+            $description = $row[description];;
+        }
+        $query = "select id, type, text from tags where photo_id = '".$photo_id."';";
+        $result_tags = sql($query);
+        $query = "select text, c.updated_at, u.name from photos p JOIN comments c JOIN users u where p.id = ".$photo_id." AND p.id = c.photo_id AND u.id = c.user_id order by c.updated_at desc;";
+		//echo $query . '<br/><br/>';
+		$result_comments = sql($query);
+    }
+    
+    
 ?>
-	<div>
-	<div class="pic" style="float:top; float:left; padding:50px;">
-		<img src="<?php echo $path;?>" alt="pic">
-		<p><?php echo $title ?></p>
-	</div>
-	<div class="info" style="float:tope; float:left; padding:50px;">
-		<?php
-			while($row = mysql_fetch_array($result_tags))
-			{
-				echo '<div class="tag">'.
-					$row[type] . ': ' . $row[text] .
-					'</div>';
-			}
-			if($uid > 0)
-			{
-				echo '<form method="post" action="' . $tag_processor . '">'.
-					'type:'.
-					'<select name="tag">'.
-					'<option value="location">Location</option>'.
-					'<option value="camera type">Camera Type</option>'.
-					'<option value="color">Color</option>'.
-					'<option value="keyword">Keyword</option>'.
-					'<option value="person">Person</option>'.
-					'</select>'.
-					'<br/>'.
-					'tag: <input type="text" name="tag" value="tag"><br/>'.
-					'<input type="submit" value="Create Tag">'.
-					'</form>';
-			}
-		?>
-	</div>
-	</div>
-	<div class="comments" style="float:left; clear:both; padding:0px 0px 0px 50px;">
+<p>
+	<?php
+	echo '<a id="' . $photo_id . '" href="'.$editURL.'?p_id=' . $photo_id . '">'.
+		'Edit Photo</a><br/>';
+	echo '<a id="' . $photo_id . '" href="'.$favoriteHandlerURL.'?p_id=' . $photo_id . '">'.
+		'Favorite Photo</a><br/>';
+	echo '<a id="' . $photo_id . '" href="'.$deleteHandlerURL.'?p_id=' . $photo_id . '">'.
+		'Delete Photo</a><br/>';
+	?>
+</p>
+<p>Your photo: <?php echo $photo_id;?></p> 
+    <div class="pic" ><!--style="float:top; float:left; padding:50px;"-->
+        <img src="<?php echo $pathname;?>" alt="<?php echo $pathname;?>" width=400 height=400/>
+        <p>
+            Album: <?php echo $album_id ?> <br/>
+            Title: <?php echo $photo_title;?><br/>
+            Description: <br/>
+            <?php echo $description;?>
+        </p>
+    </div>
+    <div id="tagsFields">
+        Tags: <br/>
+        <table>
+            <?php
+                while($row = mysql_fetch_array($result_tags))
+                {
+                    echo '<tr>'
+                        .'<td>'.$row[type].': </td>'
+                        .'<td>'.$row[text].'</td>'
+                        .'</tr>';
+                }
+            ?>
+        </table>
+        <form id="Insert" action="<?php echo $viewHandlerURL ?>" enctype="multipart/form-data" method="post">
+        <select name='tag'>
+            <option value='location'>Location</option>
+            <option value='camera type'>Camera Type</option>
+            <option value='color'>Color</option>
+            <option value='keyword'>Keyword</option>
+            <option value='person'>Person</option>
+        </select>
+        <input type='text' name='tagContent' value='tag'><br/>
+        <input type='submit' name='submit' value='Add Another Tag'>
+    	</form>
+    </div>
+	<div class="comments" ><!--style="float:left; clear:both; padding:0px 0px 0px 50px;"-->
 		<?php
 			while($row = mysql_fetch_array($result_comments))
 			{
 				echo '<div class="comment">'.
-					$row[id] . ' said ' . $row[text] . '<br/>'.
-					'date: ' . $row[updated_at] .
+					$row[name] . ' said ' . $row[text] . ' on '. $row[updated_at] .
 					'</div>';
 			}
-			if($uid > 0)
+			if($currentUser['id'] > 0)
 			{
-				echo '<form method="post" action="' . $comment_processor . '">'.
-					'<input type="text" name="tag" value="comment here..."><br/>'.
-					'<input type="submit" value="Submit Comment">'.
+				echo '<form method="post" action="' . $viewHandlerURL . '">'.
+					'<input type="text" name="comment" value="comment here..."><br/>'.
+					'<input type="submit" name="submit" value="Submit Comment">'.
 					'</form>';
 			}
 		?>
 	</div>
-	</body>
-</html>
+ 
+</form> 
+
+<script>
+/*
+    function addTagField()
+    {
+        var newdiv = document.createElement('div');
+          newdiv.innerHTML = "<select name='tag[]'>"
+            +"<option value='location'>Location</option>"
+            +"<option value='camera type'>Camera Type</option>"
+            +"<option value='color'>Color</option>"
+            +"<option value='keyword'>Keyword</option>"
+            +"<option value='person'>Person</option>"
+            +"</select>" 
+            +"<input type='text' name='tagContent[]' value='tag'><br/>";
+          document.getElementById('tagsFields').appendChild(newdiv);
+    }
+    */
+</script>
+<?php INCLUDE 'include/foot.php' ?>
