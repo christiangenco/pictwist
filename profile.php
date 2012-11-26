@@ -14,7 +14,7 @@
 	while($row = mysql_fetch_array($result))
 	{
 		echo '<a id="' . $row[id] . '" href="'.$viewURL.'?p_id=' . $row[id] . '">'.
-			'<img src="'.$row[path].'" alt="pic"></a>';
+			'<img src="'.$row[path].'" height=100 width=100 alt="pic"></a>';
 	}
 ?>
 		

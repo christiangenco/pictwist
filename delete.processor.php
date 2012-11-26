@@ -8,9 +8,23 @@
     if(isset($_REQUEST['p_id']))
     {
         connectToDb();
-        
+
+        $query = "SELECT path FROM Photos WHERE id=".$_REQUEST['p_id'].";";
+        $result = sql($query);
+        if(!$result)
+        {
+            $_SESSION['error'] = "Photo could not be deleted.";
+            $_SESSION['redirect'] = $viewURL;
+            redirect($errorURL);
+        }
+        if($row = mysql_fetch_array($result))
+        {
+            unlink($row['path']);
+        }
+
         $query = "Delete from Photos WHERE id = ".$_REQUEST['p_id'];
         $result = sql($query); 
+
         if(!$result)
         {
             $_SESSION['error'] = "Photo could not be deleted.";
