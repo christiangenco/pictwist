@@ -24,6 +24,9 @@
   
   // URL of view script
   $viewURL = $baseURL . 'view.php';
+
+  // URL of view processor (add comments/ individual tags) script
+  $viewHandlerURL = $baseURL . 'view.processor.php';
   
   // URL of edit script
   $editURL = $baseURL . 'edit.php';
@@ -38,26 +41,32 @@
   // URL of photo edit handler script
   $editHandlerURL = $baseURL . 'edit.processor.php';
   
-  // URL of upload script (AKA upload.php)
+  // URL of upload script 
   $uploadURL = $baseURL . 'upload.php';
 
-  // URL of upload handler script (AKA upload.processor.php)
+  // URL of upload handler script 
   $uploadHandlerURL = $baseURL . 'upload.processor.php';
 
-  // URL of upload script (AKA upload.success.php)
+  // URL of upload script 
   $uploadSuccessURL = $baseURL . 'upload.success.php';
 
-  // URL of tag script (AKA tag.php)
+  // URL of tag script 
   $tagURL = $baseURL . 'tag.php';
 
-  // URL of tag handler script (AKA tag.processor.php)
+  // URL of tag handler script 
   $tagHandlerURL = $baseURL . 'tag.processor.php';
 
-  // URL of registration script (AKA register.php)
-  $tagURL = $baseURL . 'register.php';
+  // URL of registration script 
+  $registerURL = $baseURL . 'register.php';
 
-  // URL of registration handler script (AKA register.processor.php)
-  $tagHandlerURL = $baseURL . 'register.processor.php';
+  // URL of registration handler script 
+  $registerHandlerURL = $baseURL . 'register.processor.php';
+
+  // URL of favorite handler script
+  $favoriteHandlerURL = $baseURL . 'favorite.processor.php';
+
+  // URL of deletion handler script
+  $deleteHandlerURL = $baseURL . 'delete.processor.php';
 
   // ### DATABASE ###
 

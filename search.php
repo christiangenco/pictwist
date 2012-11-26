@@ -2,9 +2,9 @@
 
 <?php
 	connectToDb();
-	if(isset($_REQUEST['query']))
+	if(isset($_REQUEST['query']) && trim($_REQUEST['query']) !== "")
 	{
-		$query = "SELECT id, path from photos WHERE";
+		$query = "SELECT id, title, path from photos WHERE";
 
 		if($_REQUEST['query'][0] == '#')
 		{
@@ -127,9 +127,8 @@
 		$result_search = sql($query);
 			while($row = mysql_fetch_array($result_search))
 			{
-				echo '<form id="' . $row[id] . '" action ="'.$editURL.'" method="post">'.
-					'<input type="hidden" name="p_id" value="'.$row[id].'">'.
-					'<img src="'.$row[path].'" alt="pic" style="cursor:pointer;" onclick="document.getElementById(' . $row[id] . ').submit();"></form>';
+				echo '<a id="' . $row[id] . '" href="'.$viewURL.'?p_id=' . $row[id] . '">'.
+					'<img src="'.$row[path].'" alt="'.$row[title].'"></a>';
 			}
 	}
 	else

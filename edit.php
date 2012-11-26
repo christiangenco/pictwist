@@ -41,6 +41,10 @@
         $photo_id = $_REQUEST['p_id'];
         $_SESSION['photo_id'] = $photo_id;
     }
+    else if(isset($_SESSION['photo_id']))
+    {
+        $photo_id = $_SESSION['photo_id'];
+    }
     if(!isset($photo_id))
     {
         if($upload == true)

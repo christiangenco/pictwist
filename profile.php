@@ -13,7 +13,7 @@
 	$result = mysql_query($query);
 	while($row = mysql_fetch_array($result))
 	{
-		echo '<a id="' . $row[id] . '" href="'.$editURL.'?p_id=' . $row[id] . '">'.
+		echo '<a id="' . $row[id] . '" href="'.$viewURL.'?p_id=' . $row[id] . '">'.
 			'<img src="'.$row[path].'" alt="pic"></a>';
 	}
 ?>
