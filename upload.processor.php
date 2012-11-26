@@ -21,7 +21,7 @@
         $uid = $currentUser['id'];
         $album_id = $_POST['album_id'];
     }
-    else if(!isset($currentUser['id']) <= 0)
+    else if(!isset($currentUser['id']) || isset($currentUser['id'])<= 0)
     {
         $_SESSION['error'] = 'Error! You must be logged in to upload photos!';
         redirect($logoutURL); 
@@ -29,26 +29,26 @@
     else
     {
         $_SESSION['error'] = 'Error! You need to select an album to save you photo.';
-        $_SESSION['redirect'] = $upload;
+        $_SESSION['redirect'] = $uploadURL;
         redirect($errorURL);
     }
     
     // check the upload form was actually submitted, else redirect to the upload form
     isset($_POST['submit']) 
-        or error('nothing was submitted', $upload); 
+        or error('nothing was submitted', $uploadURL); 
     
     // check for PHP's built-in uploading errors 
     ($_FILES[$fieldname]['error'] == 0) 
-        or error($errors[$_FILES[$fieldname]['error']], $upload); 
+        or error($errors[$_FILES[$fieldname]['error']], $uploadURL); 
          
     // check that the file we are working on really was the subject of an HTTP upload 
     @is_uploaded_file($_FILES[$fieldname]['tmp_name']) 
-        or error('not an HTTP upload', $upload); 
+        or error('not an HTTP upload', $uploadURL); 
           
     // check to make sure the uploaded file is an image.
     // getimagesize() returns false if the file tested is not an image. 
     @getimagesize($_FILES[$fieldname]['tmp_name']) 
-        or error('only image uploads are allowed', $upload); 
+        or error('only image uploads are allowed', $uploadURL); 
          
     // make a unique filename for the uploaded file and check it is not already taken
     // if it is already taken, keep trying until we find a vacant one 
@@ -63,7 +63,7 @@
     
     // move the file to its final location and allocate the new filename to it 
     @move_uploaded_file($_FILES[$fieldname]['tmp_name'], $uploadFilename) 
-        or error('receiving directory insuffiecient permission', $upload); 
+        or error('receiving directory insuffiecient permission', $uploadURL); 
 
     $_SESSION['album_id'] = $album_id;
     $_SESSION['photo_path'] = $pathname;
