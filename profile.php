@@ -26,6 +26,10 @@
 	// URL of edit script (AKA edit.php)
 	$edit = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'edit.php';
 	
+	// URL of editUserInformation script (AKA editInfo.php)
+	$editInfo = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'editInfo.php';
+	
+	
 	if(isset($_SESSION['uid']))
 	{
 		$uid = $_SESSION['uid'];	
@@ -57,6 +61,7 @@
 			<li><a href="<?php echo $list ?>">My Photos</a></li>
 			<li><a href="<?php echo $upload ?>">Upload Photos</a></li>
 			<li><a href="<?php echo $search ?>">Search Photos</a></li>
+			<li><a href="<?php echo $editInfo ?>">Edit Account</a></li>
 			<li style="float:right;"><a href="<?php echo $killSession ?>">Logout</a></li>
 		</ul>
 		
