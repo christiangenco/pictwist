@@ -34,6 +34,9 @@
   // URL of edit script
   $editURL = $baseURL . 'edit.php';
 
+  // URL of edit script
+  $twistURL = $baseURL . 'twist.php';
+
   // ### ADDITIONAL LINKS ###
   // URL of search handler script 
   $searchHandlerURL = $baseURL . 'search.processor.php';
