@@ -106,6 +106,8 @@
 		'Edit Photo</a><br/>';
 	echo '<a id="' . $photo_id . '" href="'.$favoriteHandlerURL.'?p_id=' . $photo_id . '">'.
 		'Favorite Photo</a><br/>';
+    echo '<a id="' . $photo_id . '" href="'.$twistURL.'?p_id=' . $photo_id . '">'.
+        'Twist!</a><br/>';
 	echo '<a id="' . $photo_id . '" href="'.$deleteHandlerURL.'?p_id=' . $photo_id . '">'.
 		'Delete Photo</a><br/>';
 	?>
