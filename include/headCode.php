@@ -87,10 +87,18 @@
   function isLoggedIn(){
     // TODO: make this actually return true if user is logged in
     // false if not
-    if(isset($_SESSION['uid'])) 
+    if(isset($_SESSION['uid']) || ( isset($currentUser['id']) && $currentUser['id'] > 0 )) 
       { return true; }
     else 
       { return false; }
+  }
+
+  function redirect_if_not_logged_in(){
+    if(!isLoggedIn()){
+      $_SESSION['error'] = "You must be logged in to view this page";
+      $_SESSION['redirect'] = $loginURL;
+      redirect($errorURL);
+    }
   }
 
   function getCurrentUser(){
@@ -113,7 +121,7 @@
 
   function logout(){
     // TODO: make this actually log you out
-    redirect('index.php');
+    redirect('logoutURL.php');
   }
 
   // usage: redirect("http://google.com")
