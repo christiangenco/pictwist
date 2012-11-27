@@ -22,8 +22,11 @@
   // URL of error script
   $errorURL = $baseURL . 'error.php';
   
+  // URL of view in lightbox script
+  $viewLightBoxURL = $baseURL . 'view.php';
+
   // URL of view script
-  $viewURL = $baseURL . 'view.php';
+  $viewURL = $baseURL . 'viewStandard.php';
 
   // URL of view processor (add comments/ individual tags) script
   $viewHandlerURL = $baseURL . 'view.processor.php';
@@ -93,10 +96,10 @@
       { return false; }
   }
 
-  function redirect_if_not_logged_in(){
+  function redirect_if_not_logged_in($redirectURL){
     if(!isLoggedIn()){
       $_SESSION['error'] = "You must be logged in to view this page";
-      $_SESSION['redirect'] = $loginURL;
+      $_SESSION['redirect'] = $redirectURL;
       redirect($errorURL);
     }
   }
@@ -118,6 +121,30 @@
   }
 
   $currentUser = getCurrentUser();
+
+  function isOwner($photo_id)
+  {
+    $uid = $currentUser['id'];
+    $query = "Select p.id FROM users u JOIN albums a JOIN photos p WHERE u.id=a.user_id AND a.id=p.album_id AND u.id=".$uid." AND p.id=".$photo_id.";";
+    $result = sql($query);
+    if($row = mysql_fetch_array($result))
+    {
+      return true;
+    }
+    return false;
+  }
+
+  function isAdmin()
+  {
+    $uid = $currentUser['id'];
+    $query = "Select admin FROM users WHERE id = ".$uid.";";
+    $result = sql($query);
+    if($row = mysql_fetch_array($result))
+    {
+      return $row['admin'];
+    }
+    return false;
+  }
 
   function logout(){
     // TODO: make this actually log you out
