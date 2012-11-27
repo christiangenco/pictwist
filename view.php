@@ -12,6 +12,14 @@
 	<link href="styles/styles.css" rel="stylesheet" type="text/css">
 
 	<link href="styles/viewPhotoStyles.css" rel="stylesheet" type="text/css">
+	<script>
+		function redirectParent(location)
+		{
+			//alert("hey there!");
+			parent.location.href = location;
+			//alert("leaving..");
+		}
+	</script>
 </head>
 <body>
 <?php
@@ -20,7 +28,8 @@
     if(!isset($currentUser['id']) || $currentUser['id'] <= 0)
     {
         $_SESSION['error'] = 'Error! You must be logged in to upload photos!';
-        redirect($logoutURL);
+        //redirect($logoutURL);
+        echo 'redirectParent(\''.$logoutURL.'\');';
     } 
     /*
     if(isset($_SESSION['photo_path']) && isset($_SESSION['album_id']))
@@ -67,13 +76,17 @@
         {
             $_SESSION['error'] = 'Error! Your photo could not be uploaded. Please try again.';
             $_SESSION['redirect'] = $uploadURL;
-            redirect($errorURL);
+            //redirect($errorURL);
+            echo 'redirectParent(\''.$errorURL.'\');';
+            //echo "parent.location.href = ".$errorURL.";";
         }
         else
         {
             $_SESSION['error'] = 'Error! You need to select a photo to edit.';
             $_SESSION['redirect'] = $profileURL;
-            redirect($errorURL);
+            //redirect($errorURL);
+            echo 'redirectParent(\''.$errorURL.'\');';
+            //echo "parent.location.href = ".$errorURL.";";
         }
     }
     else
@@ -102,13 +115,13 @@
 ?>
 <p>
 	<?php
-	echo '<a id="' . $photo_id . '" href="'.$editURL.'?p_id=' . $photo_id . '">'.
+	echo '<a id="' . $photo_id . '" href="javascript:void(0);" onclick="redirectParent(\''.$editURL.'?p_id=' . $photo_id . '\');">'.
 		'Edit Photo</a><br/>';
-	echo '<a id="' . $photo_id . '" href="'.$favoriteHandlerURL.'?p_id=' . $photo_id . '">'.
+	echo '<a id="' . $photo_id . '" href="javascript:void(0);" onclick="redirectParent(\''.$favoriteHandlerURL.'?p_id=' . $photo_id . '\');">'.
 		'Favorite Photo</a><br/>';
-    echo '<a id="' . $photo_id . '" href="'.$twistURL.'?p_id=' . $photo_id . '">'.
+    echo '<a id="' . $photo_id . '" href="javascript:void(0);" onclick="redirectParent(\''.$twistURL.'?p_id=' . $photo_id . '\');">'.
         'Twist!</a><br/>';
-	echo '<a id="' . $photo_id . '" href="'.$deleteHandlerURL.'?p_id=' . $photo_id . '">'.
+	echo '<a id="' . $photo_id . '" href="javascript:void(0);" onclick="redirectParent(\''.$deleteHandlerURL.'?p_id=' . $photo_id . '\');">'.
 		'Delete Photo</a><br/>';
 	?>
 </p> 

@@ -36,9 +36,12 @@
         $result = 0;
         foreach($_POST['tag'] as $index=>$type)
         {
-            $query = "insert into tags(type, text, photo_id) values('" . $_POST['tag'][$index] . "', '" . $_POST['tagContent'][$index] . "', '" . $_SESSION['photo_id'] . "');";
-            $result_temp = sql($query);
-            if(!$result_temp){$result++;}
+            if($_POST['tagContent']['index'] != "")
+            {
+                $query = "insert into tags(type, text, photo_id) values('" . $_POST['tag'][$index] . "', '" . $_POST['tagContent'][$index] . "', '" . $_SESSION['photo_id'] . "');";
+                $result_temp = sql($query);
+                if(!$result_temp){$result++;}
+            }
         }
         if($result > 0)
         {

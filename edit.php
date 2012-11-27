@@ -126,7 +126,7 @@
             +"<option value='keyword'>Keyword</option>"
             +"<option value='person'>Person</option>"
             +"</select>" 
-            +"<input type='text' name='tagContent[]' value='tag'><br/>";
+            +"<input type='text' name='tagContent[]' placeholder='tag'><br/>";
           document.getElementById('tagsFields').appendChild(newdiv);
     }
 </script>

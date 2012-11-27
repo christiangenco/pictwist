@@ -10,7 +10,7 @@
         connectToDb();
         //$error = "";
         // add new tags
-        if(isset($_POST['tag']))
+        if(isset($_POST['tag']) && $_POST['tagContent'] != "")
         {
             $query = "insert into tags(type, text, photo_id) values('" . $_POST['tag'] . "', '" . $_POST['tagContent'] . "', '" . $_SESSION['photo_id'] . "');";
             $result = sql($query);
@@ -22,7 +22,7 @@
                 redirect($errorURL);
             }
         }
-        if(isset($_POST['comment']))
+        if(isset($_POST['comment']) && $_POST['comment'] != "")
         {
             $query = "insert into comments(text, user_id, photo_id) values('" . $_POST['comment'] . "', '" . $currentUser[id] . "', '" . $_SESSION['photo_id'] . "');";
             $result = sql($query);
@@ -35,7 +35,7 @@
             }
         }
         if($_POST['lightbox']){redirect($viewLightBoxURL);}
-        else{redirect($viewURL)}
+        else{redirect($viewURL);}
     } 
     else
     {
