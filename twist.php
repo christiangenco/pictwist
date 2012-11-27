@@ -81,6 +81,7 @@
                 "height" => $size[1]
             );
         }
+        if(isset($photo['id'])) {$_SESSION['parent'] = $photo['id'];}
         $query = "select id, type, text from tags where photo_id = '".$photo['id']."';";
         $result_tags = sql($query);
     }

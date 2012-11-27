@@ -121,6 +121,8 @@
 		'Favorite Photo</a><br/>';
     echo '<a id="' . $photo_id . '" href="javascript:void(0);" onclick="redirectParent(\''.$twistURL.'?p_id=' . $photo_id . '\');">'.
         'Twist!</a><br/>';
+    echo '<a id="' . $photo_id . '" href="javascript:void(0);" onclick="redirectParent(\''.$twistHistoryURL.'?p_id=' . $photo_id . '\');">'.
+        'View Twist History</a><br/>';
 	echo '<a id="' . $photo_id . '" href="javascript:void(0);" onclick="redirectParent(\''.$deleteHandlerURL.'?p_id=' . $photo_id . '\');">'.
 		'Delete Photo</a><br/>';
 	?>

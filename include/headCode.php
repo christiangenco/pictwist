@@ -34,8 +34,11 @@
   // URL of edit script
   $editURL = $baseURL . 'edit.php';
 
-  // URL of edit script
+  // URL of twist script
   $twistURL = $baseURL . 'twist.php';
+
+  // URL of twist history script
+  $twistHistoryURL = $baseURL . 'twistHistory.php';
 
   // ### ADDITIONAL LINKS ###
   // URL of search handler script 

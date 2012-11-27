@@ -14,7 +14,15 @@
         unset ($_SESSION['album_id']);
         unset ($_SESSION['photo_path']);
 
-        $query = "insert into photos(path, album_id) values('" . $pathname . "', " . $album_id . ");";
+        if(isset($_SESSION['parent']))
+        {
+            $query = "insert into photos(path, parent_photo_id, album_id) values('" . $pathname . "', " . $_SESSION['parent'] . ", " . $album_id . ");";
+            unset($_SESSION['parent']);
+        }
+        else
+        {
+            $query = "insert into photos(path, album_id) values('" . $pathname . "', " . $album_id . ");";
+        }
         $result = sql($query);
         if(!$result)
         {
