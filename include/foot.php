@@ -9,3 +9,8 @@
 		
 </body>
 </html>
+
+<?php
+  if(!is_null($con)) mysql_close($con);
+  ob_end_flush();
+?>
