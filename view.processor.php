@@ -34,7 +34,8 @@
                 redirect($errorURL);
             }
         }
-        redirect($viewURL);
+        if($_POST['lightbox']){redirect($viewLightBoxURL);}
+        else{redirect($viewURL);}
     } 
     else
     {
