@@ -1,4 +1,4 @@
-<?php INCLUDE 'include/headCode.php';?>
+<?php INCLUDE_ONCE 'include/headCode.php';?>
 
 <!DOCTYPE html>
 <head>

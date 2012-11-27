@@ -43,11 +43,13 @@
             
           <? endif; ?>
           
-        </div>              
-      
+        </div>         
+
+
+
         <div id="searchContainer">
-          <form id="searchForm" action="<?php echo $searchURL;?>">
-            <input id="searchField" class="m-wrap" type="text" placeholder="Search for photos" value="<? echo $_REQUEST['query'] ?>"/>
+          <form id="searchForm" method="get" action=<?php echo $searchURL;?>>
+            <input id="searchField" class="m-wrap" name="query" type="text" placeholder="Search for photos" value="<? echo $_REQUEST['query'] ?>"/>
             <a id="searchBtn" class="m-btn icn-only blue thinShadow"><i class="icon-search icon-white"></i></a>
           </form>
         </div>          

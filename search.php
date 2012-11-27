@@ -127,7 +127,7 @@
 		$result_search = sql($query);
 			while($row = mysql_fetch_array($result_search))
 			{
-				echo '<a id="' . $row[id] . '" href="'.$viewURL.'?p_id=' . $row[id] . '">'.
+				echo '<a id="' . $row[id] . '" href="'.$viewLightBoxURL.'?p_id=' . $row[id] . '">'.
 					'<img src="'.$row[path].'" height=100 width=100 alt="'.$row[title].'"></a>';
 			}
 	}
