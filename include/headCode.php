@@ -124,7 +124,7 @@
     else { $mname = "Nicole Sliwa"; $_SESSION['mname'] = $mname;}
 
     if(isset($_SESSION['admin'])) {$admin = $_SESSION['admin'];}
-    else { $admin = true; $_SESSION['admin'] = $admin;}
+    else { $admin = FALSE; $_SESSION['admin'] = $admin;}
 
     $currentUser = array("username" => $uname, "id" => $uid, "name" => $mname, "admin" => $admin);
     
