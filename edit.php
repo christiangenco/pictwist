@@ -14,7 +14,15 @@
         unset ($_SESSION['album_id']);
         unset ($_SESSION['photo_path']);
 
-        $query = "insert into photos(path, album_id) values('" . $pathname . "', " . $album_id . ");";
+        if(isset($_SESSION['parent']))
+        {
+            $query = "insert into photos(path, parent_photo_id, album_id) values('" . $pathname . "', " . $_SESSION['parent'] . ", " . $album_id . ");";
+            unset($_SESSION['parent']);
+        }
+        else
+        {
+            $query = "insert into photos(path, album_id) values('" . $pathname . "', " . $album_id . ");";
+        }
         $result = sql($query);
         if(!$result)
         {
@@ -40,6 +48,10 @@
     {
         $photo_id = $_REQUEST['p_id'];
         $_SESSION['photo_id'] = $photo_id;
+    }
+    else if(isset($_SESSION['photo_id']))
+    {
+        $photo_id = $_SESSION['photo_id'];
     }
     if(!isset($photo_id))
     {
@@ -122,7 +134,7 @@
             +"<option value='keyword'>Keyword</option>"
             +"<option value='person'>Person</option>"
             +"</select>" 
-            +"<input type='text' name='tagContent[]' value='tag'><br/>";
+            +"<input type='text' name='tagContent[]' placeholder='tag'><br/>";
           document.getElementById('tagsFields').appendChild(newdiv);
     }
 </script>

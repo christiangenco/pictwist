@@ -1,3 +1,4 @@
+<?php INCLUDE 'include/head.php'; ?>
 <?php
 	// filename: login.php
 	
@@ -16,6 +17,10 @@
 	// URL of search script (AKA profile.processor.php)
 	$search = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'search.php';
 	//echo $indexHandler . '<br/>';
+	
+	// URL of register script (AKA profile.processor.php)
+	$register = 'http://'. $_SERVER['HTTP_HOST'] . $directory_self . 'register.php';
+	//echo $register . '<br/>';
 ?>
 
 <html>
@@ -32,6 +37,7 @@
 		<ul>
 			<li><a href="<?php echo $search ?>">Search Photos</a></li>
 			<li style="float:right;"><a href="<?php echo $login ?>">Login</a></li>
+			<li style="float:left;"><a href="<?php echo $register ?>">Register</a></li>
 		</ul>
 		<form id="Login" action="<?php echo $loginHandler ?>" enctype="multipart/form-data" method="post">
 			<h1>
@@ -54,3 +60,4 @@
 		</form>
 	</body>
 </html>
+<?php INCLUDE 'include/foot.php' ?>

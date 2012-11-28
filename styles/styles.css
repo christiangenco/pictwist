@@ -1,6 +1,8 @@
 body {
-	background-color: rgba(141, 223, 250, 1);
+	background-image: url('../img/bg.png');
 	margin: 0px;
+	font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+	font-size: 14px;
 }
 
 html, body {	
@@ -9,87 +11,141 @@ html, body {
 
 a {
 	text-decoration: none;
-	color: #FFF;
+	color: #000;
 }
+
+#header a {
+	color: #fff;
+} 
 
 a:hover {
 	color: #FFD1A1;
 }
 
-body {
-	font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
-	font-size: 14px;
-}
 
 #pageContainer {
 	width: 1000px;
 	height: auto;
 	min-height: 100%;
 	margin: 0px auto;
-	-webkit-box-shadow: 0 0 40px 3px rgba(0, 0, 0, .7);
-	padding: 0 20px;
-	background-color: rgba(255, 255, 255, .8);
+	padding: 0 0px;
 }
 
+.thinShadow {	
+	-webkit-box-shadow: 0 0 2px 1px rgba(0, 0, 0, .5);
+}
+
+#userBadgeContainer .thinShadow {	
+	-webkit-box-shadow: 0 0 2px 1px rgba(0, 0, 0, .8);
+}
 
 
 /* Header */
 
 #header {
-	-webkit-box-shadow: 0 0 3px 2px rgba(0, 0, 0, .9);
 	position: relative;
-	top: 20px;
-	margin-bottom: 20px;
+	top: 0px;
+	padding-bottom: 20px;
+	height: 150px;
+}
+
+#header_bg {
+	position: absolute;	
+	left: 0px;
+	right: 0px;
+	height: 160px;
 	background-color: #086989;
+	-webkit-box-shadow: 0 0 3px 2px rgba(0, 0, 0, .9);
 }
 
 #logoswirl {
 	position: absolute;
-	top: -20px;
-	left: -35px;
-	height: 190px;
+	top: 5px;
+	left: 1px;
+	height: 150px;
 	z-index: 5;
 }
 
 #logotext {
 	position: absolute;
 	z-index: 10;
-	width: 350px;
-	left: 60px;
-	top: 23px;
+	width: 340px;
+	left: 80px;
+	top: 32px;
 }
 
 #header_right {
-	position: absolute;
-	right: 10px;
-	top: 10px;
-	bottom: 5px;
-	width: 240px;
+	float: right;
+	width: 266px;
+	margin: 10px;
 }
 
 #userBadgeContainer {
-	height: 85px;
-	margin-bottom: 2px;
+	height: 95px;
 	border: 0px solid #FFD1A1;
 	background-color: #18A1CF;
 	position: relative;
-	-webkit-box-shadow: 0 0 2px 1px rgba(0, 0, 0, .5);
+	margin-bottom: 10px;
 }
 
 #notSignedIn {
 	position: absolute;
-	top: 36px;
+	top: 34px;
 	text-align: center;
 	width: 100%;
+}
+
+#signInFormContainer {
+	padding: 8px;
 		
 	display: none;
 }
 
+#signInBtn {
+	margin-left: 4px;
+}
+
+#usernameField {
+	width: 210px;
+}
+
+#passwordField {
+	width: 131px;
+}
+
+#closeBtn {
+	display: inline-block;
+
+	width: 14px;
+	height: 14px;
+	margin-top: 0px;
+	line-height: 14px;
+
+	vertical-align: center;
+	background-image: url(../metro/img/glyphicons-halflings-white.png);
+
+	background-repeat: no-repeat;
+	
+	background-position: -310px 2px;
+	
+	position: absolute;
+	right: 8px;
+	top: 8px;
+	
+	padding: 2px;
+	
+	-webkit-border-radius: 9px;
+}
+
+#closeBtn:hover {
+	background-color: #333;
+}
+
 #userBadge {
 	position: absolute;
-	top: 11px;
+	top: 16px;
+	left: 2px;
 	width: 100%;
-	
 }
 
 #userPic {
@@ -103,41 +159,37 @@ body {
 #userInfo {
 	position: absolute;
 	left: 69px;
-	top: 16px;
+	top: 14px;
 }
 
 #userName {
 	font-weight: bold;
+	font-size: 16px;
 }
 
 #userLinks {
-	font-size: 12px;
+	font-size: 13px;
+	margin-top: -2px;
 }
 
 #searchContainer {
-	padding-top: 125px;
-	padding-bottom: 1px;
-	text-align: center;
+	text-align: right;
 	margin: 0px auto;
+	padding-bottom: 0px;
 }
 
-#advSearch {
-	color: #fff;
-	display: none;
-	padding-bottom: 10px;
-}
 
-#advSearch p {
-	margin: 0px;
-	margin-bottom: 4px;
+.m-btn {
+	position: relative;
+	top: -8px;
 }
 
 
 /* Content */
 
 #content {
-	padding: 10px 0;
-	padding-bottom: 70px;
+	padding: 5px 10px;
+	padding-bottom: 73px;
 }
 
 

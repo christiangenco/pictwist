@@ -21,7 +21,7 @@
         $uid = $currentUser['id'];
         $album_id = $_POST['album_id'];
     }
-    else if(!isset($currentUser['id']) <= 0)
+    else if(!isset($currentUser['id']) || isset($currentUser['id'])<= 0)
     {
         $_SESSION['error'] = 'Error! You must be logged in to upload photos!';
         redirect($logoutURL); 
@@ -29,41 +29,50 @@
     else
     {
         $_SESSION['error'] = 'Error! You need to select an album to save you photo.';
-        $_SESSION['redirect'] = $upload;
+        $_SESSION['redirect'] = $uploadURL;
         redirect($errorURL);
     }
     
-    // check the upload form was actually submitted, else redirect to the upload form
-    isset($_POST['submit']) 
-        or error('nothing was submitted', $upload); 
-    
-    // check for PHP's built-in uploading errors 
-    ($_FILES[$fieldname]['error'] == 0) 
-        or error($errors[$_FILES[$fieldname]['error']], $upload); 
-         
-    // check that the file we are working on really was the subject of an HTTP upload 
-    @is_uploaded_file($_FILES[$fieldname]['tmp_name']) 
-        or error('not an HTTP upload', $upload); 
-          
-    // check to make sure the uploaded file is an image.
-    // getimagesize() returns false if the file tested is not an image. 
-    @getimagesize($_FILES[$fieldname]['tmp_name']) 
-        or error('only image uploads are allowed', $upload); 
-         
-    // make a unique filename for the uploaded file and check it is not already taken
-    // if it is already taken, keep trying until we find a vacant one 
-    // sample filename: 1140732936-filename.jpg 
     $now = time();
-    $pathname = $localDirectory.$now.'-'.$_FILES[$fieldname]['name'];
-    while(file_exists($uploadFilename = $uploadsDirectory.$now.'-'.$_FILES[$fieldname]['name'])) 
-    { 
-        $now++;
+
+    if(isset($_POST[$fieldname])){
+        // POST coming from twist.php
+        $img = $_POST[$fieldname];
+        $img = str_replace('data:image/png;base64,', '', $img);
+        $img = str_replace(' ', '+', $img);
+        $data = base64_decode($img);
+        $pathname = $localDirectory.$now.'-'.'.png';
+        $success = file_put_contents($pathname, $data);
+    }else{
+        // POST coming from upload.php
+        // check for PHP's built-in uploading errors 
+        ($_FILES[$fieldname]['error'] == 0) 
+            or error($errors[$_FILES[$fieldname]['error']], $uploadURL); 
+             
+        // check that the file we are working on really was the subject of an HTTP upload 
+        @is_uploaded_file($_FILES[$fieldname]['tmp_name'])
+            or error('not an HTTP upload', $uploadURL); 
+              
+        // check to make sure the uploaded file is an image.
+        // getimagesize() returns false if the file tested is not an image. 
+        @getimagesize($_FILES[$fieldname]['tmp_name']) 
+            or error('only image uploads are allowed', $uploadURL); 
+
         $pathname = $localDirectory.$now.'-'.$_FILES[$fieldname]['name'];
-    } 
-    
-    // move the file to its final location and allocate the new filename to it 
-    @move_uploaded_file($_FILES[$fieldname]['tmp_name'], $uploadFilename) 
-        or error('receiving directory insuffiecient permission', $upload); 
+        
+        // make a unique filename for the uploaded file and check it is not already taken
+        // if it is already taken, keep trying until we find a vacant one 
+        // sample filename: 1140732936-filename.jpg 
+        while(file_exists($uploadFilename = $uploadsDirectory.$now.'-'.$_FILES[$fieldname]['name'])) 
+        { 
+            $now++;
+            $pathname = $localDirectory.$now.'-'.$_FILES[$fieldname]['name'];
+        }
+
+        // move the file to its final location and allocate the new filename to it 
+        @move_uploaded_file($_FILES[$fieldname]['tmp_name'], $uploadFilename) 
+            or error('receiving directory insuffiecient permission', $uploadURL); 
+    }
 
     $_SESSION['album_id'] = $album_id;
     $_SESSION['photo_path'] = $pathname;

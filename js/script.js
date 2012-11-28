@@ -1,13 +1,23 @@
+function setupSwapFade(a, b, c) {
+	$(a).click(function() {
+		$(b).fadeOut('fast', function() {
+			$(c).fadeIn();
+		});
+	});
+}
+
+
 $(document).ready(function() {
 
-	$("#advSearchToggle").click(function() {
-		console.log("click");
-		if ($(this).children().hasClass("icon-chevron-down"))
-			$(this).children().removeClass("icon-chevron-down").addClass("icon-chevron-up");
-		else
-			$(this).children().removeClass("icon-chevron-up").addClass("icon-chevron-down");
-		
-		$("#advSearch").slideToggle();
+	setupSwapFade("#gotoSignIn", "#notSignedIn", "#signInFormContainer");
+	setupSwapFade("#closeBtn", "#signInFormContainer", "#notSignedIn");
+	
+	$("#signInBtn").click(function() {
+		$("#signInForm").submit();
+	});
+	
+	$("#searchBtn").click(function() {
+		$("#searchForm").submit();
 	});
 	
 });

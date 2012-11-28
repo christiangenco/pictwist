@@ -17,7 +17,7 @@
     {
             $_SESSION['error'] = 'Error! You must be logged in to upload photos!';
             redirect($logoutURL);
-    }    
+    }
 ?>
 
 <form id="Upload" action="<?php echo $uploadHandlerURL ?>" enctype="multipart/form-data" method="post"> 
@@ -27,7 +27,7 @@
     </h1> 
      
     <p> 
-        <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $max_file_size ?>"> 
+        <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $max_file_size ?>" /> 
     </p> 
     
     <p>
@@ -48,11 +48,11 @@
 
     <p> 
         <label for="file">Files to Upload:</label> 
-        <input id="file" type="file" name="file"> 
+        <input id="file" type="file" name="file" /> 
     </p> 
              
     <p> 
-        <input id="submit" type="submit" name="submit" value="Proceed"> 
+        <input id="submit" type="submit" name="submit" value="Proceed" /> 
     </p> 
  
 </form>

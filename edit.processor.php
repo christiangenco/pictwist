@@ -9,14 +9,22 @@
     {
         connectToDb();
         // update photo info
-        $title = "\"".$_POST['title']."\"";
-        $query = "Update photos SET title = '". $title . "' where id = " . $_SESSION['photo_id'] . ";";
-        $result = sql($query);
+        if(isset($_POST['title']))
+        {
+            $title = "\"".$_POST['title']."\"";
+            $query = "Update photos SET title = '". $title . "' where id = " . $_SESSION['photo_id'] . ";";
+            $result = sql($query);
+        }
+        
         // -> update private/public
         // -> update description
-        $description = "\"".$_POST['description']."\"";
-        $query = "Update photos SET description = '". $description . "' where id = " . $_SESSION['photo_id'] . ";";
-        $result = sql($query);
+        if(isset($_POST['description']))
+        {
+            $description = "\"".$_POST['description']."\"";
+            $query = "Update photos SET description = '". $description . "' where id = " . $_SESSION['photo_id'] . ";";
+            $result = sql($query);
+        }
+        
         if(!$result)
         {
             $_SESSION['error'] = "Photo information could not be updated.";
@@ -28,9 +36,12 @@
         $result = 0;
         foreach($_POST['tag'] as $index=>$type)
         {
-            $query = "insert into tags(type, text, photo_id) values('" . $_POST['tag'][$index] . "', '" . $_POST['tagContent'][$index] . "', '" . $_SESSION['photo_id'] . "');";
-            $result_temp = sql($query);
-            if(!$result_temp){$result++;}
+            if($_POST['tagContent']['index'] != "")
+            {
+                $query = "insert into tags(type, text, photo_id) values('" . $_POST['tag'][$index] . "', '" . $_POST['tagContent'][$index] . "', '" . $_SESSION['photo_id'] . "');";
+                $result_temp = sql($query);
+                if(!$result_temp){$result++;}
+            }
         }
         if($result > 0)
         {
@@ -51,7 +62,7 @@
         }
         else
         {
-            redirect($profileURL);
+            redirect($viewURL);
         }
     } 
     else

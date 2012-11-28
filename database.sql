@@ -34,6 +34,7 @@ FOR EACH ROW SET NEW.updated_at = NOW(), NEW.created_at = OLD.created_at;
 CREATE TABLE albums(
   id INTEGER PRIMARY KEY AUTO_INCREMENT,
   title VARCHAR(255),
+  description TEXT,
   private BOOLEAN DEFAULT FALSE,
   user_id INTEGER,
   FOREIGN KEY (user_id) REFERENCES users(id)
