@@ -21,7 +21,7 @@
     {
       die('Error: ' . mysql_error());
     }
-
+    //go back to albums page
     redirect($albumsURL);
 
 ?>

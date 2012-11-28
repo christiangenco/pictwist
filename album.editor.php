@@ -1,7 +1,7 @@
 <?php INCLUDE 'include/head.php'; ?>
 
 <?php
-    
+    //passing of album_id
     session_start();
     $_SESSION['album_id'] = $_POST['album_id'];
 

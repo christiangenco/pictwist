@@ -1,8 +1,6 @@
 <?php INCLUDE 'include/head.php';?>
 
 <?php
-	// set a max file size for the html upload form 
-    $max_file_size = 10000000; // size in bytes (AKA 10 MB)
 
     if(isset($currentUser['id']) && $currentUser['id'] > 0)
     {

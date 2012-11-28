@@ -20,6 +20,7 @@
 
     $title = $_POST['title'];
 
+    //if no title is entered
     if(empty($title))
     {
         $title = "New Album" . $album_num;

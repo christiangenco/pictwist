@@ -1,6 +1,7 @@
 <?php INCLUDE 'include/head.php';?>
 
 <?php
+    //to pass album_id
     session_start();
     $albumsURL = $baseURL . 'albums.php';
     $edit = $baseURL . 'album.editor.php';
