@@ -1,90 +1,40 @@
 <?php INCLUDE 'include/head.php';?>
 <?php
+    redirect_if_not_logged_in($logoutURL, "Error! You must be logged in to edit photos!");
     connectToDb();
-    $upload = false;
-    if(!isset($currentUser['id']) || $currentUser['id'] <= 0)
+    if(isset($_REQUEST['p_id']))
     {
-        $_SESSION['error'] = 'Error! You must be logged in to upload photos!';
-        redirect($logoutURL);
-    } 
-    if(isset($_SESSION['photo_path']) && isset($_SESSION['album_id']))
-    {
-        $album_id = $_SESSION['album_id'];
-        $pathname = $_SESSION['photo_path'];
-        unset ($_SESSION['album_id']);
-        unset ($_SESSION['photo_path']);
-
-        $query = "insert into photos(path, album_id) values('" . $pathname . "', " . $album_id . ");";
-        $result = sql($query);
-        if(!$result)
-        {
-            $_SESSION['error'] = 'Error! Your photo could not be uploaded. Please try again.';
-            $_SESSION['redirect'] = $uploadURL;
-            unlink($pathname);
-            redirect($errorURL);
-        }
-        else
-        {
-            $query = "select id from photos where path = '".$pathname."';";
-            $result_id = sql($query);
-            while($row = mysql_fetch_array($result_id))
-            {
-                $photo_id = $row[id];
-            }
-            $_SESSION['photo_id'] = $photo_id;
-            $upload = true;
-        }
-        //"select title, path from photos where id='$pid';";
-    }
-    else if(isset($_REQUEST['p_id']))
-    {
-        $photo_id = $_REQUEST['p_id'];
+        $photo_id = params('p_id');
         $_SESSION['photo_id'] = $photo_id;
     }
     else if(isset($_SESSION['photo_id']))
     {
         $photo_id = $_SESSION['photo_id'];
     }
-    if(!isset($photo_id))
+    errorRedirect(!isNotNull($photo_id), 'Error! You need to select a photo to edit.', $profileURL);
+   
+    $query = "UPDATE photos SET views = views + 1 WHERE id = ".$photo_id.";";
+    $result = sql($query);
+    $query = "select title, description, path, private, album_id from photos where id = '".$photo_id."';";
+    $result_photo = sql($query);
+    if($row = mysql_fetch_array($result_photo))
     {
-        if($upload == true)
-        {
-            $_SESSION['error'] = 'Error! Your photo could not be uploaded. Please try again.';
-            $_SESSION['redirect'] = $uploadURL;
-            redirect($errorURL);
-        }
-        else
-        {
-            $_SESSION['error'] = 'Error! You need to select a photo to edit.';
-            $_SESSION['redirect'] = $profileURL;
-            redirect($errorURL);
-        }
+        $size = getimagesize($row['path']);
+        $photo = array(
+            "id" => $photo_id,
+            "title" => $row['title'],
+            "path" => $row['path'],
+            "private" => $row['private'],
+            "album_id" => $row['album_id'],
+            "description" => $row['description'],
+            "width" => $size[0],
+            "height" => $size[1]
+        );
     }
-    else
-    {
-        // ######## add to views.php!!!!
-        $query = "UPDATE photos SET views = views + 1 WHERE id = ".$photo_id.";";
-        $result = sql($query);
-        $query = "select title, description, path, private, album_id from photos where id = '".$photo_id."';";
-        $result_photo = sql($query);
-        while($row = mysql_fetch_array($result_photo))
-        {
-            $size = getimagesize($row['path']);
-            $photo = array(
-                "id" => $photo_id,
-                "title" => $row['title'],
-                "path" => $row['path'],
-                "private" => $row['private'],
-                "album_id" => $row['album_id'],
-                "description" => $row['description'],
-                "width" => $size[0],
-                "height" => $size[1]
-            );
-        }
-        if(isset($photo['id'])) {$_SESSION['parent'] = $photo['id'];}
-        $query = "select id, type, text from tags where photo_id = '".$photo['id']."';";
-        $result_tags = sql($query);
-    }
+    if(isNotNull($photo['id'])) {$_SESSION['parent'] = $photo['id'];}
+    $query = "select id, type, text from tags where photo_id = '".$photo['id']."';";
+    $result_tags = sql($query);
+
     
     
 ?>

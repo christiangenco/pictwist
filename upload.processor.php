@@ -1,7 +1,8 @@
 <?php INCLUDE 'include/head.php'; ?>
 
 <?php
-	 // directory that will recieve the uploaded file 
+	redirect_if_not_logged_in($logoutURL, "Error! You must be logged in to upload photos!");
+    // directory that will recieve the uploaded file 
     $uploadsDirectory = getcwd().'/' . 'uploaded_files/';
     
     //relative path to image from current directory
@@ -9,6 +10,7 @@
     
     // fieldname used within the file <input> of the HTML form 
     $fieldname = 'file';
+    $uid = $currentUser['id'];
 
     // possible PHP upload errors 
     $errors = array(1 => 'php.ini max file size exceeded', 
@@ -16,22 +18,12 @@
                     3 => 'file upload was only partial', 
                     4 => 'no file was attached');
     
-    if(isset($currentUser['id']) && $currentUser['id'] > 0 && isset($_POST['album_id']))
-    {
-        $uid = $currentUser['id'];
-        $album_id = $_POST['album_id'];
-    }
-    else if(!isset($currentUser['id']) || isset($currentUser['id'])<= 0)
-    {
-        $_SESSION['error'] = 'Error! You must be logged in to upload photos!';
-        redirect($logoutURL); 
-    }
-    else
-    {
-        $_SESSION['error'] = 'Error! You need to select an album to save you photo.';
-        $_SESSION['redirect'] = $uploadURL;
-        redirect($errorURL);
-    }
+    errorRedirect(
+        !isNotNull($_REQUEST['album_id']), 
+        'Error! You need to select an album to save you photo.', 
+        $uploadURL);
+
+    $album_id = params('album_id');// should come from a POST
     
     $now = time();
 
@@ -74,9 +66,9 @@
             or error('receiving directory insuffiecient permission', $uploadURL); 
     }
 
-    $_SESSION['album_id'] = $album_id;
-    $_SESSION['photo_path'] = $pathname;
-    redirect($editURL);
+    //$_SESSION['album_id'] = $album_id;
+    //$_SESSION['photo_path'] = $pathname;
+    redirect($editURL."?album_id=".$album_id."&photo_path=".$pathname);
     
     // The following function is an error handler which is used 
     // to output an HTML error page if the file upload fails 

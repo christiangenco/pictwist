@@ -14,7 +14,7 @@ CREATE TABLE users(
   id INTEGER PRIMARY KEY AUTO_INCREMENT,
   email VARCHAR(255) UNIQUE NOT NULL,
   password_hash VARCHAR(255) NOT NULL,
-  name VARCHAR(255),
+  name VARCHAR(255) NOT NULL,
   city VARCHAR(255),
   state VARCHAR(255),
   country VARCHAR(255),
@@ -36,7 +36,7 @@ CREATE TABLE albums(
   title VARCHAR(255),
   description TEXT,
   private BOOLEAN DEFAULT FALSE,
-  user_id INTEGER,
+  user_id INTEGER NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users(id)
     ON UPDATE Cascade
     ON DELETE Cascade,
@@ -57,7 +57,7 @@ CREATE TABLE photos(
   private BOOLEAN DEFAULT FALSE,
   views INTEGER DEFAULT 0,
   parent_photo_id INTEGER,
-  album_id INTEGER,
+  album_id INTEGER NOT NULL,
   FOREIGN KEY (parent_photo_id) REFERENCES photos(id)
     ON UPDATE Cascade
     ON DELETE Cascade,

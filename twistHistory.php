@@ -38,6 +38,8 @@
 				}
 				
 			});
+
+			$('#currentPhoto').click();
 			//alert("leaving...");
 		});
 	</script>
@@ -87,7 +89,7 @@
 	}
 
 	echo "<br/><p>Current Photo</p>";
-	echo '<a id="' . $current_photo[p_id] . '" class="fancybox-iframe" rel="g1" href="'.$viewLightBoxURL.'?p_id=' . $current_photo[p_id] . '">'.
+	echo '<a id="currentPhoto" class="fancybox-iframe" rel="g1" href="'.$viewLightBoxURL.'?p_id=' . $current_photo[p_id] . '">'.
 		'<img src="'.$current_photo[path].'" height=100 width=100 alt="'.$current_photo[title].'"></a>';
 
 	// select child ids
@@ -108,7 +110,7 @@
 		echo '<a id="' . $child_photo[p_id] . '" class="fancybox-iframe" rel="g1" href="'.$viewLightBoxURL.'?p_id=' . $child_photo[p_id] . '">'.
 		'<img src="'.$child_photo[path].'" height=100 width=100 alt="'.$child_photo[title].'"></a>';
 	}
-	if(!isset($child_photo['id']))
+	if(!isset($child_photo['p_id']))
 	{
 		echo "<p>There are no children</p>";
 	}		

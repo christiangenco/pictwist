@@ -1,47 +1,22 @@
 <?php INCLUDE 'include/head.php';?>
 <?php
+    redirect_if_not_logged_in($logoutURL, "Error! You must be logged in to contribute!");
+    errorRedirect(!isset($_SESSION['photo_id']), "Tag could not be added.", $viewURL);
     connectToDb();
-    if(isset($_SESSION['error']))
-    {
-        unset($_SESSION['error']);
-    }
-    if(isset($_POST['submit']) && isset($_SESSION['photo_id']))
-    {
-        connectToDb();
-        //$error = "";
-        // add new tags
-        if(isset($_POST['tag']) && $_POST['tagContent'] != "")
+       if(isset($_POST['tagContent']) && $_POST['tagContent'] !== "")
         {
             $query = "insert into tags(type, text, photo_id) values('" . $_POST['tag'] . "', '" . $_POST['tagContent'] . "', '" . $_SESSION['photo_id'] . "');";
             $result = sql($query);
-            if(!$result)
-            {
-                //$error = 
-                $_SESSION['error'] = "Tag could not be added.";
-                $_SESSION['redirect'] = $editURL;
-                redirect($errorURL);
-            }
+            errorRedirect(!$result, "Tag could not be added.", $viewURL);
         }
-        if(isset($_POST['comment']) && $_POST['comment'] != "")
+        if(isset($_POST['comment']) && $_POST['comment'] !== "")
         {
             $query = "insert into comments(text, user_id, photo_id) values('" . $_POST['comment'] . "', '" . $currentUser[id] . "', '" . $_SESSION['photo_id'] . "');";
             $result = sql($query);
-            if(!$result)
-            {
-                //$error = 
-                $_SESSION['error'] = "Comment could not be posted.";
-                $_SESSION['redirect'] = $editURL;
-                redirect($errorURL);
-            }
+            errorRedirect(!$result, "Comment could not be posted.", $viewURL);
         }
         if($_POST['lightbox']){redirect($viewLightBoxURL);}
-        else{redirect($viewURL);}
-    } 
-    else
-    {
-        $_SESSION['error'] = 'Error! No photo selected for editing.';
-        $_SESSION['redirect'] = $profileURL;
-        redirect($errorURL);
-    }
+        else
+            {redirect($viewURL);}
 ?>
 <?php INCLUDE 'include/foot.php' ?>
