@@ -77,6 +77,12 @@
   // URL of deletion handler script
   $deleteHandlerURL = $baseURL . 'delete.processor.php';
 
+  // URL of deletion handler script
+  $editInfoURL = $baseURL . 'editInfo.php';
+  
+  // URL of deletion handler script
+  $editInfoHandlerURL = $baseURL . 'editInfo.processor.php';
+  
   // ### DATABASE ###
 
   // usage: call connectToDb() on every page you need to

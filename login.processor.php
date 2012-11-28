@@ -60,7 +60,7 @@
 		$_SESSION['redirect'] = $loginURL;
 		redirect($loginURL);
 	}
-	else //if(!isset($_POST['email']) || !isset($_POST['pwd']))
+	else
 	{
 		//echo "Username or Password are missing. Please try again.";
 		$_SESSION['error'] = "Username or Password is missing. Please try again!";
