@@ -33,6 +33,8 @@
 			$country = ($_POST['country']);
 			$bio = ($_POST['bio']);
 
+			$hash = password_hash($pwd, PASSWORD_BCRYPT, array("cost" => 7, "salt" => "usesomesillystringforf"));
+			
 			//$bio = mysql_real_escape_string($_POST['bio']);
 			/////////////////////////////
 			if (!empty($name) && !empty($email) && !empty($pwd))// && !empty($password2) && ($password1 == $password2)) {
@@ -44,14 +46,32 @@
 				{
 					//Email is unique so insert the data into the database
 					//////can add join_date -- NOW()
+					//$hash = password_hash($pwd, PASSWORD_BCRYPT, array("cost" => 7, "salt" => "usesomesillystringforf"));
+				
+					/*just to check that the hashing works*/
+					//echo "HASH: " . $hash . "\n";
+					//echo "PS: " . $pwd;
+					/*
+					if (password_verify($pwd, $hash))
+					{
+						echo " --- password hash works!!!";
+					}
+					else
+					{
+						echo " --- password hash FAIL!!!";
+						exit();
+					}*/
+					
 					$addUserInfo = "INSERT INTO users(name, email, password_hash, city, state, country, bio)
 					values('$name', '$email', '$hash','$city', '$state', '$country', '$bio');";
-					mysql_query($addUserInfo);
+					$added = mysql_query($addUserInfo);
 					//Confirm success with the user
 					echo '<p>Your new account has been successfully created. You\'re now ready to <a href="login.php">log in</a>.</p>';
-					mysql_close($con);
+					//mysql_close($con);
 					//exit();
 					$_SESSION['redirect'] = $login;
+					
+					$hash = password_hash($pwd, PASSWORD_BCRYPT, array("cost" => 7, "salt" => "usesomesillystringforf"));
 				}
 				else
 				{
@@ -81,55 +101,5 @@
 		}
 		
 	}
-	//echo "You are Registered!";
-	//echo "<script>window.location = '$profile'</script>";	
-/*	
-			
-			$query = "SELECT email, id FROM users WHERE email='$email'";
-			//echo "QUERY: " . $query . "<br/>";
-			$result = mysql_query($query);
-			
-			$row = mysql_fetch_array($result);
-			$savedEmail = $row['email'];
-			$id = $row['id'];
-			
-			if($savedEmail == $email)
-			{
-				echo "Email already has an account!";
-				//$_SESSION['uid'] = $id;
-				//REDIRECTS WITHOUT WARNING SAYING THAT THE EMAIL ENTERED ALREADY IS A REGISTERED MEMEBER!!!!!!!!
-				//echo "<script>window.location = '$login'</script>";
-				//header('Location: ' . $login); 
-				//header("Location: list.php");
-				
-			}
-			else
-			{
-				$hash = password_hash($pwd, PASSWORD_BCRYPT, array("cost" => 7, "salt" => "usesomesillystringforf"));
-				
-				/*just to check that the hashing works*/
-				//echo "HASH: " . $hash . "\n";
-				//echo "PS: " . $pwd;
-				/*
-				if (password_verify($pwd, $hash))
-				{
-					echo " --- password hash works!!!";
-				}
-				else
-				{
-					echo " --- password hash FAIL!!!";
-				}
-				/**********************/
-				/*
-				$addUserInfo = "INSERT INTO users(name, email, password_hash, city, state, country, bio)
-					values('$name', '$email', '$hash','$city', '$state', '$country', '$bio');";
-				//echo "info ADDED****: '$addUserInfo' ";
-				$added = mysql_query($addUserInfo);
-				//header('Location: ' . $login);
-				$registered = true;
-				//REDIRECTS TO LOGIN
-				echo "<script>window.location = '$login'</script>";
-			}
-		}*/
 ?>
 <?php INCLUDE 'include/foot.php' ?>
