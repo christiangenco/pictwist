@@ -157,11 +157,29 @@
     redirect('logoutURL.php');
   }
 
+  function isNotNull($var){
+    if(isset($var) && $var != "")
+      {return true;}
+    else 
+      {return false;}
+  }
+  
   // usage: redirect("http://google.com")
   function redirect($url){
     header("HTTP/1.1 307 Temporary Redirect");
     header("Location: $url");
   }
+
+  function errorRedirect($condition, $error, $redirect){
+    if($condition)
+    {
+      $_SESSION['error'] = $error;;
+      $_SESSION['redirect'] = $redirect;
+      redirect($errorURL);
+    }
+  }
+
+  
 
   // usage: params("username")
   // escapes the strings so you can insert things returned by
