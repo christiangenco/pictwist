@@ -96,15 +96,16 @@
   function isLoggedIn(){
     // TODO: make this actually return true if user is logged in
     // false if not
+    $currentUser = getCurrentUser();
     if(isset($_SESSION['uid']) || ( isset($currentUser['id']) && $currentUser['id'] > 0 )) 
-      { return true; }
+      { return TRUE; }
     else 
-      { return false; }
+      { return FALSE; }
   }
 
-  function redirect_if_not_logged_in($redirectURL){
+  function redirect_if_not_logged_in($redirectURL, $msg="You must be logged in to view this page"){
     if(!isLoggedIn()){
-      $_SESSION['error'] = "You must be logged in to view this page";
+      $_SESSION['error'] = $msg;
       $_SESSION['redirect'] = $redirectURL;
       redirect($errorURL);
     }
@@ -121,27 +122,83 @@
     if(isset($_SESSION['mname'])) { $mname = $_SESSION['mname']; }
     else { $mname = "Nicole Sliwa"; $_SESSION['mname'] = $mname;}
 
-    $currentUser = array("username" => $uname, "id" => $uid, "name" => $mname);
+    if(isset($_SESSION['admin'])) {$admin = $_SESSION['admin'];}
+    else { $admin = true; $_SESSION['admin'] = $admin;}
+
+    $currentUser = array("username" => $uname, "id" => $uid, "name" => $mname, "admin" => $admin);
     
     return $currentUser;
   }
-
-  $currentUser = getCurrentUser();
-
-  function isOwner($photo_id)
+/*
+  function isRestrictedPhoto($photo_id, $album_id=containingAlbum($photo_id), $privatePhoto=isPrivatePhoto($photo_id), $privateAlbum=isPrivateAlbum($album_id))
   {
-    $uid = $currentUser['id'];
-    $query = "Select p.id FROM users u JOIN albums a JOIN photos p WHERE u.id=a.user_id AND a.id=p.album_id AND u.id=".$uid." AND p.id=".$photo_id.";";
+    if(!$privatePhoto)
+      {return false;}
+    if(!isLoggedIn())
+      {return true;}
+    if(isOwner($photo_id))
+      {return false;}
+    if{isAdmin()}
+      {return false;}
+    if(isShared($photo_id)
+      {return false;}
+      return true;
+  }
+
+  function
+  */
+
+  function isShared($album_id)
+  {
+    if(!isLoggedIn())
+      {return false;}
+    $currentUser = getCurrentUser();
+    $query = "SELECT user_id, album_id FROM Shared WHERE user_id = ".$currentUser['id']." AND album_id = ".$album_id.";";
+    $result = sql($query);
+    if(!$result)
+      {return FALSE;}
+    return TRUE;
+  }
+
+  function isPrivatePhoto($photo_id)
+  {
+    $query = "SELECT private from Photos WHERE id = ".$photo_id.";";
     $result = sql($query);
     if($row = mysql_fetch_array($result))
     {
-      return true;
+      return $row['private'];
     }
-    return false;
+    else return FALSE;
+  }
+  function isOwner($photo_id)
+  {
+    $currentUser = getCurrentUser();
+    $uid = $currentUser['id'];
+    //echo "uid: " . $uid . " current: " . $currentUser['id'];
+    $query = "Select p.id FROM users u JOIN albums a JOIN photos p WHERE u.id=a.user_id AND a.id=p.album_id AND u.id=".$uid." AND p.id=".$photo_id.";";
+    //echo $query;
+    $result = sql($query);
+    //echo "result: " . $result;
+    if($row = mysql_fetch_array($result))
+    {
+      echo "pid: " . $row['id'];
+      if($row['id'] === $photo_id)
+        {return TRUE;}
+      else
+        {return FALSE;}
+    }
+    return FALSE;
+    /*
+    if(!$result)
+      {return false;}
+    else
+      {return true;}
+      */
   }
 
   function isAdmin()
   {
+    $currentUser = getCurrentUser();
     $uid = $currentUser['id'];
     $query = "Select admin FROM users WHERE id = ".$uid.";";
     $result = sql($query);
@@ -149,7 +206,7 @@
     {
       return $row['admin'];
     }
-    return false;
+    return FALSE;
   }
 
   function logout(){
@@ -159,9 +216,9 @@
 
   function isNotNull($var){
     if(isset($var) && $var != "")
-      {return true;}
+      {return TRUE;}
     else 
-      {return false;}
+      {return FALSE;}
   }
   
   // usage: redirect("http://google.com")
@@ -173,13 +230,14 @@
   function errorRedirect($condition, $error, $redirect){
     if($condition)
     {
-      $_SESSION['error'] = $error;;
+      $_SESSION['error'] = $error;
       $_SESSION['redirect'] = $redirect;
       redirect($errorURL);
     }
   }
 
-  
+  $currentUser = getCurrentUser();
+  //echo print_r($currentUser);  
 
   // usage: params("username")
   // escapes the strings so you can insert things returned by

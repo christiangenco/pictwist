@@ -25,43 +25,7 @@
 <?php
     connectToDb();
     //$upload = false;
-    if(!isset($currentUser['id']) || $currentUser['id'] <= 0)
-    {
-        $_SESSION['error'] = 'Error! You must be logged in to upload photos!';
-        //redirect($logoutURL);
-        echo 'redirectParent(\''.$logoutURL.'\');';
-    } 
-    /*
-    if(isset($_SESSION['photo_path']) && isset($_SESSION['album_id']))
-    {
-        $album_id = $_SESSION['album_id'];
-        $pathname = $_SESSION['photo_path'];
-        unset ($_SESSION['album_id']);
-        unset ($_SESSION['photo_path']);
-
-        $query = "insert into photos(path, album_id) values('" . $pathname . "', " . $album_id . ");";
-        $result = sql($query);
-        if(!$result)
-        {
-            $_SESSION['error'] = 'Error! Your photo could not be uploaded. Please try again.';
-            $_SESSION['redirect'] = $uploadURL;
-            unlink($pathname);
-            redirect($errorURL);
-        }
-        else
-        {
-            $query = "select id from photos where path = '".$pathname."';";
-            $result_id = sql($query);
-            while($row = mysql_fetch_array($result_id))
-            {
-                $photo_id = $row[id];
-            }
-            $_SESSION['photo_id'] = $photo_id;
-            $upload = true;
-        }
-        //"select title, path from photos where id='$pid';";
-    }
-    else*/ if(isset($_REQUEST['p_id']))
+    if(isNotNull($_REQUEST['p_id']))
     {
         $photo_id = $_REQUEST['p_id'];
         $_SESSION['photo_id'] = $photo_id;
@@ -72,22 +36,11 @@
     }
     if(!isset($photo_id))
     {
-        if($upload == true)
-        {
-            $_SESSION['error'] = 'Error! Your photo could not be uploaded. Please try again.';
-            $_SESSION['redirect'] = $uploadURL;
-            //redirect($errorURL);
-            echo 'redirectParent(\''.$errorURL.'\');';
-            //echo "parent.location.href = ".$errorURL.";";
-        }
-        else
-        {
-            $_SESSION['error'] = 'Error! You need to select a photo to edit.';
-            $_SESSION['redirect'] = $profileURL;
-            //redirect($errorURL);
-            echo 'redirectParent(\''.$errorURL.'\');';
-            //echo "parent.location.href = ".$errorURL.";";
-        }
+        $_SESSION['error'] = 'Error! You need to select a photo to edit.';
+        $_SESSION['redirect'] = $profileURL;
+        //redirect($errorURL);
+        echo 'redirectParent(\''.$errorURL.'\');';
+        //echo "parent.location.href = ".$errorURL.";";
     }
     else
     {
@@ -96,7 +49,7 @@
         $result = sql($query);
         $query = "select title, description, path, private, album_id from photos where id = '".$photo_id."';";
         $result_photo = sql($query);
-        while($row = mysql_fetch_array($result_photo))
+        if($row = mysql_fetch_array($result_photo))
         {
             $photo_title = $row[title];
             $pathname = $row[path];
@@ -196,22 +149,5 @@
  
 </form> 
 
-<script>
-/*
-    function addTagField()
-    {
-        var newdiv = document.createElement('div');
-          newdiv.innerHTML = "<select name='tag[]'>"
-            +"<option value='location'>Location</option>"
-            +"<option value='camera type'>Camera Type</option>"
-            +"<option value='color'>Color</option>"
-            +"<option value='keyword'>Keyword</option>"
-            +"<option value='person'>Person</option>"
-            +"</select>" 
-            +"<input type='text' name='tagContent[]' value='tag'><br/>";
-          document.getElementById('tagsFields').appendChild(newdiv);
-    }
-    */
-</script>
 </body>
 </html>

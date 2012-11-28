@@ -1,23 +1,17 @@
 <?php INCLUDE 'include/head.php';?>
 
 <?php
-	// set a max file size for the html upload form 
+	redirect_if_not_logged_in($logoutURL, "Error! You must be logged in to upload photos!");
+
+    // set a max file size for the html upload form 
     $max_file_size = 10000000; // size in bytes (AKA 10 MB)
 
-    if(isset($currentUser['id']) && $currentUser['id'] > 0)
-    {
-        $uid = $currentUser['id'];
+    $uid = $currentUser['id'];
         
-        connectToDb();
+    connectToDb();
         
-        $query = "select id, title from albums where user_id='".$uid."';";
-        $result_albums = sql($query);
-    }
-    else
-    {
-            $_SESSION['error'] = 'Error! You must be logged in to upload photos!';
-            redirect($logoutURL);
-    }
+    $query = "select id, title from albums where user_id='".$uid."';";
+    $result_albums = sql($query);
 ?>
 
 <form id="Upload" action="<?php echo $uploadHandlerURL ?>" enctype="multipart/form-data" method="post"> 

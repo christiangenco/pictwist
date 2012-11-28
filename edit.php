@@ -1,18 +1,16 @@
 <?php INCLUDE 'include/head.php';?>
 <?php
+    redirect_if_not_logged_in($logoutURL, "Error! You must be logged in to edit photos!");
+
     connectToDb();
-    $upload = false;
-    if(!isset($currentUser['id']) || $currentUser['id'] <= 0)
+    $upload = FALSE;
+
+    if(isNotNull($_REQUEST['photo_path']) && isNotNull($_REQUEST['album_id']))
     {
-        $_SESSION['error'] = 'Error! You must be logged in to upload photos!';
-        redirect($logoutURL);
-    } 
-    if(isset($_SESSION['photo_path']) && isset($_SESSION['album_id']))
-    {
-        $album_id = $_SESSION['album_id'];
-        $pathname = $_SESSION['photo_path'];
-        unset ($_SESSION['album_id']);
-        unset ($_SESSION['photo_path']);
+        $album_id = params('album_id');
+        $pathname = params('photo_path');
+        //unset ($_REQUEST['album_id']);
+        //unset ($_REQUEST['photo_path']);
 
         if(isset($_SESSION['parent']))
         {
@@ -35,46 +33,40 @@
         {
             $query = "select id from photos where path = '".$pathname."';";
             $result_id = sql($query);
-            while($row = mysql_fetch_array($result_id))
+            if($row = mysql_fetch_array($result_id))
             {
                 $photo_id = $row[id];
             }
             $_SESSION['photo_id'] = $photo_id;
-            $upload = true;
+            $upload = TRUE;
         }
         //"select title, path from photos where id='$pid';";
     }
-    else if(isset($_REQUEST['p_id']))
+    else if(isNotNull($_REQUEST['p_id']))
     {
-        $photo_id = $_REQUEST['p_id'];
+        $photo_id = params('p_id');
         $_SESSION['photo_id'] = $photo_id;
     }
-    else if(isset($_SESSION['photo_id']))
+    else if(isNotNull($_SESSION['photo_id']))
     {
-        $photo_id = $_SESSION['photo_id'];
+        $photo_id = params('photo_id');
     }
-    if(!isset($photo_id))
+    if(!isNotNull($photo_id))
     {
-        if($upload == true)
-        {
-            $_SESSION['error'] = 'Error! Your photo could not be uploaded. Please try again.';
-            $_SESSION['redirect'] = $uploadURL;
-            redirect($errorURL);
-        }
-        else
-        {
-            $_SESSION['error'] = 'Error! You need to select a photo to edit.';
-            $_SESSION['redirect'] = $profileURL;
-            redirect($errorURL);
-        }
+        errorRedirect($upload, 'Error! Your photo could not be uploaded. Please try again.', $uploadURL);
+        errorRedirect(!$upload, 'Error! You need to select a photo to edit.', $profileURL);
     }
     else
     {
         // ######## add to views.php!!!!
+        //echo "owner: " . isOwner($photo_id);
+        header("Location: $loginURL");
+        errorRedirect(!isOwner($photo_id), "Error! You do not have permission to edit this photo!", $viewURL);
         $query = "UPDATE photos SET views = views + 1 WHERE id = ".$photo_id.";";
         $result = sql($query);
-        $query = "select title, description, path, private, album_id from photos where id = '".$photo_id."';";
+        $query = "select title, description, path, private, album_id from photos where id = ".$photo_id.";";
         $result_photo = sql($query);
+        errorRedirect(!$result_photo, "Error! No photo selected for editing.", $profileURL);
         while($row = mysql_fetch_array($result_photo))
         {
             $photo_title = $row[title];
@@ -83,7 +75,7 @@
             $album_id = $row[album_id];
             $description = $row[description];;
         }
-        $query = "select id, type, text from tags where photo_id = '".$photo_id."';";
+        $query = "select id, type, text from tags where photo_id = ".$photo_id.";";
         $result_tags = sql($query);
     }
     
