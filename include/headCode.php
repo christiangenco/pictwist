@@ -104,6 +104,7 @@
   }
 
   function redirect_if_not_logged_in($redirectURL, $msg="You must be logged in to view this page"){
+    global $errorURL;
     if(!isLoggedIn()){
       $_SESSION['error'] = $msg;
       $_SESSION['redirect'] = $redirectURL;
@@ -114,7 +115,7 @@
   function getCurrentUser(){
     // TODO: make this actually get the current user
     if(isset($_SESSION['uid'])) { $uid = $_SESSION['uid']; }
-    else { $uid = 2; $_SESSION['uid'] = $uid;}
+    else { $uid = -1; $_SESSION['uid'] = $uid;}
 
     if(isset($_SESSION['uname'])) { $uname = $_SESSION['uname']; }
     else { $uname = "nsliwa@smu.edu"; $_SESSION['uname'] = $uname;}
@@ -223,17 +224,34 @@
   
   // usage: redirect("http://google.com")
   function redirect($url){
+    echo "redirecting to '$url'";
     header("HTTP/1.1 307 Temporary Redirect");
     header("Location: $url");
   }
 
   function errorRedirect($condition, $error, $redirect){
+    global $errorURL;
+    //echo "start<br/>";
+    if($condition == TRUE)
+    {
+      //echo "!!!!true!!!!";
+      $_SESSION['error'] = $error;
+      $_SESSION['redirect'] = $redirect;
+      //header("Location: ". $redirect);
+      redirect($errorURL);
+    }
+    else
+      {//echo "!!!!false!!!!";
+
+      }
+    /*
     if($condition)
     {
       $_SESSION['error'] = $error;
       $_SESSION['redirect'] = $redirect;
       redirect($errorURL);
     }
+    */
   }
 
   $currentUser = getCurrentUser();

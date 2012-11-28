@@ -60,7 +60,7 @@
     {
         // ######## add to views.php!!!!
         //echo "owner: " . isOwner($photo_id);
-        header("Location: $loginURL");
+        //header("Location: $loginURL");
         errorRedirect(!isOwner($photo_id), "Error! You do not have permission to edit this photo!", $viewURL);
         $query = "UPDATE photos SET views = views + 1 WHERE id = ".$photo_id.";";
         $result = sql($query);
