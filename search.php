@@ -57,7 +57,7 @@
 			$adv_search = substr($adv_search, 1);
 			$search_tag = (explode("#", $adv_search));
 			
-			if(!$currentUser['admin'])
+			if($currentUser['admin'] == FALSE)
 			{
 				foreach ($search_tag as $index => $tags) {
 				$search_seg = (explode(":", $tags));
@@ -164,6 +164,7 @@
 
 			else
 			{
+				echo "<br/>admin<br/>";
 				foreach ($search_tag as $index => $tags) {
 					$search_seg = (explode(":", $tags));
 					$tag = trim($search_seg[0]);
@@ -221,6 +222,7 @@
 					}
 					else
 					{
+
 							foreach ($search_query as $key => $q) {
 							//echo '<p>adv: '.$adv_search.' s_tag: '.$search_tag.' s_seg: '.$search_seg.' tag: '.$tag.' q:'.$q.' </p>';
 							//echo '<br/>pre-subquery:<br/>' . $query . '<br/><br/>';
@@ -266,7 +268,7 @@
 					//echo '<br/>pre-subquery:<br/>' . $query . '<br/>k: ' . $q . '<br/>';
 					if(!$currentUser['admin'])
 					{
-						$query = $query . " (id IN (SELECT p.id FROM photos p LEFT JOIN tags t ON  JOIN albums a LEFT JOIN shared s ON p.id = t.photo_id a.id=s.album_id"
+						$query = $query . " (id IN (SELECT p.id FROM photos p LEFT JOIN tags t ON p.id = t.photo_id JOIN albums a LEFT JOIN shared s ON a.id=s.album_id"
 										." WHERE p.album_id = a.id AND (t.text LIKE '%".$q."%' OR p.title LIKE '%".$q."%' OR p.description LIKE '%".$q."%') AND"
 										." ("
 										." (p.private=0 AND a.private=0) OR"
@@ -279,6 +281,7 @@
 
 					else
 					{
+						echo "<br/>admin<br/>";
 						$query = $query . " (id IN (SELECT p.id FROM photos p LEFT JOIN tags t ON p.id = t.photo_id"
 						." WHERE (t.text LIKE '%".$q."%' OR p.title LIKE '%".$q."%' OR p.description LIKE '%".$q."%')"
 						." GROUP BY p.id"
@@ -291,6 +294,7 @@
 		}
 
 		$query = $query . " GROUP BY id ORDER BY views desc;";
+		//echo $query . '<br/>';
 		//echo $query . '<br/><br/>';
 		$result_search = sql($query);
 			while($row = mysql_fetch_array($result_search))
