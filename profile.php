@@ -41,6 +41,10 @@
 			//alert("leaving...");
 		});
 	</script>
+
+		<form method="post" action="editinfo.php">
+			<input type="submit" value="My Account">
+		</form>
 </head>
 <?php INCLUDE_ONCE 'include/headBody.php' ?>
 
