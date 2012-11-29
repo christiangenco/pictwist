@@ -1,6 +1,6 @@
 <?php INCLUDE 'include/head.php'; ?>
 <?php
-
+	require_once "password.php";
     if(isset($currentUser['id']) && $currentUser['id'] > 0)
     {
         $uid = $currentUser['id'];
@@ -15,6 +15,8 @@
 	
 	$id = $row['id'];
 	$name = $row['name'];
+	$oldpwd = $row['password_hash'];
+	//$newpwd = $_POST[''];
 	$city = $row['city'];
 	$state = $row['state'];
 	$country = $row['country'];
@@ -30,17 +32,18 @@
 	
 	
     }
-    /*else
-    {
-            $_SESSION['error'] = 'Error! You must be logged in to upload photos!';
-            redirect($logoutURL);
-    }*/
+
 ?>
 <?php //INCLUDE 'include/foot.php' ?>
+
+
 <form id="My Account" method="post" action="editInfo.processor.php" enctype="multipart/form-data">
   <input type="hidden" name="id" value="<?php echo $id;?>">
   <ul>
     <li>Name: <input type="text" name="name" value="<?php echo $name;?>">
+    <li>Old Password: <input type="password" name="oldpwd" value="<?php echo $oldpwd;?>">
+    <li>New Password: <input type="password" name="newpwd" value="<?php echo $newpwd;?>">
+    <li>Confirm New Password: <input type="password" name="confirmNew" value="<?php echo $confirmNew;?>">
     <li>City: <input type="text" name="city" value="<?php echo $city;?>">
     <li>State: <input type="text" name="state" value="<?php echo $state;?>">
     <li>Country: <input type="text" name="country" value="<?php echo $country;?>">
@@ -49,5 +52,8 @@
         <input type="radio" name="isadmin" value="no" //<?php echo $no_status;?>>No -->
   </ul>
 
-  <input type="submit" name="submit" value="Save">
+  <input type="submit" name="submit" value="Save Changes">
+</form>
+<form method="post" action="profile.php">
+	<br><input type="submit" value="Cancel">
 </form>
