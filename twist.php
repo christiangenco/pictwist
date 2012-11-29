@@ -51,7 +51,7 @@
             </div> -->
         </div>
 
-        <div style="clear:both" />
+        <div style="clear:both"></div>
 
     </div>
     Select Album:
