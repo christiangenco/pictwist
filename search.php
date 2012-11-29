@@ -48,7 +48,7 @@
 	connectToDb();
 	if(isset($_REQUEST['query']) && trim($_REQUEST['query']) !== "")
 	{
-		$query = "SELECT id, title, path from photos WHERE";
+		$query = "SELECT id, title, path, album_id from photos WHERE";
 
 		if($_REQUEST['query'][0] == '#')
 		{
@@ -299,7 +299,7 @@
 		$result_search = sql($query);
 			while($row = mysql_fetch_array($result_search))
 			{
-				echo '<a id="' . $row[id] . '" class="fancybox-iframe" rel="g1" href="'.$viewLightBoxURL.'?p_id=' . $row[id] . '">'.
+				echo '<a id="' . $row[id] . '" class="fancybox-iframe" rel="g1" href="'.$viewLightBoxURL.'?p_id=' . $row[id] . '&a_id=' . $row[album_id] . '">'.
 					'<img src="'.$row[path].'" height=100 width=100 alt="'.$row[title].'"></a>';
 			}
 	}

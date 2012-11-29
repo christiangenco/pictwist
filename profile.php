@@ -50,11 +50,11 @@
 
 <?php
 	connectToDb();
-	$query = "select a.title, p.id, p.path from albums a JOIN photos p where a.id = p.album_id AND user_id='$currentUser[id]' order by a.id desc;";
+	$query = "select p.album_id, a.title, p.id, p.path from albums a JOIN photos p where a.id = p.album_id AND user_id='$currentUser[id]' order by a.id desc;";
 	$result = mysql_query($query);
 	while($row = mysql_fetch_array($result))
 	{
-		echo '<a id="' . $row[id] . '" class="fancybox-iframe" rel="g1" href="'.$viewLightBoxURL.'?p_id=' . $row[id] . '">'.
+		echo '<a id="' . $row[id] . '" class="fancybox-iframe" rel="g1" href="'.$viewLightBoxURL.'?p_id=' . $row[id] . '&a_id=' . $row[album_id] . '">'.
 			'<img src="'.$row[path].'" height=100 width=100 alt="'.$row[title].'"></a>';
 	}
 ?>

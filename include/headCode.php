@@ -124,10 +124,10 @@
     else { $uid = -1; $_SESSION['uid'] = $uid;}
 
     if(isset($_SESSION['uname'])) { $uname = $_SESSION['uname']; }
-    else { $uname = "nsliwa@smu.edu"; $_SESSION['uname'] = $uname;}
+    else { $uname = "Visitor"; $_SESSION['uname'] = $uname;}
 
     if(isset($_SESSION['mname'])) { $mname = $_SESSION['mname']; }
-    else { $mname = "Nicole Sliwa"; $_SESSION['mname'] = $mname;}
+    else { $mname = "Unknown"; $_SESSION['mname'] = $mname;}
 
     if(isset($_SESSION['admin'])) {$admin = $_SESSION['admin'];}
     else { $admin = FALSE; $_SESSION['admin'] = $admin;}
@@ -183,17 +183,20 @@
     $uid = $currentUser['id'];
     //echo "uid: " . $uid . " current: " . $currentUser['id'];
     $query = "Select p.id FROM users u JOIN albums a JOIN photos p WHERE u.id=a.user_id AND a.id=p.album_id AND u.id=".$uid." AND p.id=".$photo_id.";";
-    //echo $query;
+    //echo "query: " . $query . "<br/>";
     $result = sql($query);
     //echo "result: " . $result;
     if($row = mysql_fetch_array($result))
     {
       echo "pid: " . $row['id'];
       if($row['id'] === $photo_id)
-        {return TRUE;}
+        {//echo "OWNER=true"; 
+      return TRUE;}
       else
-        {return FALSE;}
+        {//echo "OWNER=false1"; 
+      return FALSE;}
     }
+    //echo "OWNER=false2";
     return FALSE;
     /*
     if(!$result)
