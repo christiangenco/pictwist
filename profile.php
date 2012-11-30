@@ -47,7 +47,11 @@
 		</form>
 </head>
 <?php INCLUDE_ONCE 'include/headBody.php' ?>
+<div id="user info">
 
+	
+</div>
+<div id="album info">
 <?php
 	connectToDb();
 	$query = "select p.album_id, a.title, p.id, p.path from albums a JOIN photos p where a.id = p.album_id AND user_id='$currentUser[id]' order by a.id desc;";
@@ -58,5 +62,6 @@
 			'<img src="'.$row[path].'" height=100 width=100 alt="'.$row[title].'"></a>';
 	}
 ?>
+</div>
 		
 <?php INCLUDE 'include/foot.php' ?>	
