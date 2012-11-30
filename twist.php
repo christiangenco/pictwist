@@ -1,16 +1,20 @@
 <?php INCLUDE 'include/head.php';?>
 <?php
-    redirect_if_not_logged_in($logoutURL, "Error! You must be logged in to edit photos!");
     connectToDb();
-    if(isset($_REQUEST['p_id']))
+    redirect_if_not_logged_in($logoutURL, "Error! You must be logged in to edit photos!");
+    errorRedirect(isRestrictedPhoto($_REQUEST['p_id'], $_REQUEST['a_id']), "Error! You do not have permission to view this photo.", $profileURL);
+    if(isNotNull($_REQUEST['p_id']) && isNotNull($_REQUEST['a_id']))
     {
         $photo_id = params('p_id');
-        $_SESSION['photo_id'] = $photo_id;
+        $album_id = params('a_id');
+        //$_SESSION['photo_id'] = $photo_id;
     }
+    /*
     else if(isset($_SESSION['photo_id']))
     {
         $photo_id = $_SESSION['photo_id'];
     }
+    */
     errorRedirect(!isNotNull($photo_id), 'Error! You need to select a photo to edit.', $profileURL);
    
     $query = "UPDATE photos SET views = views + 1 WHERE id = ".$photo_id.";";
@@ -31,15 +35,16 @@
             "height" => $size[1]
         );
     }
-    if(isNotNull($photo['id'])) {$_SESSION['parent'] = $photo['id'];}
-    $query = "select id, type, text from tags where photo_id = '".$photo['id']."';";
+    if(isNotNull($photo['id'])) {$photo_id = $photo['id'];}
+    if(isNotNull($photo['album_id'])) {$album_id = $photo['album_id'];}
+    $query = "select id, type, text from tags where photo_id = '".$photo_id."';";
     $result_tags = sql($query);
 
     
     
 ?>
 
-<form id="twist" action="<?php echo $uploadHandlerURL ?>" method="post" enctype="multipart/form-data"> 
+<form id="twist" action="<?php echo $uploadHandlerURL."?p_id=".$photo_id; ?>" method="post" enctype="multipart/form-data"> 
     <div class="pic" >
         <div id="canvas_wrapper" width="<? echo $photo['width'] ?>" height="<? echo $photo['height'] ?>">
 
@@ -55,7 +60,7 @@
 
     </div>
     Select Album:
-    <select name="album_id">
+    <select name="a_id">
         <?php
             $uid = $currentUser['id'];
             $query = "select id, title from albums where user_id='".$uid."';";

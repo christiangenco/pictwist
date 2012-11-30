@@ -2,10 +2,11 @@
 <?php
     redirect_if_not_logged_in($logoutURL, "Error! You must be logged in to edit photos!");
     connectToDb();
-    errorRedirect(!isNotNull($_SESSION['photo_id']), 'Error! No photo selected for editing.', $profileURL);
+    errorRedirect(!isNotNull($_REQUEST['p_id']) || !isNotNull($_REQUEST['a_id']), 'Error! No photo selected for editing.', $profileURL);
     connectToDb();
-    $photo_id = $_SESSION['photo_id'];
-    errorRedirect(!isOwner($photo_id), "Error! You do not have permission to edit this photo!", $viewURL);
+    $photo_id = $_REQUEST['p_id'];
+    $album_id = $_REQUEST['a_id'];
+    errorRedirect(!isOwner($photo_id), "Error! You do not have permission to edit this photo!", $viewURL."?p_id=".$photo_id."&a_id=".$album_id);
     // update photo info
     if(isNotNull($_POST['title']))
     {
@@ -25,7 +26,7 @@
         $result = sql($query);
     }
     
-    errorRedirect(!$result, "Photo information could not be updated.", $editURL);
+    errorRedirect(!$result, "Photo information could not be updated.", $editURL."?p_id=".$photo_id."&a_id=".$album_id);
 
     // add new tags
     $result = 0;
@@ -33,7 +34,7 @@
     {
         if($_POST['tagContent']['index'] != "")
         {
-            $query = "insert into tags(type, text, photo_id) values('" . $_POST['tag'][$index] . "', '" . $_POST['tagContent'][$index] . "', '" . $_SESSION['photo_id'] . "');";
+            $query = "insert into tags(type, text, photo_id) values('" . $_POST['tag'][$index] . "', '" . $_POST['tagContent'][$index] . "', '" . $photo_id . "');";
              echo "<br/>".$query;
             $result_temp = sql($query);
             if(!$result_temp){$result++;}
@@ -48,7 +49,7 @@
         }
         $temp = $temp . $result . " tags could not be added.";
         $_SESSION['error'] = $temp;
-        $_SESSION['redirect'] = $editURL;
+        $_SESSION['redirect'] = $editURL."?p_id=".$photo_id."&a_id=".$album_id;
         //redirect($errorURL);
     }
     
@@ -58,7 +59,7 @@
     }
     else
     {
-        redirect($viewURL);
+        redirect($viewURL."?p_id=".$photo_id."&a_id=".$album_id);
     } 
 ?>
 <?php INCLUDE 'include/foot.php' ?>

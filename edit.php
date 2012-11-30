@@ -1,25 +1,24 @@
 <?php INCLUDE 'include/head.php';?>
 <?php
     redirect_if_not_logged_in($logoutURL, "Error! You must be logged in to edit photos!");
-
     connectToDb();
     $upload = FALSE;
 
-    if(isNotNull($_REQUEST['photo_path']) && isNotNull($_REQUEST['album_id']))
+    if(isNotNull($_REQUEST['p_path']) && isNotNull($_REQUEST['a_id']))
     {
-        $album_id = params('album_id');
-        $pathname = params('photo_path');
+        $a_id = params('a_id');
+        $pathname = params('p_path');
         //unset ($_REQUEST['album_id']);
         //unset ($_REQUEST['photo_path']);
 
         if(isset($_SESSION['parent']))
         {
-            $query = "insert into photos(path, parent_photo_id, album_id) values('" . $pathname . "', " . $_SESSION['parent'] . ", " . $album_id . ");";
+            $query = "insert into photos(path, parent_photo_id, album_id) values('" . $pathname . "', " . $_SESSION['parent'] . ", " . $a_id . ");";
             unset($_SESSION['parent']);
         }
         else
         {
-            $query = "insert into photos(path, album_id) values('" . $pathname . "', " . $album_id . ");";
+            $query = "insert into photos(path, album_id) values('" . $pathname . "', " . $a_id . ");";
         }
         $result = sql($query);
         if(!$result)
@@ -31,27 +30,31 @@
         }
         else
         {
-            $query = "select id from photos where path = '".$pathname."';";
+            $query = "select id, album_id from photos where path = '".$pathname."';";
             $result_id = sql($query);
             if($row = mysql_fetch_array($result_id))
             {
-                $photo_id = $row[id];
+                $p_id = $row[id];
+                $a_id = $row[album_id];
             }
-            $_SESSION['photo_id'] = $photo_id;
+            //$_SESSION['photo_id'] = $photo_id;
             $upload = TRUE;
         }
         //"select title, path from photos where id='$pid';";
     }
-    else if(isNotNull($_REQUEST['p_id']))
+    else if(isNotNull($_REQUEST['p_id']) && isNotNull($_REQUEST['a_id']))
     {
-        $photo_id = params('p_id');
-        $_SESSION['photo_id'] = $photo_id;
+        $p_id = params('p_id');
+        $a_id = params('a_id');
+        //$_SESSION['photo_id'] = $photo_id;
     }
+    /*
     else if(isNotNull($_SESSION['photo_id']))
     {
         $photo_id = params('photo_id');
     }
-    if(!isNotNull($photo_id))
+    */
+    if(!isNotNull($p_id) || !isNotNull($a_id))
     {
         errorRedirect($upload, 'Error! Your photo could not be uploaded. Please try again.', $uploadURL);
         errorRedirect(!$upload, 'Error! You need to select a photo to edit.', $profileURL);
@@ -61,10 +64,10 @@
         // ######## add to views.php!!!!
         //echo "owner: " . isOwner($photo_id);
         //header("Location: $loginURL");
-        errorRedirect(!isOwner($photo_id), "Error! You do not have permission to edit this photo!", $viewURL);
-        $query = "UPDATE photos SET views = views + 1 WHERE id = ".$photo_id.";";
+        errorRedirect(!isOwner($p_id), "Error! You do not have permission to edit this photo!", $viewURL."?p_id=".$p_id."&a_id=".$a_id);
+        $query = "UPDATE photos SET views = views + 1 WHERE id = ".$p_id.";";
         $result = sql($query);
-        $query = "select title, description, path, private, album_id from photos where id = ".$photo_id.";";
+        $query = "select title, description, path, private, album_id from photos where id = ".$p_id.";";
         $result_photo = sql($query);
         errorRedirect(!$result_photo, "Error! No photo selected for editing.", $profileURL);
         while($row = mysql_fetch_array($result_photo))
@@ -75,7 +78,7 @@
             $album_id = $row[album_id];
             $description = $row[description];;
         }
-        $query = "select id, type, text from tags where photo_id = ".$photo_id.";";
+        $query = "select id, type, text from tags where photo_id = ".$p_id.";";
         $result_tags = sql($query);
     }
     
@@ -83,7 +86,7 @@
 ?>
 
 <p>Your photo: <?php echo $photo_id;?></p>
-<form id="Insert" action="<?php echo $editHandlerURL ?>" enctype="multipart/form-data" method="post"> 
+<form id="Insert" action="<?php echo $editHandlerURL.'?p_id='.$p_id.'&a_id='.$album_id; ?>" enctype="multipart/form-data" method="post"> 
     <div class="pic" ><!--style="float:top; float:left; padding:50px;"-->
         <img src="<?php echo $pathname;?>" alt="<?php echo $pathname;?>" width=400 height=400/>
         <p>
@@ -110,7 +113,7 @@
     <p>
         <input type="button" value="Add Another Tag" onclick="addTagField();">
     <p> 
-        <input type="submit" name="submit" value="Complete" onclick="alert('submitting to processor);"> 
+        <input type="submit" name="submit" value="Complete"> 
     </p> 
  
 </form> 

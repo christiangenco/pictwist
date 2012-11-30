@@ -84,6 +84,7 @@
   $editInfoHandlerURL = $baseURL . 'editInfo.processor.php';
   
   // ### DATABASE ###
+  $currentUser = getCurrentUser();
 
   // usage: call connectToDb() on every page you need to
   // use the database on
@@ -136,24 +137,54 @@
     
     return $currentUser;
   }
-/*
-  function isRestrictedPhoto($photo_id, $album_id=containingAlbum($photo_id), $privatePhoto=isPrivatePhoto($photo_id), $privateAlbum=isPrivateAlbum($album_id))
+
+  function isContainingAlbum($photo_id, $album_id)
   {
-    if(!$privatePhoto)
-      {return false;}
-    if(!isLoggedIn())
-      {return true;}
-    if(isOwner($photo_id))
-      {return false;}
-    if{isAdmin()}
-      {return false;}
-    if(isShared($photo_id)
-      {return false;}
-      return true;
+    $query = "Select id, album_id FROM Photos WHERE id = ".$photo_id." AND album_id = ". $album_id .";";
+    //echo $query . "<br/><br/>";
+    $result = sql($query);
+    if($row = mysql_fetch_array($result))
+    {
+      if($photo_id = $row['id'] && $album_id = $row['album_id'])
+      {
+        return TRUE;
+      }
+      return FALSE;
+    }
+    return FALSE;
   }
 
-  function
-  */
+  function isRestrictedPhoto($photo_id, $album_id)
+  {
+    //echo $photo_id . " " . $album_id . "<br/>";
+    
+    if(!isContainingAlbum($photo_id, $album_id))
+      {return TRUE;}
+    
+    if(!isPrivateAlbum($album_id) && !isPrivatePhoto($photo_id))
+      {return FALSE;}
+    if(!isLoggedIn())
+      {return TRUE;}
+    if(isOwner($photo_id))
+      {return FALSE;}
+    if(isAdmin())
+      {return FALSE;}
+    if(isShared($photo_id))
+      {return FALSE;}
+      
+    return FALSE;
+  }
+
+  function isPrivateAlbum($album_id)
+  {
+    $query = "SELECT private from Albums WHERE id = ".$album_id.";";
+    $result = sql($query);
+    if($row = mysql_fetch_array($result))
+    {
+      return $row['private'];
+    }
+    else return FALSE;
+  }
 
   function isShared($album_id)
   {
@@ -177,6 +208,7 @@
     }
     else return FALSE;
   }
+
   function isOwner($photo_id)
   {
     $currentUser = getCurrentUser();
@@ -208,15 +240,22 @@
 
   function isAdmin()
   {
-    $currentUser = getCurrentUser();
-    $uid = $currentUser['id'];
-    $query = "Select admin FROM users WHERE id = ".$uid.";";
-    $result = sql($query);
-    if($row = mysql_fetch_array($result))
+    if(isset($currentUser['admin']))
     {
-      return $row['admin'];
+      return $currentUser['admin'];
     }
-    return FALSE;
+    else
+    {
+      global $currentUser;// = getCurrentUser();
+      $uid = $currentUser['id'];
+      $query = "Select admin FROM users WHERE id = ".$uid.";";
+      $result = sql($query);
+      if($row = mysql_fetch_array($result))
+      {
+        return $row['admin'];
+      }
+      return FALSE;
+    }
   }
 
   function logout(){
@@ -233,7 +272,7 @@
   
   // usage: redirect("http://google.com")
   function redirect($url){
-    echo "redirecting to '$url'";
+    //echo "redirecting to '$url'";
     header("HTTP/1.1 307 Temporary Redirect");
     header("Location: $url");
   }
@@ -263,7 +302,6 @@
     */
   }
 
-  $currentUser = getCurrentUser();
   //echo print_r($currentUser);  
 
   // usage: params("username")

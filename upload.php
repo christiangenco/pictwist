@@ -26,7 +26,7 @@
     
     <p>
         Select Album:
-        <select name="album_id">
+        <select name="a_id">
 	        <?php
 		        while($row = mysql_fetch_array($result_albums))
 		        {

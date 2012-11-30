@@ -19,11 +19,12 @@
                     4 => 'no file was attached');
     
     errorRedirect(
-        !isNotNull($_REQUEST['album_id']), 
+        !isNotNull($_REQUEST['a_id']), 
         'Error! You need to select an album to save you photo.', 
         $uploadURL);
 
-    $album_id = params('album_id');// should come from a POST
+    $album_id = params('a_id');// should come from a POST
+    //echo $album_id;
     
     $now = time();
 
@@ -68,7 +69,7 @@
 
     //$_SESSION['album_id'] = $album_id;
     //$_SESSION['photo_path'] = $pathname;
-    redirect($editURL."?album_id=".$album_id."&photo_path=".$pathname);
+    redirect($editURL."?a_id=".$album_id."&p_path=".$pathname);
     
     // The following function is an error handler which is used 
     // to output an HTML error page if the file upload fails 

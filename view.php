@@ -23,17 +23,20 @@
 </head>
 <body>
 <?php
+	//echo "HERE";
     connectToDb();
     //$upload = false;
-    if(isNotNull($_REQUEST['p_id']))
-    {
-        $photo_id = $_REQUEST['p_id'];
-        $_SESSION['photo_id'] = $photo_id;
-    }
+    errorRedirect(!isNotNull($_REQUEST['p_id']) || !isNotNull($_REQUEST['a_id']), "Error! Not photo selected.", $profileURL);
+    $photo_id = $_REQUEST['p_id'];
+    $album_id = $_REQUEST['a_id'];
+    errorRedirect(isRestrictedPhoto($_REQUEST['p_id'], $_REQUEST['a_id']), "Error! You do not have permission to view this photo.", $profileURL);
+   
+    /*
     else if(isset($_SESSION['photo_id']))
     {
         $photo_id = $_SESSION['photo_id'];
     }
+    */
     if(!isset($photo_id))
     {
         $_SESSION['error'] = 'Error! You need to select a photo to edit.';
@@ -68,15 +71,15 @@
 ?>
 <p>
 	<?php
-	echo '<a id="' . $photo_id . '" href="javascript:void(0);" onclick="redirectParent(\''.$editURL.'?p_id=' . $photo_id . '\');">'.
+	echo '<a id="' . $photo_id . '" href="javascript:void(0);" onclick="redirectParent(\''.$editURL.'?p_id='.$photo_id.'&a_id='.$album_id. '\');">'.
 		'Edit Photo</a><br/>';
-	echo '<a id="' . $photo_id . '" href="javascript:void(0);" onclick="redirectParent(\''.$favoriteHandlerURL.'?p_id=' . $photo_id . '\');">'.
+	echo '<a id="' . $photo_id . '" href="javascript:void(0);" onclick="redirectParent(\''.$favoriteHandlerURL.'?p_id='.$photo_id.'&a_id='.$album_id. '\');">'.
 		'Favorite Photo</a><br/>';
-    echo '<a id="' . $photo_id . '" href="javascript:void(0);" onclick="redirectParent(\''.$twistURL.'?p_id=' . $photo_id . '\');">'.
+    echo '<a id="' . $photo_id . '" href="javascript:void(0);" onclick="redirectParent(\''.$twistURL.'?p_id='.$photo_id.'&a_id='.$album_id. '\');">'.
         'Twist!</a><br/>';
-    echo '<a id="' . $photo_id . '" href="javascript:void(0);" onclick="redirectParent(\''.$twistHistoryURL.'?p_id=' . $photo_id . '\');">'.
+    echo '<a id="' . $photo_id . '" href="javascript:void(0);" onclick="redirectParent(\''.$twistHistoryURL.'?p_id='.$photo_id.'&a_id='.$album_id. '\');">'.
         'View Twist History</a><br/>';
-	echo '<a id="' . $photo_id . '" href="javascript:void(0);" onclick="redirectParent(\''.$deleteHandlerURL.'?p_id=' . $photo_id . '\');">'.
+	echo '<a id="' . $photo_id . '" href="javascript:void(0);" onclick="redirectParent(\''.$deleteHandlerURL.'?p_id='.$photo_id.'&a_id='.$album_id. '\');">'.
 		'Delete Photo</a><br/>';
 	?>
 </p> 
@@ -105,7 +108,7 @@
 	                }
 	            ?>
 	        </table>
-	        <form id="Insert" action="<?php echo $viewHandlerURL ?>" enctype="multipart/form-data" method="post">
+	        <form id="Insert" action="<?php echo $viewHandlerURL."?p_id=".$photo_id."&a_id=".$album_id ?>" enctype="multipart/form-data" method="post">
 	        <select name='tag'>
 	            <option value='location'>Location</option>
 	            <option value='camera type'>Camera Type</option>
@@ -117,7 +120,7 @@
 	        <input type='text' class="newTag" name='tagContent' rows="1" cols="10" placeholder=' Add Tag'><br/>
 	        <input type='submit' class="submitTag" name='submit' value='+'>
 	        <?php
-	        	echo '<a id="' . $photo_id . '" id="favoriteButton" class="control" href="'.$favoriteHandlerURL.'?p_id=' . $photo_id . '">'.
+	        	echo '<a id="' . $photo_id . '" id="favoriteButton" class="control" href="'.$favoriteHandlerURL.'?p_id='.$photo_id.'&a_id='.$album_id. '">'.
 					'Favorite</a><br/>';
 	        ?>
 	    	</form>
@@ -138,7 +141,7 @@
 		<?php
 		if($currentUser['id'] > 0)
 		{
-			echo '<form method="post" action="' . $viewHandlerURL . '">'.
+			echo '<form method="post" action="' . $viewHandlerURL.'?p_id='.$photo_id.'&a_id='.$album_id . '">'.
 				'<input type="hidden" name="lightbox" value=true>'.
 				'<input class="commentText" type="textarea" name="comment" rows="3" cols="33" placeholder="comment here..."><br/>'.
 				'<input class="submitComment" type="submit" name="submit" value="Submit Comment">'.
