@@ -27,6 +27,7 @@
                         echo "<br>country= " . $country;
                         echo "<br>bio= " . $bio;
                         */
+			//checks that the entered new passwords match 
 			if($newpwd == $confirmNew)
 			{
 				$hashOld = password_hash($oldpwd, PASSWORD_BCRYPT, array("cost" => 7, "salt" => "usesomesillystringforf"));
@@ -44,11 +45,13 @@
 					echo "<br/> --- password hash FAIL!!!";
 				}
 				*/
+				//mysql query to get the hased password from specified user id 
 				$queryOldPwd = mysql_query("SELECT password_hash FROM users WHERE id='$uid';");
 				$row = mysql_fetch_array($queryOldPwd);
 				$savedOldPwd = $row['password_hash'];
 				//echo "<br>*QUERY: " . $queryOldPwd;
 				//echo "<br>*savedp: " . $savedOldPwd;
+				//check to see if saved old password matched the entered old hashed password 
 				if($savedOldPwd == $hashOld)
 				{
 				    $match = true;
@@ -59,7 +62,7 @@
 				}
 				
 				/////////////////////////////
-				//there has to be entered
+				//there has to be name entered
 				if (!empty($name))// && !empty($oldpwd))
 				{
 				    //if old password matches and there is a new password -- update all including password
@@ -106,21 +109,20 @@
 					redirect($errorURL);  
 				    }
 				}
-				//}
-				else
+				else //name must be entered 
 				{
 				    //echo "will ps or user is wrong";
-				    $_SESSION['error'] = "You must enter a Name and a Password";
+				    $_SESSION['error'] = "You must enter a Name";
 				    $_SESSION['redirect'] = $editInfoURL;
 				    redirect($errorURL);
 				}
-			}
-			else
+			}//ends password matching loop
+			else	//Error displayed that passwords do NOT match 
 			{
 				$_SESSION['error'] = "New Passwords do not match.";
 				$_SESSION['redirect'] = $editInfoURL;
 				redirect($errorURL);	
 			}
-	}
+	}//ends 'submit' loop
 ?>
 <?php INCLUDE 'include/foot.php' ?>

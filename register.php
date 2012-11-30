@@ -19,6 +19,9 @@
 				<label for="password_hash">Password*:</label>
 				<input id="password_hash" type="password" name="password_hash">
                                 <br>
+				<label for="password_hash">Password*:</label>
+				<input id="password_hash" type="password" name="password_hash2">
+				<br>
 				<label for="city">City:</label>
 				<input id="city" type="text" name="city">
                                 <br>
