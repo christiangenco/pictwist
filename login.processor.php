@@ -15,12 +15,12 @@
 			if (password_verify($pwd, $hash))
 			{
 				$go = true;
-				echo "<br/> --- password hash worked!!!";
+				//echo "<br/> --- password hash worked!!!";
 			}
 			else
 			{
 				$go = false;
-				echo "<br/> --- password hash FAIL!!!";
+				//echo "<br/> --- password hash FAIL!!!";
 			}
 		
 		//MySQL query to check if the email exists in DB
@@ -28,8 +28,8 @@
 		if(mysql_numrows($query1) ==0)
 		{
 			//email was NOT found - therefore the user/email is not registered 	
-			echo '<p>This email is not registered. You\'re can register <a href="register.php">here</a>.</p>';
-			echo '<p>			  	Or return to <a href="login.php">login</a>.</p>';
+			echo '<p>This email is not registered. You\'re can register <a href="register.php"><b>here</b></a>.</p>';
+			echo '<p>			  	Or return to <a href="login.php"><b>login</b></a>.</p>';
 		}
 		else	//else the email WAS found
 		{

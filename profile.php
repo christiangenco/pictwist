@@ -49,34 +49,51 @@
 <?php INCLUDE_ONCE 'include/headBody.php' ?>
 <div id="user info">
 <?php
-/*
+	date_default_timezone_set('America/Chicago');
 	if(isset($currentUser['id']) && $currentUser['id'] > 0)
 	{
-        $uid = $currentUser['id'];
-        echo "ID is: " . $uid;
-	connectToDb();
-	$query = mysql_query("SELECT created_at, id FROM users WHERE id='$uid';");
-	echo "<br> QUERY: " . $query;
-	$row = mysql_fetch_array($query)
+		$uid = $currentUser['id'];
+		//echo "ID is: " . $uid;
+		connectToDb();
+		$query = mysql_query("SELECT id, created_at, name, city, state, country, bio, updated_at FROM users WHERE id='$uid';");
+		//echo "<br> QUERY: " . $query;
+		$row = mysql_fetch_array($query);
 	
-	$
-	/*
-	while ($row = mysql_fetch_array($query))
-	{
-		echo "<br> QUERY: " . $query;
-		/*echo $row['date'] . "<br />";					     // TIMESTAMP format 
-		echo date("g:i a F j, Y ", strtotime($row["date"])) . "<br />";	     // 9:34 pm October 5, 2008
-		echo date('\i\t \i\s \t\h\e jS \d\a\y.', strtotime($row["date"]));   // It is the 5th day.
-		echo date("m.d.y", strtotime($row["date"]));                         // 10.05.08
-		echo date("F j, Y g:i a", strtotime($row["date"]));                  // October 5, 2008 9:34 pm
+		$id = $row['id'];
+		$tstamp = $row['created_at'];
+		$lastUpdate = $row['updated_at'];
+		$name = $row['name'];
+		$city = $row['city'];
+		$state = $row['state'];
+		$country = $row['country'];
+		$bio = $row['bio'];
+		//echo "timestamp: " . $tstamp;
 		
-	//}
-	
-	$dt = new DateTime('2010-05-29 01:17:35');
-		echo $dt->format('M j Y g:i A');
-	//}
+		//echo "Member since " . date("m.d.y", strtotime($tstamp));                         // 10.05.08
+		echo "<br><b>Name: </b>" . $name;
+		if(!empty($city))
+		{
+			echo "<br><b>City: </b>" . $city;	
+		}
+		if(!empty($state))
+		{
+			echo "<br><b>State: </b>" . $state;
+		}
+		if(!empty($country))
+		{
+			echo "<br><b>Country: </b>" . $country;	
+		}
+		if(!empty($bio))
+		{
+			echo "<br><b>About me: </b>" . $bio;
+		}		
+		echo "<br><b>Member since </b>" . date("F j, Y", strtotime($tstamp));
+		echo "<br><b>Last login was </b>" . date("F j, Y", strtotime($lastUpdate)); 
+		//echo date('\I\t \i\s \t\h\e jS \d\a\y \s\i\n\c\e \r\e\g\i\s\t\r\a\t\i\o\n\!\.', strtotime($tstamp));   // It is the 5th day.
+
+	}
 	//$query2 = "SELECT name, email, created_at";
-*/
+
 ?>
 </div>
 <div id="album info">
@@ -172,5 +189,4 @@
      </form>
 
 </div>
-		
-<?php INCLUDE 'include/foot.php' ?>	
+<?php INCLUDE 'include/foot.php' ?>

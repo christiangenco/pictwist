@@ -4,12 +4,12 @@
     if(isset($currentUser['id']) && $currentUser['id'] > 0)
     {
         $uid = $currentUser['id'];
-        echo $uid;
+        //echo $uid;
         connectToDb();
 	
 	//ADD ADMIN TO THE STMT!!!!!!! AND PASSWORD
 	$query = "SELECT id, name, city, state, country, bio FROM users where id='$uid';";
-	echo "<br>Query: " . $query; 
+	//echo "<br>Query: " . $query; 
 	$result = mysql_query($query);
 	$row = mysql_fetch_array($result);
 	

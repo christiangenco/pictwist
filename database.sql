@@ -21,7 +21,8 @@ CREATE TABLE users(
   bio TEXT,
   admin BOOLEAN DEFAULT FALSE,
   updated_at TIMESTAMP DEFAULT '0000-00-00 00:00:00',
-  created_at TIMESTAMP DEFAULT '0000-00-00 00:00:00'
+  created_at TIMESTAMP DEFAULT '0000-00-00 00:00:00',
+  last_login timestamp default CURRENT_TIMESTAMP()
 );
 CREATE TRIGGER user_create BEFORE INSERT ON `users`
 FOR EACH ROW SET NEW.created_at = NOW(), NEW.updated_at = NOW();
