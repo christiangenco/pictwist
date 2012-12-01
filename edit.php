@@ -1,4 +1,5 @@
 <?php INCLUDE 'include/head.php';?>
+<?php INCLUDE 'photo.info.php';?>
 <?php
     redirect_if_not_logged_in($logoutURL, "Error! You must be logged in to edit photos!");
     connectToDb();
@@ -8,6 +9,12 @@
     {
         $a_id = params('a_id');
         $pathname = params('p_path');
+        $colors = getPhotoColors($pathname);
+        $colors = array_unique($colors);
+        print_r($colors);
+        $info = getPhotoInfo($pathname);
+        echo "<br/>";
+        print_r($info);
         //unset ($_REQUEST['album_id']);
         //unset ($_REQUEST['photo_path']);
 
