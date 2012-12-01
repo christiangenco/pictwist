@@ -1,3 +1,4 @@
+<?php INCLUDE 'include/head.php'; ?>
 <html>
 	<head>
 		<title>REGISTER</title>
@@ -45,3 +46,4 @@
 		</form>
 	</body>
 </html>
+<?php INCLUDE 'include/foot.php' ?>
