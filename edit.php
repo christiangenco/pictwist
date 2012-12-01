@@ -103,6 +103,7 @@
                 while($row = mysql_fetch_array($result_tags))
                 {
                     echo '<tr>'
+                        .'<td><a href='.$deleteTagURL.'?a_id='.$album_id.'&p_id='.$photo_id.'&t_id='.$row[id].'>X </a></td>'
                         .'<td>'.$row[type].': </td>'
                         .'<td>'.$row[text].'</td>'
                         .'</tr>';

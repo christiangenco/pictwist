@@ -77,6 +77,12 @@
   // URL of deletion handler script
   $deleteHandlerURL = $baseURL . 'delete.processor.php';
 
+   // URL of tag deletion handler script
+  $deleteTagURL = $baseURL . 'delete.tag.php';
+
+   // URL of comment deletion handler script
+  $deleteCommentURL = $baseURL . 'delete.comment.php';
+
   // URL of deletion handler script
   $editInfoURL = $baseURL . 'editInfo.php';
   
@@ -104,7 +110,7 @@
     // TODO: make this actually return true if user is logged in
     // false if not
     $currentUser = getCurrentUser();
-    if(isset($_SESSION['uid']) || ( isset($currentUser['id']) && $currentUser['id'] > 0 )) 
+    if(isset($currentUser['id']) && $currentUser['id'] > 0 ) 
       { return TRUE; }
     else 
       { return FALSE; }
