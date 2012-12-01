@@ -93,7 +93,10 @@
             Album: <?php echo $album_id ?> <br/>
             Title: <input type="text" name="title" value=<?php echo $photo_title;?>><br/>
             Description: <br/>
-            <input type="textarea" name="description" value=<?php echo $description;?>>
+            <input type="textarea" name="description" value=<?php echo $description;?>><br/>
+            Visibility: 
+            <a href="<?php echo $editHandlerURL.'?p_id='.$p_id.'&a_id='.$album_id.'&private=1'; ?>">private</a>
+            <a href="<?php echo $editHandlerURL.'?p_id='.$p_id.'&a_id='.$album_id.'&private=0'; ?>">public</a>
         </p>
     </div>
     <div id="tagsFields">
