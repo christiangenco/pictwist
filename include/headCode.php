@@ -130,16 +130,16 @@
     if(isset($_SESSION['uid'])) { $uid = $_SESSION['uid']; }
     else { $uid = -1; $_SESSION['uid'] = $uid;}
 
-    if(isset($_SESSION['uname'])) { $uname = $_SESSION['uname']; }
-    else { $uname = "Visitor"; $_SESSION['uname'] = $uname;}
+    if(isset($_SESSION['email'])) { $email = $_SESSION['email']; }
+    else { $email = "Visitor"; $_SESSION['email'] = $email;}
 
-    if(isset($_SESSION['mname'])) { $mname = $_SESSION['mname']; }
-    else { $mname = "Unknown"; $_SESSION['mname'] = $mname;}
+    if(isset($_SESSION['name'])) { $name = $_SESSION['name']; }
+    else { $name = "Unknown"; $_SESSION['name'] = $name;}
 
     if(isset($_SESSION['admin'])) {$admin = $_SESSION['admin'];}
     else { $admin = FALSE; $_SESSION['admin'] = $admin;}
 
-    $currentUser = array("username" => $uname, "id" => $uid, "name" => $mname, "admin" => $admin);
+    $currentUser = array("username" => $email, "id" => $uid, "name" => $name, "admin" => $admin);
     
     return $currentUser;
   }

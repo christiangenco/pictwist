@@ -4,24 +4,23 @@
     if(isset($currentUser['id']) && $currentUser['id'] > 0)
     {
         $uid = $currentUser['id'];
-        //echo $uid;
+        echo $uid;
         connectToDb();
 	
 	//ADD ADMIN TO THE STMT!!!!!!! AND PASSWORD
-	$query = "SELECT id, name, city, state, country, bio FROM users where id=$uid;";
-	//echo "<br>Query: " . $query; 
+	$query = "SELECT id, name, city, state, country, bio FROM users where id='$uid';";
+	echo "<br>Query: " . $query; 
 	$result = mysql_query($query);
 	$row = mysql_fetch_array($result);
 	
 	$id = $row['id'];
 	$name = $row['name'];
 	$oldpwd = $row['password_hash'];
-	//$newpwd = $_POST[''];
 	$city = $row['city'];
 	$state = $row['state'];
 	$country = $row['country'];
 	$bio = $row['bio'];
-	//$hashedpw = $row['password_hash'];
+
 	//$admin = $row['admin'];
 	
 	/* $yes_status = "";

@@ -34,7 +34,7 @@
 		else	//else the email WAS found
 		{
 			//query to find email and id that belong to the entered email and password 
-			$query = "SELECT email, id FROM users WHERE email='$email' AND password_hash='$hash';";		
+			$query = "SELECT email, id, name FROM users WHERE email='$email' AND password_hash='$hash';";		//here
 			echo "<br/> Query: " . $query.'<br/>';
 			$result = sql($query);
 			$row = mysql_fetch_array($result);
@@ -42,12 +42,17 @@
 			$savedEmail = $row['email'];
 			$id = $row['id'];
 			$hashedpw = $row['password_hash'];
+			$name = $row['name'];
+			//$admin = $row['admin'];
 			
 			//if the savedEmail matches the entered email AND the passwords are verified then go on to profile 
 			if(($savedEmail  == $email) && ($go == true))//($hashedpw == $hash))//($go == true))
 			{
 				//echo "will sign in";
 				$_SESSION['uid'] = $id;
+				$_SESSION['email'] = $email;
+				$_SESSION['name'] = $name;
+				//$_SESSION['admin'] = $admin;
 				redirect($profileURL);
 				//echo "<script>window.location = '$profileURL'</script>";
 			}

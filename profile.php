@@ -48,8 +48,36 @@
 </head>
 <?php INCLUDE_ONCE 'include/headBody.php' ?>
 <div id="user info">
-
+<?php
+/*
+	if(isset($currentUser['id']) && $currentUser['id'] > 0)
+	{
+        $uid = $currentUser['id'];
+        echo "ID is: " . $uid;
+	connectToDb();
+	$query = mysql_query("SELECT created_at, id FROM users WHERE id='$uid';");
+	echo "<br> QUERY: " . $query;
+	$row = mysql_fetch_array($query)
 	
+	$
+	/*
+	while ($row = mysql_fetch_array($query))
+	{
+		echo "<br> QUERY: " . $query;
+		/*echo $row['date'] . "<br />";					     // TIMESTAMP format 
+		echo date("g:i a F j, Y ", strtotime($row["date"])) . "<br />";	     // 9:34 pm October 5, 2008
+		echo date('\i\t \i\s \t\h\e jS \d\a\y.', strtotime($row["date"]));   // It is the 5th day.
+		echo date("m.d.y", strtotime($row["date"]));                         // 10.05.08
+		echo date("F j, Y g:i a", strtotime($row["date"]));                  // October 5, 2008 9:34 pm
+		
+	//}
+	
+	$dt = new DateTime('2010-05-29 01:17:35');
+		echo $dt->format('M j Y g:i A');
+	//}
+	//$query2 = "SELECT name, email, created_at";
+*/
+?>
 </div>
 <div id="album info">
 <?php
