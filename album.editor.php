@@ -3,13 +3,18 @@
 <?php
     //passing of album_id
     session_start();
-    $_SESSION['album_id'] = $_POST['album_id'];
+    $_SESSION['album_id'] = $_REQUEST['album_id'];
 
-    if(isset($currentUser['id']) && $currentUser['id'] > 0 && isset($_POST['album_id']))
+    if(isset($currentUser['id']) && $currentUser['id'] > 0 && isset($_REQUEST['album_id']))
     {
         $uid = $currentUser['id'];
-        $album_id = $_POST['album_id'];
+        $album_id = $_REQUEST['album_id'];
         connectToDb();
+
+        $query = "SELECT title, private from albums where id = $album_id;";
+        $result = sql($query);
+        $rows = mysql_fetch_row($result);
+        echo $rows;
     }
     else if(!isset($currentUser['id']) <= 0)
     {
@@ -31,8 +36,8 @@
 
     <p>
         <lable for="PrivateRadio">Would you like this album to be: </label>
-        <input type="radio" name="PrivateRadio" value="Public" /> Public
-        <input type="radio" name="PrivateRadio" value="Private"/> Private
+        <input type="radio" name="PrivateRadio" value="Public" <?php echo ($result['private'] == '0')?'checked':' ' ?>/> Public
+        <input type="radio" name="PrivateRadio" value="Private" <?php echo ($result['private'] == '1')?'checked':' ' ?>/> Private
     </p>
 
     <p>

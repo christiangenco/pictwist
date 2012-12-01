@@ -29,47 +29,17 @@
     </p> 
     
     <p>
-        Select Album:
-        <select name="album_id">
-	        <?php
-		        while($row = mysql_fetch_array($result_albums))
-		        {
-		            if($row[title] != 'Favorites')
-		            {
-		                echo '<option value="' . $row[id] . '">' . $row[title] . '</option>';
-		            }
-		        }
-	        ?>
-        </select>
-        <br/>
-    </p> 
-             
-    <p> 
-        <input id="Edit Album" type="submit" name="Edit Album]" value="Edit Album"> 
+        <?php
+	        while($row = mysql_fetch_array($result_albums))
+	        {
+	            if($row[title] != 'Favorites' && $row[title] != 'Default')
+	            {
+                    echo '<a href="album.editor.php?album_id=' . $row[id] . '">' . $row[title] . '</a><br/>';
+	            }
+	        }
+        ?>
     </p> 
  
 </form>
-
-<form id="AddAlbum" action="<?php echo $baseURL . 'album.processor.php' ?>" method="post">
-            <h2>
-                Add an Album!
-            </h2>
-
-            <p>
-                <label for="title">Album Title:</label> 
-                <input type="text" name="title">
-            </p>
-
-            <p>
-                Would you like this album to be private?
-                <input type="checkbox" name="private" value="1" />
-            </p>
-
-            <p>
-                <input type="submit" name="AlbumSubmit" value="Submit" />
-            </p>
-
-            </form>
-
 
 <?php INCLUDE 'include/foot.php' ?>

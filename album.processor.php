@@ -1,8 +1,6 @@
 <?php INCLUDE 'include/head.php';?>
 
 <?php
-    $albumsURL = $baseURL . 'albums.php';
-
     if(isset($currentUser['id']) && $currentUser['id'] > 0)
     {
         $uid = $currentUser['id'];
@@ -23,6 +21,7 @@
     //if no title is entered
     if(empty($title))
     {
+        $num_albums = mysql_num_rows($result_albums);
         $title = "New Album" . $album_num;
     }
     if(isset($_POST['private']))
@@ -35,12 +34,9 @@
 
     }
 
-    if (!mysql_query($sql))
-    {
-      die('Error: ' . mysql_error());
-    }
+    sql($sql);
 
-    redirect($albumsURL);
+    redirect($profileURL);
 ?>
 
 <?php INCLUDE 'include/foot.php' ?>

@@ -8,20 +8,20 @@
 
     if(isset($currentUser['id']) && $currentUser['id'] > 0)
     {
-        $uid = $currentUser['id'];
-        connectToDb();        
+        connectToDb();
+        $uid = $currentUser['id'];  
+        $album_id = $_SESSION['album_id'];
+        $title = $_POST['title'];
+        $private = 'unchecked';
+        $public = 'unchecked';
+        $selected_radio = $_POST['PrivateRadio'];
+      
     }
     else
     {
             $_SESSION['error'] = 'Error! You must be logged in!';
             redirect($logoutURL);
     }
-
-    $album_id = $_SESSION['album_id'];
-    $title = $_POST['title'];
-    $private = 'unchecked';
-    $public = 'unchecked';
-    $selected_radio = $_POST['PrivateRadio'];
 
     if(!empty($title))
     {

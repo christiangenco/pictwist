@@ -13,9 +13,11 @@
     if(isset($currentUser['id']) && $currentUser['id'] > 0 && isset($_REQUEST['album_id']))
     {
         $uid = $currentUser['id'];
-        $album_id = $_REQUEST['album_id'];
+        $a_id = $_REQUEST['album_id'];
+        $sql = "SELECT title from albums where id=$a_id;";
+        $album_title = mysql_fetch_row(sql($sql));
         
-        $query = "select id, title from photos where album_id='".$album_id."';";
+        $query = "select id, title from photos where album_id='".$a_id."';";
         $result_albums = sql($query);
     }
     else
@@ -28,7 +30,7 @@
 <form id="AlbumPhotos" action="<?php echo $baseURL . 'album.photos.php' ?>" enctype="multipart/form-data" method="post"> 
  
     <h1> 
-        album title
+        <?php echo $album_title[title] ?>
     </h1> 
      
     <p> 
