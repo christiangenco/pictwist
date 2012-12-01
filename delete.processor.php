@@ -8,7 +8,7 @@
     $a_id = params('a_id');
     if(!isOwner($p_id) && !isAdmin())
     {
-        errorRedirect(!isOwner($p_id) && !isAdmin(), "Error! You do not have permission to delete this photo!", $profileURL);
+        errorRedirect(!isOwner($p_id) && !isAdmin(), "Error! You do not have permission to delete this photo!", $viewURL."?p_id=".$p_id."&a_id=".$a_id);
     }
     else
     {

@@ -93,7 +93,10 @@
             Album: <?php echo $album_id ?> <br/>
             Title: <input type="text" name="title" value=<?php echo $photo_title;?>><br/>
             Description: <br/>
-            <input type="textarea" name="description" value=<?php echo $description;?>>
+            <input type="textarea" name="description" value=<?php echo $description;?>><br/>
+            Visibility: 
+            <a href="<?php echo $editHandlerURL.'?p_id='.$p_id.'&a_id='.$album_id.'&private=1'; ?>">private</a>
+            <a href="<?php echo $editHandlerURL.'?p_id='.$p_id.'&a_id='.$album_id.'&private=0'; ?>">public</a>
         </p>
     </div>
     <div id="tagsFields">
@@ -103,6 +106,7 @@
                 while($row = mysql_fetch_array($result_tags))
                 {
                     echo '<tr>'
+                        .'<td><a href='.$deleteTagURL.'?a_id='.$album_id.'&p_id='.$photo_id.'&t_id='.$row[id].'>X </a></td>'
                         .'<td>'.$row[type].': </td>'
                         .'<td>'.$row[text].'</td>'
                         .'</tr>';

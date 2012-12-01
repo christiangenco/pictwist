@@ -32,7 +32,7 @@
     $query = "select id, type, text from tags where photo_id = '".$photo_id."';";
     //echo $query . "<br/><br/>";
     $result_tags = sql($query);
-    $query = "select text, c.updated_at, u.name from photos p JOIN comments c JOIN users u where p.id = ".$photo_id." AND p.id = c.photo_id AND u.id = c.user_id order by c.updated_at desc;";
+    $query = "select text, c.id, c.updated_at, u.name from photos p JOIN comments c JOIN users u where p.id = ".$photo_id." AND p.id = c.photo_id AND u.id = c.user_id order by c.updated_at desc;";
     //echo $query . "<br/><br/>";
 	//echo $query . '<br/><br/>';
 	$result_comments = sql($query);
@@ -73,6 +73,7 @@
 	                while($row = mysql_fetch_array($result_tags))
 	                {
 	                    echo '<tr>'
+	                    	.'<td><a href='.$deleteTagURL.'?a_id='.$album_id.'&p_id='.$photo_id.'&t_id='.$row['id'].'>X </a></td>'
 	                        .'<td>'.$row[type].': </td>'
 	                        .'<td>'.$row[text].'</td>'
 	                        .'</tr>';
@@ -102,7 +103,7 @@
 			while($row = mysql_fetch_array($result_comments))
 			{
 				echo '<div class="comment">'.
-					$row[name] . ' said ' . $row[text] . ' on '. $row[updated_at] .
+					'<a href='.$deleteCommentURL.'?a_id='.$album_id.'&p_id='.$photo_id.'&c_id='.$row[id].'>X </a>'.$row[name] . ' said ' . $row[text] . ' on '. $row[updated_at] .
 					'</div>';
 			}
 		?>
