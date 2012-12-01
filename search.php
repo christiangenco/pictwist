@@ -93,7 +93,7 @@
 							if($counter > 0){//start($search_query) !== $q || first($search_query) === " "){
 							    $query = $query . " OR ";
 							}
-							$query = $query . " (id IN (SELECT p.id FROM photos p JOIN albums a LEFT JOIN shared s ON a.id=s.album"
+							$query = $query . " (id IN (SELECT p.id FROM photos p JOIN albums a LEFT JOIN shared s ON a.id=s.album_id"
 							." WHERE p.album_id = a.id AND (p.description LIKE '%".$q."%') AND"
 							." ("
 							." (p.private=0 AND a.private=0) OR"
@@ -295,7 +295,7 @@
 
 		$query = $query . " GROUP BY id ORDER BY views desc;";
 		//echo $query . '<br/>';
-		//echo $query . '<br/><br/>';
+		echo $query . '<br/><br/>';
 		$result_search = sql($query);
 			while($row = mysql_fetch_array($result_search))
 			{
