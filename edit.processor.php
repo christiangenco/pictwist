@@ -47,6 +47,33 @@
             $result = sql($query);
         }
 
+        if(isNotNull($_POST['tag']))
+        {
+            $result = 0;
+            foreach($_POST['tag'] as $index=>$type)
+            {
+                if($_POST['tagContent']['index'] != "")
+                {
+                    $query = "insert into tags(type, text, photo_id) values('" . $_POST['tag'][$index] . "', '" . $_POST['tagContent'][$index] . "', " . $photo_id . ");";
+                     echo "<br/>".$query;
+                    $result_temp = sql($query);
+                    if(!$result_temp){$result++;}
+                }
+            }
+            if($result > 0)
+            {
+                $temp = "";
+                if(isset($_SESSION['error']))
+                {
+                    $temp = $_SESSION['error'];
+                }
+                $temp = $temp . $result . " tags could not be added.";
+                $_SESSION['error'] = $temp;
+                $_SESSION['redirect'] = $editURL."?p_id=".$photo_id."&a_id=".$album_id;
+                //redirect($errorURL);
+            }
+        }
+
         if(isset($_SESSION['color']))
         {
             $colors = $_SESSION['color'];
@@ -92,6 +119,7 @@
                 echo "<br/>".$query;
                 $result_temp = sql($query);
             }
+            /*
             if(isNotNull($info['date_taken']))
             {
                 $i = $info['date_taken'];
@@ -99,34 +127,12 @@
                 echo "<br/>".$query;
                 $result_temp = sql($query);
             }
+            */
         }
         
         errorRedirect(!$result, "Photo information could not be updated.", $editURL."?p_id=".$photo_id."&a_id=".$album_id);
 
         // add new tags
-        $result = 0;
-        foreach($_POST['tag'] as $index=>$type)
-        {
-            if($_POST['tagContent']['index'] != "")
-            {
-                $query = "insert into tags(type, text, photo_id) values('" . $_POST['tag'][$index] . "', '" . $_POST['tagContent'][$index] . "', " . $photo_id . ");";
-                 echo "<br/>".$query;
-                $result_temp = sql($query);
-                if(!$result_temp){$result++;}
-            }
-        }
-        if($result > 0)
-        {
-            $temp = "";
-            if(isset($_SESSION['error']))
-            {
-                $temp = $_SESSION['error'];
-            }
-            $temp = $temp . $result . " tags could not be added.";
-            $_SESSION['error'] = $temp;
-            $_SESSION['redirect'] = $editURL."?p_id=".$photo_id."&a_id=".$album_id;
-            //redirect($errorURL);
-        }
         
         if(isset($_SESSION['error']) && isset($_SESSION['redirect']))
         {
