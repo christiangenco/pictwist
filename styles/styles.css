@@ -236,11 +236,15 @@ a:hover {
 h1 {
 	padding: 0;
 	margin: 18px;
+	color: white;
+	text-shadow: 0 0 6px black;
 }
 
 h3 {
 	display: inline;
 	margin: 8px;
+	color: white;
+	text-shadow: 0 0 6px black;
 }
 
 
@@ -264,6 +268,11 @@ h3 {
 	background-color: rgba(0, 0, 0, .8);
 }
 
+
+.formContainer {
+	display: inline-block;
+	text-align:right;
+}
 
 
 .imageList_title {
@@ -433,10 +442,6 @@ h3 {
 ******************* register.php ************************
 *****************************************************/
 
-.formContainer {
-	display: inline-block;
-	text-align:right;
-}
 
 #registerValidation {
 	float: left;
@@ -449,6 +454,14 @@ h3 {
 	height: 60px;
 }
 
+
+#passwordLengthMsg {
+	color: white;
+	position: absolute;
+	top: 197px;
+	left: 500px;
+	display: none;
+}
 
 .passwordMatchIcon {
 	position: absolute;

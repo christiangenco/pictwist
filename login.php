@@ -1,40 +1,33 @@
 <?php INCLUDE 'include/head.php'; ?>
 
-<html>
-	<head>
-		<title>Login</title>
-		<!--<style type="text/css">
-			ul{list-style-type:none; margin:0; padding:0; background-color:blue; padding:5px;}
-			li{display:inline; color:white; padding:0px 50px 0px 10px;}
-			li a{color:white;}
-		</style>-->
-	</head>
+<script type="text/javascript">
+	setTitle("Log In");
+</script>
+
+	<div class="centerBox">
 	
-	<body>
-		<!--<ul>
-			<li><a href="<?php echo $searchURL ?>">Search Photos</a></li>
-			<li style="float:right;"><a href="<?php echo $loginURL ?>">Login</a></li>
-			<li style="float:left;"><a href="<?php echo $registerURL ?>">Register</a></li>
-		</ul>-->
 		<form id="Login" action="<?php echo $loginHandlerURL ?>" enctype="multipart/form-data" method="post">
-			<h1>
-				Login
-			</h1>
+		
+		<h1>Log In</h1>
 			
-			<p>
-				<label for="email">Username:</label>
-				<input id="email" type="text" name="email">
-			</p>
-			
-			<p>
-				<label for="pwd">Password:</label>
-				<input id="pwd" type="password" name="pwd">
-			</p>
-			
-			<p>
-				<input type="submit" name="submit" value="Login">
-			</p>
+			<div class="formContainer">
+				<div class="m-input-prepend">
+					<span class="add-on"><label for="email">E-mail:</label></span>
+					<input class="m-wrap" id="email" type="text" name="email">
+				</div>
+				<div class="m-input-prepend">
+					<span class="add-on"><label for="pwd">Password:</label></span>
+					<input class="m-wrap" id="pwd" type="password" name="pwd">
+				</div>
+				<input class="m-btn blue thinShadow" type="submit" name="submit" value="Log In">
+			</div>
+		
 		</form>
-	</body>
-</html>
+			
+		<div class="boxDivider"></div>
+		
+		<h3>Need an account?</h3> <a class="m-btn blue thinShadow" href="<? echo $registerURL; ?>">Join PicTwist</a>
+		
+	</div>
+			
 <?php INCLUDE 'include/foot.php' ?>

@@ -48,9 +48,17 @@ $(document).ready(function() {
 });
 
 
-function checkPasswordMatch() {
+function checkPassword() {
 	var val1 = $("#password_hash").val();
 	var val2 = $("#password_hash2").val();
+	
+	var min = 6;
+	
+	if (val1 && val1.length < min)
+		$("#passwordLengthMsg").show();
+	else
+		$("#passwordLengthMsg").hide();	
+		
 	
 	if (!val1 || !val2) {
 		$("#passwordMatchIcon").removeClass("icon-ok").removeClass("icon-remove").hide();
@@ -69,6 +77,8 @@ function validateRegister() {
 	var pass1 = $("#password_hash").val();
 	var pass2 = $("#password_hash2").val();
 	
+	var min = 6;
+	
 	if (!name || !email || !pass1 || !pass2) {
 		$("#registerValidation").html("Please fill out required fields (*)").show().fadeOut(5000);
 		return false;
@@ -77,6 +87,9 @@ function validateRegister() {
 		return false;
 	} else if ($("#password_hash").val() != $("#password_hash2").val()) {
 		$("#registerValidation").html("Passwords do not match").show().fadeOut(5000);
+		return false;
+	} else if (pass1.length < min) {
+		$("#registerValidation").html("Password too short (6+ characters)").show().fadeOut(5000);
 		return false;
 	} else {
 		return true;
