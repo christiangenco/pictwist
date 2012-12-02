@@ -33,28 +33,61 @@
     }
 
 ?>
-<?php //INCLUDE 'include/foot.php' ?>
+
+<script type="text/javascript">
+	setTitle("Edit Profile");
+</script>
+
+<div class="centerBox">
+
+<h1>Edit Profile</h1>
+	
+	<div class="formContainer">
+
+		<form id="My Account" method="post" action="editInfo.processor.php" enctype="multipart/form-data">
+		  <input class="m-wrap" type="hidden" name="id" value="<?php echo $id;?>">
+		 
+			<div class="m-input-prepend">
+				<span class="add-on"><label for="fName">Name: </label></span><input id="fName" class="m-wrap" type="text" name="name" value="<?php echo $name;?>">
+			</div>
+			<div class="m-input-prepend">
+				<span class="add-on"><label for="fp1">Old Password: </label></span><input id="fp1" class="m-wrap" type="password" name="oldpwd" value="<?php echo $oldpwd;?>">
+			</div>
+			<div class="m-input-prepend">
+				<span class="add-on"><label for="fp2">New Password: </label></span><input id="fp2" class="m-wrap" type="password" name="newpwd" value="<?php echo $newpwd;?>">
+			</div>
+			<div class="m-input-prepend">
+				<span class="add-on"><label for="fp3">Confirm New Password: </label></span><input id="fp3" class="m-wrap" type="password" name="confirmNew" value="<?php echo $confirmNew;?>">
+			</div>
+			<div class="m-input-prepend">
+				<span class="add-on"><label for="fCity">City: </label></span><input id="fCity" class="m-wrap" type="text" name="city" value="<?php echo $city;?>">
+			</div>
+			<div class="m-input-prepend">
+				<span class="add-on"><label for="fState">State: </label></span><input id="fState" class="m-wrap" type="text" name="state" value="<?php echo $state;?>">
+			</div>
+			<div class="m-input-prepend">
+				<span class="add-on"><label for="fCountry">Country: </label></span><input id="fCountry" class="m-wrap" type="text" name="country" value="<?php echo $country;?>">
+			</div>
+			<div class="m-input-prepend">
+				<span class="add-on"><label for="editBio">About Me:</label></span><textarea id="editBio" class="m-wrap" type="text" name="bio" value="<?php echo $bio;?>"></textarea>
+			</div>
+			
+			<input class="m-btn thinShadow blue" type="submit" name="submit" value="Save Changes">
+		</form>
+		
+		<form method="post" action="profile.php">
+			<input class="m-btn thinShadow" type="submit" value="Cancel">
+		</form>
+			
+	</div>		
+		
+	<div class="boxDivider"></div>
+	
+	<form method="post" action="deleteAccount.php">
+		<input class="m-btn red thinShadow" type="submit" value="Delete Account">
+	</form>
+		
+</div>
 
 
-<form id="My Account" method="post" action="editInfo.processor.php" enctype="multipart/form-data">
-  <input type="hidden" name="id" value="<?php echo $id;?>">
-  <ul>
-    <li>Name: <input type="text" name="name" value="<?php echo $name;?>">
-    <li>Old Password: <input type="password" name="oldpwd" value="<?php echo $oldpwd;?>">
-    <li>New Password: <input type="password" name="newpwd" value="<?php echo $newpwd;?>">
-    <li>Confirm New Password: <input type="password" name="confirmNew" value="<?php echo $confirmNew;?>">
-    <li>City: <input type="text" name="city" value="<?php echo $city;?>">
-    <li>State: <input type="text" name="state" value="<?php echo $state;?>">
-    <li>Country: <input type="text" name="country" value="<?php echo $country;?>">
-    <li>About Me: <input type="text" name="bio" value="<?php echo $bio;?>">
-
-  </ul>
-
-  <input type="submit" name="submit" value="Save Changes">
-</form>
-<form method="post" action="profile.php">
-	<br><input type="submit" value="Cancel">
-</form>
-<form method="post" action="deleteAccount.php">
-	<br><input type="submit" value="Delete Account">
-</form>
+<?php INCLUDE 'include/foot.php' ?>

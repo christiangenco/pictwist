@@ -274,6 +274,10 @@ h3 {
 	text-align:right;
 }
 
+.formContainer form {
+	display: inline;
+}
+
 
 .imageList_title {
 	font-size: 20px;
