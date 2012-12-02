@@ -39,28 +39,4 @@
 
      </form>
 
-<form id="EditAlbums" action="<?php echo $baseURL . 'album.editor.php' ?>" enctype="multipart/form-data" method="post"> 
- 
-    <h1> 
-        Edit Albums 
-    </h1> 
-     
-    <p> 
-        <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $max_file_size ?>"> 
-    </p> 
-    
-    <p>
-        <?php
-	        while($row = mysql_fetch_array($result_albums))
-	        {
-	            if($row["title"] != 'Favorites' && $row["title"] != 'Default')
-	            {
-                    echo '<a href="album.editor.php?album_id=' . $row["id"] . '">' . $row["title"] . '</a><br/>';
-	            }
-	        }
-        ?>
-    </p> 
- 
-</form>
-
 <?php INCLUDE 'include/foot.php' ?>
