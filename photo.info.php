@@ -248,15 +248,18 @@ function getPhotoInfo($file)
       $model = $exif['Model'];
       $iso = $exif['ISOSpeedRatings'];
       $taken = $exif['DateTime'];
-   }
-
-   $info = array(
+      $info = array(
             "camera_model" => $model,
             "date_taken" => $taken,
             "width" => $width,
             "height" => $height
         );
-   return $info;
+      return $info;
+   }
+   else
+   {
+      return "";
+   }
 }
 
 function getPhotoColors($file)
