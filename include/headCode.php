@@ -94,6 +94,8 @@
 
   $albumsURL = $baseURL . 'albums.php';
 
+  $albumURL = $baseURL . 'albums.photos.php';
+
   // URL of admin script
   $adminURL = $baseURL . 'admin.php';
 
