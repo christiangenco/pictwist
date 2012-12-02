@@ -88,6 +88,12 @@
   
   // URL of deletion handler script
   $editInfoHandlerURL = $baseURL . 'editInfo.processor.php';
+
+  // URL of admin script
+  $adminURL = $baseURL . 'admin.php';
+
+  // URL of admin script
+  $adminHandlerURL = $baseURL . 'admin.processor.php';
   
   // ### DATABASE ###
   $currentUser = getCurrentUser();

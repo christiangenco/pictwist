@@ -1,4 +1,5 @@
 <?php INCLUDE 'include/head.php'; ?>
+
 <html>
 	<head>
 		<title>REGISTER</title>

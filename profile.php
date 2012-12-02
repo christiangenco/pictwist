@@ -41,10 +41,6 @@
 			//alert("leaving...");
 		});
 	</script>
-
-		<form method="post" action="editinfo.php">
-			<input type="submit" value="My Account">
-		</form>
 </head>
 <?php INCLUDE_ONCE 'include/headBody.php' ?>
 <div id="user info">
@@ -55,7 +51,7 @@
 		$uid = $currentUser['id'];
 		//echo "ID is: " . $uid;
 		connectToDb();
-		$query = mysql_query("SELECT id, created_at, name, city, state, country, bio, updated_at FROM users WHERE id='$uid';");
+		$query = mysql_query("SELECT id, created_at, name, city, state, country, bio, updated_at, admin FROM users WHERE id='$uid';");
 		//echo "<br> QUERY: " . $query;
 		$row = mysql_fetch_array($query);
 	
@@ -67,9 +63,18 @@
 		$state = $row['state'];
 		$country = $row['country'];
 		$bio = $row['bio'];
+		$admin = $row['admin'];
 		//echo "timestamp: " . $tstamp;
+	}
+?>
+<form id="myProfile" action="<?php echo $baseURL . 'profile.php' ?>" enctype="multipart/form-data" method="post"> 
+
+    <h1> 
+        My Profile 
+    </h1> 
+    <p>
 		
-		//echo "Member since " . date("m.d.y", strtotime($tstamp));                         // 10.05.08
+	<?php
 		echo "<br><b>Name: </b>" . $name;
 		if(!empty($city))
 		{
@@ -89,12 +94,22 @@
 		}		
 		echo "<br><b>Member since </b>" . date("F j, Y", strtotime($tstamp));
 		echo "<br><b>Last login was </b>" . date("F j, Y", strtotime($lastUpdate)); 
-		//echo date('\I\t \i\s \t\h\e jS \d\a\y \s\i\n\c\e \r\e\g\i\s\t\r\a\t\i\o\n\!\.', strtotime($tstamp));   // It is the 5th day.
-
-	}
-	//$query2 = "SELECT name, email, created_at";
-
-?>
+        ?>
+	<br/>
+    </p>  
+</form>
+	<form method="post" action="editinfo.php">
+		<input type="submit" value="Edit My Account">
+	</form>
+	<?php
+		if($admin == 1)
+		{
+			?>
+	<form method="post" action="admin.php">
+		<input type="submit" value="Administrator">
+	</form>
+	<?php } ?>
+	
 </div>
 <div id="album info">
 <?php
