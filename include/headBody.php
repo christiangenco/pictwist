@@ -22,7 +22,7 @@
           
           
           <div id="signInFormContainer">
-            <form id="signInForm" method="get" action="<?php echo $loginHandlerURL ?>">
+            <form id="signInForm" enctype="multipart/form-data" method="post" action="<?php echo $loginHandlerURL ?>">
               <input id="usernameField" class="m-wrap" type="text" type="text" name="email" placeholder="E-mail" />
               <input id="passwordField" class="m-wrap" type="password" name="pwd" placeholder="Password" />
               <input id="signInBtn" class="m-btn icn-only blue thinShadow" type="submit" name="submit" value="Log In"/>

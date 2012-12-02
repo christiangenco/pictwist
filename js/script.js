@@ -13,6 +13,10 @@ function setTitle(title) {
 		document.title = "PicTwist";
 }
 
+function redirectParent(location) {
+	parent.location.href = location;
+}
+
 
 $(document).ready(function() {
 
@@ -30,6 +34,15 @@ $(document).ready(function() {
 	});
 	
 	$("#register").submit(validateRegister);	
+	
+	
+	$("#showAddTags").click(function() {
+		$("#addTags").slideToggle();
+	});
+	
+	$("#addTagBtn").click(function() {
+		$("#addTagsForm").submit();
+	});
 	
 	
 });
