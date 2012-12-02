@@ -41,7 +41,7 @@
         echo '<div class="imageList_title"></div><div class="imageList">';
         while($row = mysql_fetch_array($result))
         {
-            echo '<a id="' . $row["id"] . '" class="fancybox-iframe" rel="g1" href="'.$viewLightBoxURL.'?p_id=' . $row["id"] . '&a_id=' . $row["album_id"] . '">'.
+            echo '<a id="' . $row["id"] . '" class="fancybox-iframe" rel="g1" href="'.$viewLightBoxURL.'?p_id=' . $row["id"] . '&a_id=' . $a_id . '">'.
                 '<img src="'.$row["path"].'" alt="'.$row["title"].'"></a>';
         }
             echo '</div>';
