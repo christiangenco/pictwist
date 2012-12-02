@@ -254,12 +254,15 @@ function getPhotoInfo($file)
             "width" => $width,
             "height" => $height
         );
-      return $info;
    }
    else
    {
-      return "";
+      $info = array(
+            "width" => $width,
+            "height" => $height
+        );
    }
+    return $info;
 }
 
 function getPhotoColors($file)
