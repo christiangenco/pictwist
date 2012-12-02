@@ -64,7 +64,7 @@
 							$row = mysql_fetch_array($result);
 							$newid = $row['id'];
 							//echo "<br>New id: " . $newid;
-							$defaultAlbum = mysql_query("INSERT INTO albums(title, user_id) VALUES('My Album', $newid);");
+							$defaultAlbum = mysql_query("INSERT INTO albums(title, user_id) VALUES('Default', $newid);");
 							//Confirm successful registration with the user
 							$_SESSION['error'] = "Your new account has been successfully created! Please log in to verify your account";
 							$_SESSION['redirect'] = $loginURL;	//redirected to login to verify username & password

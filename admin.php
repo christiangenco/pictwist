@@ -41,12 +41,6 @@
 				<label for="deleteUser">Delete User (enter email): </label>
 				<input id="deleteUser" type="text" name="deleteUser">
                                 <br>
-				<label for="country">Country:</label>
-				<input id="country" type="text" name="country">
-                                <br>
-                <label for="bio">About Me:</label>
-				<input id="bio" type="text" name="bio">
-                                <br>
                 <input type="submit" name="submit" value="Enter">
 			</p>
 		</form>
@@ -65,11 +59,12 @@
 				$result_content = sql($query);
 				if($row2[content_type] == "comments")
 				{
-					$query = "SELECT * from comments c JOIN photos p WHERE c.id=".$row['content_id']." AND c.photo_id=p.id;";
+					$query = "SELECT * from comments c JOIN photos p WHERE c.id=".$row2['content_id']." AND c.photo_id=p.id;";
+					//echo $query . "<br/>";
 					$result_content = sql($query);
 					if($row = mysql_fetch_array($result_content))
 					{
-						echo "<p>Comment: ".$row['text']." on photo <a href='".$viewURL."?p_id=".$row['photo_id']."&a_id=".$row['album_id']."'>".$row['photo_id']."</a></p>";
+						echo "<p><a href='".$flagClearURL."?fl_id=".$row2['id']."'>X </a>Comment: ".$row['text']." on photo <a href='".$viewURL."?p_id=".$row['photo_id']."&a_id=".$row['album_id']."'>".$row['photo_id']."</a></p>";
 					}
 				}
 
@@ -80,7 +75,7 @@
 					$result_content = sql($query);
 					if($row = mysql_fetch_array($result_content))
 					{
-						echo '<p>Photo: <a id="' . $row[id] . '"" href="'.$viewURL.'?p_id=' . $row[id] . '&a_id=' . $row[album_id] . '">'.
+						echo '<p><a href="'.$flagClearURL.'?fl_id='.$row2['id'].'">X </a>Photo: <a id="' . $row[id] . '"" href="'.$viewURL.'?p_id=' . $row[id] . '&a_id=' . $row[album_id] . '">'.
 						'<img src="'.$row[path].'" height=100 width=100 alt="'.$row[title].'"></a></p>';
 					}
 				}
@@ -92,7 +87,7 @@
 					$result_content = sql($query);
 					if($row = mysql_fetch_array($result_content))
 					{
-						echo "<p>User: <a href='".$profileURL."?u_id=".$row['id']."'>".$row['name']."</a></p>";
+						echo "<p><a href='".$flagClearURL."?fl_id=".$row2['id']."'>X </a>User: <a href='".$profileURL."?u_id=".$row['id']."'>".$row['name']."</a></p>";
 					}
 				}
 
@@ -103,7 +98,7 @@
 					$result_content = sql($query);
 					if($row = mysql_fetch_array($result_content))
 					{
-						echo "<p>Comment: ".$row['text']." on photo <a href='".$viewURL."?p_id=".$row['photo_id']."&a_id=".$row['album_id']."'>".$row['photo_id']."</a></p>";
+						echo "<p><a href='".$flagClearURL."?fl_id=".$row2['id']."''>X </a>Tag: ".$row['text']." on photo <a href='".$viewURL."?p_id=".$row['photo_id']."&a_id=".$row['album_id']."'>".$row['photo_id']."</a></p>";
 					}
 				}
 

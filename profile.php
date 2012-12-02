@@ -71,7 +71,10 @@
 		echo "<br><b>Member since </b>" . date("F j, Y", strtotime($tstamp));
 		echo "<br><b>Last login was </b>" . date("F j, Y", strtotime($lastUpdate)); 
 
-        echo '<a href="'.$flagContentURL.'?u_id='.$id.'"><Report User</a>';
+
+        echo '<br/><a href="'.$flagContentURL.'?u_id='.$id.'">Report User</a>';
+        echo '<br/><a href="'.$subscriptionHandlerURL.'?u_id='.$id.'">Subscribe</a>';
+
         ?>
 	<br/>
     </p>  
@@ -92,13 +95,13 @@
 <div id="album info">
 <?php
 	connectToDb();
-	$query = "select p.album_id, a.title, p.id, p.path from albums a JOIN photos p where a.id = p.album_id AND user_id='$currentUser[id]' order by a.id desc;";
-	$result = mysql_query($query);
-	while($row = mysql_fetch_array($result))
-	{
-		echo '<a id="' . $row["id"] . '" class="fancybox-iframe" rel="g1" href="'.$viewLightBoxURL.'?p_id=' . $row["id"] . '&a_id=' . $row["album_id"] . '">'.
-			'<img src="'.$row["path"].'" height=100 width=100 alt="'.$row["title"].'"></a>';
-	}
+	//$query = "select p.album_id, a.title, p.id, p.path from albums a JOIN photos p where a.id = p.album_id AND user_id='$currentUser[id]' order by a.id desc;";
+	//$result = mysql_query($query);
+	//while($row = mysql_fetch_array($result))
+	//{
+	//	echo '<a id="' . $row["id"] . '" class="fancybox-iframe" rel="g1" href="'.$viewLightBoxURL.'?p_id=' . $row["id"] . '&a_id=' . $row["album_id"] . '">'.
+	//		'<img src="'.$row["path"].'" height=100 width=100 alt="'.$row["title"].'"></a>';
+	//}
 
 	if(isset($currentUser['id']) && $currentUser['id'] > 0)
     {
