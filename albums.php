@@ -18,6 +18,27 @@
     }    
 ?>
 
+<form id="AddAlbum" action="<?php echo $baseURL . 'album.processor.php' ?>" method="post">
+            <h2>
+                Add an Album!
+            </h2>
+
+            <p>
+                <label for="title">Album Title:</label> 
+                <input type="text" name="title">
+            </p>
+
+            <p>
+                Would you like this album to be private?
+                <input type="checkbox" name="private" value="1" />
+            </p>
+
+            <p>
+                <input type="submit" name="AlbumSubmit" value="Submit" />
+            </p>
+
+     </form>
+
 <form id="EditAlbums" action="<?php echo $baseURL . 'album.editor.php' ?>" enctype="multipart/form-data" method="post"> 
  
     <h1> 

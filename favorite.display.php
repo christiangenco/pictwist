@@ -51,23 +51,26 @@
 <?php
     connectToDb();
 
-    if(isset($currentUser['id']) && $currentUser['id'] > 0 && isset($_REQUEST['album_id']))
+    if(isset($currentUser['id']) && $currentUser['id'] > 0)
     {
         $uid = $currentUser['id'];
-        $_SESSION['a_id'] = $_REQUEST['album_id'];
-        $a_id = $_REQUEST['album_id'];
-        $sql = "SELECT title from albums where id=$a_id;";
-        $album_title = mysql_fetch_row(sql($sql));
+        //$_SESSION['a_id'] = $_REQUEST['album_id'];
+        //$a_id = $_REQUEST['album_id'];
+        //$sql = "SELECT title from albums where id=$a_id;";
+        //$album_title = mysql_fetch_row(sql($sql));
         
-        $query = "select a.title, p.id, p.path from albums a JOIN photos p where a.id = $a_id AND a.id = p.album_id AND user_id='$currentUser[id]' order by a.id desc;";
+        $query = "SELECT p.id, p.title, p.path, p.album_id from photos p JOIN albums a JOIN favorites f WHERE p.album_id=a.id AND p.id=f.photo_id AND f.user_id=".$currentUser['id'].";";
+        //echo $query;
         $result = mysql_query($query);
+        echo '<div class="imageList_title">My Favorites</div><div class="imageList">';
         while($row = mysql_fetch_array($result))
         {
-            echo '<a id="' . $row[id] . '" class="fancybox-iframe" rel="g1" href="'.$viewLightBoxURL.'?p_id=' . $row[id] . '">'.
-                '<img src="'.$row[path].'" height=100 width=100 alt="'.$row[title].'"></a>';
+            echo '<a id="' . $row["id"] . '" class="fancybox-iframe" rel="g1" href="'.$viewLightBoxURL.'?p_id=' . $row["id"] . '&a_id=' . $row["album_id"] . '">'.
+                '<img src="'.$row["path"].'" alt="'.$row["title"].'"></a>';
         }
-        $query = "select id, title from photos where album_id='".$a_id."';";
-        $result_photos = sql($query);
+        echo '</div>';
+        //$query = "select id, title from photos where album_id='".$a_id."';";
+        //$result_photos = sql($query);
     }
     else
     {
@@ -79,7 +82,7 @@
 <form id="AlbumPhotos" action="<?php echo $baseURL . 'album.photos.php' ?>" enctype="multipart/form-data" method="post"> 
  
     <h1> 
-        <?php echo $row[title] ?>
+        <?//php echo $row[title] ?>
     </h1> 
      
     <p> 
@@ -88,36 +91,5 @@
  
 </form>
 
-<form id="Add Photo" action="<?php echo $uploadURL ?>" enctype="multipart/form-data" method="post">
-    <p>
-        <input type="submit" name="Add Photo" value="Add Photo" />
-    </p> 
-</form> 
-
-<form id="EditAlbum" action="<?php echo $baseURL . 'album.editor.php' ?>" enctype="multipart/form-data" method="post"> 
-    <p>
-        <input type="submit" name="EditAlbum" value="Edit Album" />
-    </p>
-</form>
-
-<form id="ShareAlbum" action="<?php echo $baseURL . 'album.share.php' ?>" enctype="multipart/form-data" method="post"> 
-    <h1> 
-        Share Album 
-    </h1> 
-
-    <p> 
-        <label for="User">Name of user with whom you would like to share the album:</label> 
-        <input id="user" type="text" name="username">
-    </p>
-
-    <p> 
-        <label for="User">Email of user with whom you would like to share the album:</label> 
-        <input id="user" type="text" name="useremail">
-    </p>
-
-    <p>
-        <input type="submit" name="ShareAlbum" value="Share Album" />
-    </p>
-</form>
 
 <?php INCLUDE 'include/foot.php' ?> 

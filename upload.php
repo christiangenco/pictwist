@@ -30,10 +30,9 @@
 	        <?php
 		        while($row = mysql_fetch_array($result_albums))
 		        {
-		            if($row[title] != 'Favorites')
-		            {
-		                echo '<option value="' . $row[id] . '">' . $row[title] . '</option>';
-		            }
+	                echo '<option value="' . $row[id];
+                    //if($_GET['a_id']===$row['id']) {echo ' selected="selected" ';}
+                    echo '">' . $row[title] . '</option>';
 		        }
 	        ?>
         </select>
