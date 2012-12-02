@@ -11,8 +11,11 @@
         echo "in here<br/>";
         $a_id = params('a_id');
         $pathname = params('p_path');
+        echo "in here<br/>";
         $colors = getPhotoColors($pathname);
+        echo "in here<br/>";
         $colors = array_unique($colors);
+        echo "in here<br/>";
        
         $info = getPhotoInfo($pathname);
         $_SESSION['info'] = $info;
