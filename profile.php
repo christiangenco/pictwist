@@ -79,7 +79,7 @@
 	<br/>
     </p>  
 </form>
-	<form method="post" action="editinfo.php">
+	<form method="post" action="editInfo.php">
 		<input type="submit" value="Edit My Account">
 	</form>
 	<?php

@@ -31,14 +31,6 @@
 			//checks that the entered new passwords match 
 			if($newpwd == $confirmNew)
 			{
-				if(strlen($newpwd) < 6)
-				{
-					$_SESSION['error'] = "Password must be at least 6 characters. Please try again.";
-					$_SESSION['redirect'] = $editInfoURL;
-					redirect($errorURL);	
-				}
-				else
-				{
 					$hashOld = password_hash($oldpwd, PASSWORD_BCRYPT, array("cost" => 7, "salt" => "usesomesillystringforf"));
 					$hashNew = password_hash($newpwd, PASSWORD_BCRYPT, array("cost" => 7, "salt" => "usesomesillystringforf"));
 					//echo "<br>Old hash: " . $hashOld;
@@ -77,13 +69,23 @@
 					    //if old password matches and there is a new password -- update all including password
 					    if($match==true && !empty($newpwd))
 					    {
-						echo "<br> 1 New password has been set";
-						$updateUserInfo = "UPDATE users SET name='$name', password_hash='$hashNew', city='$city', state='$state', country='$country', bio='$bio' WHERE id='$uid';";
-						$updated = mysql_query($updateUserInfo);
-						//Confirm success with the user
-						$_SESSION['error'] = "Your account information has been successfully updated. And your new passwords has been set";
-						$_SESSION['redirect'] = $profileURL;
-						redirect($errorURL);
+						if(strlen($newpwd) < 6)
+						{
+							$passwordLen == false;
+							$_SESSION['error'] = "New password must be at least 6 characters. Please try again.";
+							$_SESSION['redirect'] = $editInfoURL;
+							redirect($errorURL);
+						}
+						else
+						{
+							echo "<br> 1 New password has been set";
+							$updateUserInfo = "UPDATE users SET name='$name', password_hash='$hashNew', city='$city', state='$state', country='$country', bio='$bio' WHERE id='$uid';";
+							$updated = mysql_query($updateUserInfo);
+							//Confirm success with the user
+							$_SESSION['error'] = "Your account information has been successfully updated. And your new passwords has been set";
+							$_SESSION['redirect'] = $profileURL;
+							redirect($errorURL);
+						}
 					    }
 					    //else if old password matches BUT new password is not entered -- update all info EXCEPT password 
 					    else if($match==true && empty($newpwd))
@@ -125,7 +127,6 @@
 					    $_SESSION['redirect'] = $editInfoURL;
 					    redirect($errorURL);
 					}
-				}
 			}//ends password matching loop
 			else	//Error displayed that passwords do NOT match 
 			{
