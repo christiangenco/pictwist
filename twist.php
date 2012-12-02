@@ -2,7 +2,7 @@
 <?php
     connectToDb();
     redirect_if_not_logged_in($logoutURL, "Error! You must be logged in to edit photos!");
-    errorRedirect(isRestrictedPhoto($_REQUEST['p_id'], $_REQUEST['a_id']), "Error! You do not have permission to view this photo.", $profileURL);
+    errorRedirect(isRestrictedPhoto($_REQUEST['p_id'], $_REQUEST['a_id']), "Error! You do not have permission to view this photo.", $indexURL);
     if(isNotNull($_REQUEST['p_id']) && isNotNull($_REQUEST['a_id']))
     {
         $photo_id = params('p_id');
@@ -15,7 +15,7 @@
         $photo_id = $_SESSION['photo_id'];
     }
     */
-    errorRedirect(!isNotNull($photo_id), 'Error! You need to select a photo to edit.', $profileURL);
+    errorRedirect(!isNotNull($photo_id), 'Error! You need to select a photo to edit.', $indexURL);
    
     $query = "UPDATE photos SET views = views + 1 WHERE id = ".$photo_id.";";
     $result = sql($query);

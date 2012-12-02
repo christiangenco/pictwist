@@ -9,10 +9,10 @@
 	//echo "HERE";
     connectToDb();
     //$upload = false;
-    errorRedirect(!isNotNull($_REQUEST['p_id']) || !isNotNull($_REQUEST['a_id']), "Error! Not photo selected.", $profileURL);
+    errorRedirect(!isNotNull($_REQUEST['p_id']) || !isNotNull($_REQUEST['a_id']), "Error! Not photo selected.", $indexURL);
     $photo_id = $_REQUEST['p_id'];
     $album_id = $_REQUEST['a_id'];
-    errorRedirect(isRestrictedPhoto($_REQUEST['p_id'], $_REQUEST['a_id']), "Error! You do not have permission to view this photo.", $profileURL);
+    errorRedirect(isRestrictedPhoto($_REQUEST['p_id'], $_REQUEST['a_id']), "Error! You do not have permission to view this photo.", $indexURL);
    
     /*
     else if(isset($_SESSION['photo_id']))
@@ -22,8 +22,8 @@
     */
     if(!isset($photo_id))
     {
-        $_SESSION['error'] = 'Error! You need to select a photo to edit.';
-        $_SESSION['redirect'] = $profileURL;
+        $_SESSION['error'] = 'Error! You need to select a photo to view.';
+        $_SESSION['redirect'] = $indexURL;
         //redirect($errorURL);
         echo 'redirectParent(\''.$errorURL.'\');';
         //echo "parent.location.href = ".$errorURL.";";
