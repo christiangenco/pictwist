@@ -71,7 +71,9 @@
 		echo "<br><b>Member since </b>" . date("F j, Y", strtotime($tstamp));
 		echo "<br><b>Last login was </b>" . date("F j, Y", strtotime($lastUpdate)); 
 
-        echo '<br><a href="'.$flagContentURL.'?u_id='.$id.'"<Report User</a>';
+
+        echo '<br/><a href="'.$flagContentURL.'?u_id='.$id.'">Report User</a>';
+
         ?>
 	<br/>
     </p>  

@@ -17,7 +17,7 @@
     }
     else
     {
-        errorRedirect(TRUE, "Error! No comment selected.", $profileURL);
+        errorRedirect(TRUE, "Error! No comment selected.", $viewURL."?p_id=".$p_id."&a_id=".$a_id);
     }
 
     if($user_id != $currentUser['id'] && !isOwner($photo_id) && !isAdmin())

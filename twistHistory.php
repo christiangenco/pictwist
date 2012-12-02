@@ -49,7 +49,7 @@
 <?php
 	connectToDb();
 
-	errorRedirect(!isNotNull($_REQUEST['p_id']) || !isNotNull($_REQUEST['a_id']), "Error! No photo selected.", $profileURL);
+	errorRedirect(!isNotNull($_REQUEST['p_id']) || !isNotNull($_REQUEST['a_id']), "Error! No photo selected.", $indexURL);
 	// select current info
 	// select parent id
 	$query = "SELECT title, id, path, album_id, parent_photo_id FROM Photos WHERE id = ".$_REQUEST['p_id'].";";

@@ -7,7 +7,7 @@
     else
     {
         connectToDb();
-        errorRedirect(isRestrictedPhoto($_REQUEST['p_id'], $_REQUEST['a_id']), "Error! You do not have permission to view this photo.", $profileURL);
+        errorRedirect(isRestrictedPhoto($_REQUEST['p_id'], $_REQUEST['a_id']), "Error! You do not have permission to view this photo.", $indexURL);
         
         if(isNotNull($_REQUEST['p_id'])&&isNotNull($_REQUEST['a_id']))
         {
@@ -37,7 +37,7 @@
         } 
         else
         {
-            errorRedirect(TRUE, "Error! You have not selected a photo for favoriting.", $profileURL);
+            errorRedirect(TRUE, "Error! You have not selected a photo for favoriting.", $indexURL);
         }
     }
 ?>

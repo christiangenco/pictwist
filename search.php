@@ -271,7 +271,7 @@
 	}
 	else
 	{
-		redirect($profileURL);
+		redirect($indexURL);
 	}
 ?>
 		

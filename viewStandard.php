@@ -2,7 +2,7 @@
 
 <?php
 	connectToDb();
-	errorRedirect(isRestrictedPhoto($_REQUEST['p_id'], $_REQUEST['a_id']), "Error! You do not have permission to view this photo.", $profileURL);
+	errorRedirect(isRestrictedPhoto($_REQUEST['p_id'], $_REQUEST['a_id']), "Error! You do not have permission to view this photo.", $indexURL);
    	
     /*
     else if(isset($_SESSION['photo_id']))
@@ -10,7 +10,7 @@
         $photo_id = $_SESSION['photo_id'];
     }
     */
-    errorRedirect(!isNotNull($_REQUEST['p_id']) || !isNotNull($_REQUEST['a_id']), 'Error! You need to select a photo to edit.', $profileURL);
+    errorRedirect(!isNotNull($_REQUEST['p_id']) || !isNotNull($_REQUEST['a_id']), 'Error! You need to select a photo to edit.', $indexURL);
     $photo_id = params('p_id');
     $album_id = params('a_id');
 
