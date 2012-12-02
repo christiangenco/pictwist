@@ -31,7 +31,13 @@
 			$country = ($_POST['country']);
 			$bio = ($_POST['bio']);
 
-			if(strlen($pwd > 6))
+			if(strlen($pwd) < 6)
+			{
+				$_SESSION['error'] = "Password must be at least 6 characters. Please try again.";
+				$_SESSION['redirect'] = $registerURL;
+				redirect($errorURL);	
+			}
+			else
 			{
 				
 				//check to make sure that the passwords match
@@ -82,12 +88,7 @@
 					redirect($errorURL);	
 				}
 			}
-			else
-			{
-				$_SESSION['error'] = "Password must be at least 6 characters. Please try again.";
-				$_SESSION['redirect'] = $registerURL;
-				redirect($errorURL);	
-			}
+			
 		}
 		else //otherwise validation of form is not ok so error is displayed 
 		{
