@@ -21,7 +21,7 @@
             unlink($row['path']);
 
         }
-        $query = "Delete from Photos WHERE id = ".$p_id;
+        $query = "Delete from photos WHERE id = ".$p_id;
         //echo $query . "<br/><br/>";
         $result = sql($query); 
 
