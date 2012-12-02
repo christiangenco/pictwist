@@ -13,12 +13,12 @@
         {
             $photo_id=params('p_id');
             $album_id=params('a_id');
-            $query = "SELECT photo_id, user_id FROM Favorites WHERE photo_id = ".$photo_id." AND user_id = ".$currentUser['id'].";";
+            $query = "SELECT photo_id, user_id FROM favorites WHERE photo_id = ".$photo_id." AND user_id = ".$currentUser['id'].";";
             echo $query . "<br/>";
             $result = sql($query);
             if(mysql_num_rows($result) === 0)
             {
-                $query = "Insert INTO Favorites(photo_id, user_id) VALUES(".$photo_id.", ".$currentUser['id'].");";
+                $query = "Insert INTO favorites(photo_id, user_id) VALUES(".$photo_id.", ".$currentUser['id'].");";
                 echo $query . "<br/>";
                 $result = sql($query);
                 
@@ -27,7 +27,7 @@
             }
             else
             {
-                $query = "DELETE FROM Favorites WHERE photo_id = ".$photo_id." AND user_id = ".$currentUser['id'].";";
+                $query = "DELETE FROM favorites WHERE photo_id = ".$photo_id." AND user_id = ".$currentUser['id'].";";
                 echo $query . "<br/>";
                 $result = sql($query);
                 errorRedirect(!$result, "Photo could not be deleted from your favorites.", $viewURL."?p_id=".$photo_id."&a_id=".$album_id);
