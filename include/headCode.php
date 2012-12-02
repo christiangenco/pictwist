@@ -203,7 +203,7 @@
     if(!isLoggedIn())
       {return false;}
     $currentUser = getCurrentUser();
-    $query = "SELECT user_id, album_id FROM Shared WHERE user_id = ".$currentUser['id']." AND album_id = ".$album_id.";";
+    $query = "SELECT user_id, album_id FROM shared WHERE user_id = ".$currentUser['id']." AND album_id = ".$album_id.";";
     $result = sql($query);
     if(!$result)
       {return FALSE;}
@@ -212,7 +212,7 @@
 
   function isPrivatePhoto($photo_id)
   {
-    $query = "SELECT private from Photos WHERE id = ".$photo_id.";";
+    $query = "SELECT private from photos WHERE id = ".$photo_id.";";
     $result = sql($query);
     if($row = mysql_fetch_array($result))
     {
