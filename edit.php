@@ -99,10 +99,6 @@
         echo $query . "<br/>";
         $result_tags = sql($query);
         
-        $colors = getPhotoColors($pathname);
-        $colors = array_unique($colors);
-        
-        $info = getPhotoInfo($pathname);
     }
     
     
