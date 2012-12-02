@@ -134,6 +134,8 @@
         <?php
                 while($row = mysql_fetch_array($result_albums))
                 {
+                	//fixes earlier problem
+                		$_SESSION['a_id'] = $row[id];
                         echo '<a href="album.photos.php?album_id=' . $row["id"] . '">' . $row["title"] . '</a><br/>';
                 }
                 echo '<a href="favorite.display.php">Favorites</a><br/>';
@@ -142,11 +144,9 @@
 
         <br/>
     </p> 
-
-
 </form>
 
-<form id="MySharedAlbums" action="<?php echo $baseURL . 'album.photos.php' ?>" enctype="multipart/form-data" method="post"> 
+<form id="MySharedAlbums" action="<?php echo $baseURL . 'album.shared.photos.php' ?>" enctype="multipart/form-data" method="post"> 
  
     <h1> 
         My Shared Albums 
@@ -160,7 +160,7 @@
         <?php
                 while($row = mysql_fetch_array($shared_albums))
                 {
-                        echo '<a href="album.photos.php?album_id=' . $row["id"] . '">' . $row["title"] . '</a><br/>';
+                        echo '<a href="album.shared.photos.php?album_id=' . $row["id"] . '">' . $row["title"] . '</a><br/>';
                 }
             ?>
 
