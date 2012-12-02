@@ -12,7 +12,7 @@
     }
     else
     {
-        $query = "SELECT path FROM Photos WHERE id=".$p_id.";";
+        $query = "SELECT path FROM photos WHERE id=".$p_id.";";
         //echo $query . "<br/><br/>";
         $result_path = sql($query);
         
