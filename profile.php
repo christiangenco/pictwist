@@ -84,7 +84,8 @@
         
         $query = "select id, title from albums where user_id='".$uid."';";
         $result_albums = sql($query);
-        $query = "select a.id, a.title from albums a join shared on $uid = shared.user_id and shared.album_id = a.id;";
+        $query2 = "select a.id, a.title from albums a join shared on $uid = shared.user_id and shared.album_id = a.id;";
+        $shared_albums = sql($query2);
     }
     else
     {
@@ -128,7 +129,7 @@
     
     <p>
         <?php
-                while($row = mysql_fetch_array($result_albums))
+                while($row = mysql_fetch_array($shared_albums))
                 {
                         echo '<a href="album.photos.php?album_id=' . $row["id"] . '">' . $row["title"] . '</a><br/>';
                 }
