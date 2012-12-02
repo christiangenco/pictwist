@@ -72,6 +72,7 @@
 		echo "<br><b>Last login was </b>" . date("F j, Y", strtotime($lastUpdate)); 
 
         echo '<br/><a href="'.$flagContentURL.'?u_id='.$id.'">Report User</a>';
+        echo '<br/><a href="'.$subscriptionHandlerURL.'?u_id='.$id.'">Subscribe</a>';
         ?>
 	<br/>
     </p>  
