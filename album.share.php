@@ -2,12 +2,13 @@
 
 <?php
     session_start();
-    $albumsURL = $baseURL . 'albums.php';
+    $albumURL = $baseURL . 'album.photos.php';
 
     if(isset($currentUser['id']) && $currentUser['id'] > 0 && isset($_REQUEST['user']))
     {
         $uid = $currentUser['id'];
-        $album_id = $_SESSION['album_id'];
+        $album_id = $_SESSION['a_id'];
+        print($album_id);
         $user = $_REQUEST['user'];
         connectToDb();
         $query = "SELECT id from users where name = '$user';";
@@ -22,7 +23,9 @@
 
     if(isset($row[id]) && $row[id] > 0)
     { 
-        $query2 = "INSERT INTO shared VALUES ('$row[id]', '$album_id');";
+        $shared_id = $row[id];
+        $query2 = "INSERT INTO shared (user_id, album_id) VALUES ('$shared_id', '$album_id');";
+        echo $query2;
         sql($query2); 
     }
     else
@@ -32,7 +35,7 @@
     }
 
     //go back to albums page
-    redirect($albumsURL);
+    redirect($albumURL);
 
 ?>
 
