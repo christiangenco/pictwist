@@ -95,9 +95,14 @@
   // URL of admin script
   $adminURL = $baseURL . 'admin.php';
 
+  // URL of index script
+  $indexURL = $baseURL . 'index.php';
+
   // URL of admin script
   $adminHandlerURL = $baseURL . 'admin.processor.php';
 
+  // URL of flagging script
+  $flagContentURL = $baseURL . 'flag.processor.php';
 
   // URL of deleteAccount script
   $deleteAccountURL = $baseURL . 'deleteAccount.php';

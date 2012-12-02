@@ -2,7 +2,27 @@
 <div id="user info">
 <?php
 	date_default_timezone_set('America/Chicago');
-	if(isset($currentUser['id']) && $currentUser['id'] > 0)
+	if(isset($_REQUEST['u_id']))
+    {
+        $uid = params('u_id');
+        //echo "ID is: " . $uid;
+        connectToDb();
+        $query = mysql_query("SELECT id, created_at, name, city, state, country, bio, updated_at, admin FROM users WHERE id='$uid';");
+        //echo "<br> QUERY: " . $query;
+        $row = mysql_fetch_array($query);
+
+        $id = $row['id'];
+        $tstamp = $row['created_at'];
+        $lastUpdate = $row['updated_at'];
+        $name = $row['name'];
+        $city = $row['city'];
+        $state = $row['state'];
+        $country = $row['country'];
+        $bio = $row['bio'];
+        $admin = $row['admin'];
+        //echo "timestamp: " . $tstamp;
+    }
+    else if(isset($currentUser['id']) && $currentUser['id'] > 0)
 	{
 		$uid = $currentUser['id'];
 		//echo "ID is: " . $uid;
@@ -50,6 +70,8 @@
 		}		
 		echo "<br><b>Member since </b>" . date("F j, Y", strtotime($tstamp));
 		echo "<br><b>Last login was </b>" . date("F j, Y", strtotime($lastUpdate)); 
+
+        echo '<a href="'.$flagContentURL.'?u_id='.$id.'"><Report User</a>';
         ?>
 	<br/>
     </p>  

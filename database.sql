@@ -170,7 +170,7 @@ FOR EACH ROW SET NEW.updated_at = NOW(), NEW.created_at = OLD.created_at;
 
 # Creating (InfoType) isFlagged (id) table
 CREATE table flagged(
-  id INTEGER,      
+  id INTEGER AUTO_INCREMENT,      
   priority INTEGER DEFAULT 0,    
   content_type TEXT,
   content_id INTEGER,          

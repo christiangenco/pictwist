@@ -9,10 +9,10 @@
 	//echo "HERE";
     connectToDb();
     //$upload = false;
-    errorRedirect(!isNotNull($_REQUEST['p_id']) || !isNotNull($_REQUEST['a_id']), "Error! Not photo selected.", $profileURL);
+    errorRedirect(!isNotNull($_REQUEST['p_id']) || !isNotNull($_REQUEST['a_id']), "Error! Not photo selected.", $indexURL);
     $photo_id = $_REQUEST['p_id'];
     $album_id = $_REQUEST['a_id'];
-    errorRedirect(isRestrictedPhoto($_REQUEST['p_id'], $_REQUEST['a_id']), "Error! You do not have permission to view this photo.", $profileURL);
+    errorRedirect(isRestrictedPhoto($_REQUEST['p_id'], $_REQUEST['a_id']), "Error! You do not have permission to view this photo.", $indexURL);
    
     /*
     else if(isset($_SESSION['photo_id']))
@@ -22,8 +22,8 @@
     */
     if(!isset($photo_id))
     {
-        $_SESSION['error'] = 'Error! You need to select a photo to edit.';
-        $_SESSION['redirect'] = $profileURL;
+        $_SESSION['error'] = 'Error! You need to select a photo to view.';
+        $_SESSION['redirect'] = $indexURL;
         //redirect($errorURL);
         echo 'redirectParent(\''.$errorURL.'\');';
         //echo "parent.location.href = ".$errorURL.";";
@@ -78,6 +78,7 @@
 			while($row = mysql_fetch_array($result_tags))
 			{
 				echo '<a class="m-btn mini rnd tag" href='.$deleteTagURL.'?a_id='.$album_id.'&p_id='.$photo_id.'&t_id='.$row['id'].'>';
+				//echo '<a class="m-btn mini rnd tag" href='.$flagContentURL.'?a_id='.$album_id.'&p_id='.$photo_id.'&t_id='.$row['id'].'>';
 				if ($row["type"] != "keyword") {
 					echo $row["type"].': ';
 				}
@@ -114,6 +115,8 @@
 				'<i class="icon-time"></i> View Twist History</a>';
 			echo '<a class="m-btn" id="' . $photo_id . '" href="javascript:;" onclick="redirectParent(\''.$deleteHandlerURL.'?p_id='.$photo_id.'&a_id='.$album_id. '\');">'.
 				'<i class="icon-trash"></i> Delete Photo</a>';
+			echo '<a class="m-btn" id="' . $photo_id . '" href="'.$flagContentURL.'?p_id='.$photo_id.'&a_id='.$album_id. '">'.
+				'<i class="icon-flag"></i> Flag Photo</a>';
 			?>
 		</div>
 	</div>							
@@ -128,7 +131,8 @@
 				echo '<div class="comment">';
 				echo '<div class="comment_user">'.$row["name"].'</div><div class="comment_time">'.$row["updated_at"].'</div>';
 				echo '<div class="comment_body">'.$row["text"];
-				echo '<a href="'.$deleteCommentURL.'?a_id='.$album_id.'&p_id='.$photo_id.'&c_id='.$row["id"].'"><i class="deleteCommentBtn"></i></a></div>';
+				echo '<a href="'.$deleteCommentURL.'?a_id='.$album_id.'&p_id='.$photo_id.'&c_id='.$row["id"].'"><i class="deleteCommentBtn"></i></a>';//removed a div tag here...
+				echo '<a href="'.$flagContentURL.'?a_id='.$album_id.'&p_id='.$photo_id.'&c_id='.$row["id"].'"><i class="flagCommentBtn"></i></a></div>';
 				echo '</div>';
 			}
 		?>
