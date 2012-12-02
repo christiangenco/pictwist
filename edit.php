@@ -4,9 +4,11 @@
     redirect_if_not_logged_in($logoutURL, "Error! You must be logged in to edit photos!");
     connectToDb();
     $upload = FALSE;
+    echo "hey there<br/>";
 
     if(isNotNull($_REQUEST['p_path']) && isNotNull($_REQUEST['a_id']))
     {
+        echo "in here<br/>";
         $a_id = params('a_id');
         $pathname = params('p_path');
         $colors = getPhotoColors($pathname);
