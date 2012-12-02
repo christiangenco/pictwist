@@ -60,6 +60,16 @@
 				'<img src="'.$row["path"].'" alt="'.$row["title"].'"></a>';
 		}
 		echo '</div>';
+
+		$query = "SELECT p.id, p.title, p.path, p.album_id from photos p JOIN albums a JOIN favorites f WHERE p.album_id=a.id AND p.id=f.photo_id AND f.user_id=".$currentUser['id'].";";
+		$result = mysql_query($query);
+		echo '<div class="imageList_title">My Favorites</div><div class="imageList">';
+		while($row = mysql_fetch_array($result))
+		{
+			echo '<a id="' . $row["id"] . '" class="fancybox-iframe" rel="g1" href="'.$viewLightBoxURL.'?p_id=' . $row["id"] . '&a_id=' . $row["album_id"] . '">'.
+				'<img src="'.$row["path"].'" alt="'.$row["title"].'"></a>';
+		}
+		echo '</div>';
 	}
 ?>
 

@@ -116,6 +116,8 @@
   // URL of subscribing script
   $subscriptionHandlerURL = $baseURL . 'subscribe.processor.php';
 
+  // URL of favorite photo script
+  $favoriteDisplayURL = $baseURL . 'favorite.display.php';
   
   // ### DATABASE ###
   $currentUser = getCurrentUser();
