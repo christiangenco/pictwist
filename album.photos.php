@@ -6,8 +6,8 @@
     $result = mysql_query($query);
     while($row = mysql_fetch_array($result))
     {
-        echo '<a id="' . $row[id] . '" class="fancybox-iframe" rel="g1" href="'.$viewLightBoxURL.'?p_id=' . $row[id] . '">'.
-            '<img src="'.$row[path].'" height=100 width=100 alt="'.$row[title].'"></a>';
+        echo '<a id="' . $row["id"] . '" class="fancybox-iframe" rel="g1" href="'.$viewLightBoxURL.'?p_id=' . $row["id"] . '">'.
+            '<img src="'.$row["path"].'" height=100 width=100 alt="'.$row["title"].'"></a>';
     }
 
     if(isset($currentUser['id']) && $currentUser['id'] > 0 && isset($_REQUEST['album_id']))
@@ -41,7 +41,7 @@
         <?php
                 while($row = mysql_fetch_array($result_albums))
                 {
-                        echo '<a href="view.php?album_id=' . $row[id] . '">' . $row[title] . '</a><br/>';
+                        echo '<a href="view.php?album_id=' . $row["id"] . '">' . $row["title"] . '</a><br/>';
                 }
         ?>
 
