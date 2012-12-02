@@ -77,18 +77,20 @@
 		<?php
 			while($row = mysql_fetch_array($result_tags))
 			{
-				echo '<a class="m-btn mini rnd tag" href='.$deleteTagURL.'?a_id='.$album_id.'&p_id='.$photo_id.'&t_id='.$row['id'].'>';
-				//echo '<a class="m-btn mini rnd tag" href='.$flagContentURL.'?a_id='.$album_id.'&p_id='.$photo_id.'&t_id='.$row['id'].'>';
-				if ($row["type"] != "keyword") {
-					echo $row["type"].': ';
-				}
-				echo $row["text"].'</a></td>';
+				echo '<div class="tagContainer"><a class="m-btn mini rnd tag" href='.$deleteTagURL.'?a_id='.$album_id.'&p_id='.$photo_id.'&t_id='.$row['id'].'>';
+					
+					if ($row["type"] != "keyword") {
+						echo $row["type"].': ';
+					}
+					echo $row["text"].'</a>';
+					echo '<a class="flagBtn" href='.$flagContentURL.'?a_id='.$album_id.'&p_id='.$photo_id.'&t_id='.$row['id'].'></a>';
+					echo '</div>';
 			}
 		?>
 		<a href="javascript:;" id="showAddTags" class="m-btn mini rnd tag"><i class="icon-plus"></i></a>
 		
 		<div id="addTags">
-			<form action="<?php echo $viewHandlerURL.'?p_id='.$photo_id.'&a_id='.$album_id ?>" enctype="multipart/form-data" method="post">
+			<form id="addTagsForm" action="<?php echo $viewHandlerURL.'?p_id='.$photo_id.'&a_id='.$album_id ?>" enctype="multipart/form-data" method="post">
 			<select class="m-wrap m-ctrl-small" name='tag'>
 				<option value='keyword'>Keyword</option>
 				<option value='location'>Location</option>

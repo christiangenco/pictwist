@@ -297,6 +297,7 @@ h3 {
 }
 
 
+
 /*************************************************/
 
 .bigPhoto {
@@ -356,6 +357,49 @@ h3 {
 	-webkit-box-shadow: 0 0 1px 1px rgba(100, 100, 100, 1);
 	margin-left: 5px !important;
 }
+
+.tagContainer {
+	display: inline;
+	position: relative;
+}
+
+
+.flagBtn {
+	display: inline-block;
+
+	width: 14px;
+	height: 14px;
+	margin-top: 0px;
+	line-height: 14px;
+
+	vertical-align: center;
+	background-image: url(../metro/img/glyphicons-halflings.png);
+
+	background-repeat: no-repeat;
+	
+	background-position: -310px -22px;
+	
+	position: absolute;
+	right: -5px;
+	top: -10px;
+	
+	z-index: 9999;
+	
+	padding: 2px;
+	
+	-webkit-border-radius: 9px;
+	background-color: #bbb;
+	
+	display: none;
+}
+
+.flagBtn:hover {
+	background-image: url(../metro/img/glyphicons-halflings-white.png);
+	background-color: #b00;
+}
+
+
+
 #showAddTags {
 	padding: 4px 0;
 }
@@ -415,7 +459,7 @@ h3 {
 	
 	position: absolute;
 	right: -7px;
-	top: -7px;
+	top: -5px;
 	
 	padding: 2px;
 	
@@ -427,6 +471,38 @@ h3 {
 	background-image: url(../metro/img/glyphicons-halflings-white.png);
 	background-color: #333;
 }
+
+.flagCommentBtn {
+	display: inline-block;
+
+	width: 14px;
+	height: 14px;
+	margin-top: 0px;
+	line-height: 14px;
+
+	vertical-align: center;
+	background-image: url(../metro/img/glyphicons-halflings.png);
+
+	background-repeat: no-repeat;
+	
+	background-position: -310px -22px;
+	
+	position: absolute;
+	right: -7px;
+	bottom: -5px;
+	
+	padding: 2px;
+	
+	-webkit-border-radius: 9px;
+	background-color: #bbb;
+}
+
+.flagCommentBtn:hover {
+	background-image: url(../metro/img/glyphicons-halflings-white.png);
+	background-color: #b00;
+}
+
+
 
 #commentForm {
 	width: 500px;

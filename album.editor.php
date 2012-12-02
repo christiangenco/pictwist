@@ -27,7 +27,7 @@
 
     <p> 
         <label for="title">New Album Title:</label> 
-        <input id="title" type="text" value= "<?php echo $row[title]; ?>" name="title">
+        <input id="title" type="text" value= "<?php echo $row['title']; ?>" name="title">
     </p>
 
     <p>
@@ -47,6 +47,5 @@
         <input type="submit" name="DeleteAlbum" value="Delete Album" />
     </p> 
 </form> 
-
 
 <?php INCLUDE 'include/foot.php' ?>

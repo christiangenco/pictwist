@@ -22,9 +22,9 @@
             <?php
                 while($row = mysql_fetch_array($result_albums))
                 {
-                    echo '<option value="' . $row[id] . '"';
+                    echo '<option value="' . $row['id'] . '"';
                     if($_GET['a_id']===$row['id']) {echo ' selected="selected" ';}
-                    echo '>' . $row[title] . '</option>';
+                    echo '>' . $row['title'] . '</option>';
                 }
             ?>
         </select>

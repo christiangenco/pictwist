@@ -64,12 +64,14 @@
 			<?php
 				while($row = mysql_fetch_array($result_tags))
 				{
-					echo '<a class="m-btn mini rnd tag" href='.$deleteTagURL.'?a_id='.$album_id.'&p_id='.$photo_id.'&t_id='.$row['id'].'>';
-					//echo '<a class="m-btn mini rnd tag" href='.$flagContentURL.'?a_id='.$album_id.'&p_id='.$photo_id.'&t_id='.$row['id'].'>';
+					echo '<div class="tagContainer"><a class="m-btn mini rnd tag" href='.$deleteTagURL.'?a_id='.$album_id.'&p_id='.$photo_id.'&t_id='.$row['id'].'>';
+					
 					if ($row["type"] != "keyword") {
 						echo $row["type"].': ';
 					}
-					echo $row["text"].'</a></td>';
+					echo $row["text"].'</a>';
+					echo '<a class="flagBtn" href='.$flagContentURL.'?a_id='.$album_id.'&p_id='.$photo_id.'&t_id='.$row['id'].'></a>';
+					echo '</div>';
 				}
 			?>
 			<a href="javascript:;" id="showAddTags" class="m-btn mini rnd tag"><i class="icon-plus"></i></a>
