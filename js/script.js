@@ -44,6 +44,13 @@ $(document).ready(function() {
 		$("#addTagsForm").submit();
 	});
 	
+	$(".tag, .tagContainer .flagBtn").hover(
+		function() {
+			$(this).closest(".tagContainer").children(".flagBtn").show();
+		},
+		function() {		
+			$(this).closest(".tagContainer").children(".flagBtn").hide();
+		});
 	
 });
 
