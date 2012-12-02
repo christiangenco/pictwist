@@ -122,6 +122,9 @@
 
   // URL of favorite photo script
   $favoriteDisplayURL = $baseURL . 'favorite.display.php';
+
+  // URL of sensor comment script
+  $sensorshipURL = $baseURL . 'comment.sensor.php';
   
   // ### DATABASE ###
   $currentUser = getCurrentUser();

@@ -6,7 +6,7 @@
     $upload = FALSE;
     //echo "hey there<br/>";
 
-    if(isNotNull($_REQUEST['p_path']) && isNotNull($_REQUEST['a_id']))
+    if(isset($_REQUEST['p_path']) && sNotNull($_REQUEST['p_path']) && isNotNull($_REQUEST['a_id']))
     {
         //echo "in here<br/>";
         $a_id = params('a_id');
@@ -49,8 +49,8 @@
             $result_id = sql($query);
             if($row = mysql_fetch_array($result_id))
             {
-                $p_id = $row[id];
-                $a_id = $row[album_id];
+                $p_id = $row['id'];
+                $a_id = $row['album_id'];
             }
             //$_SESSION['photo_id'] = $photo_id;
             $upload = TRUE;
@@ -89,11 +89,11 @@
         errorRedirect(!$result_photo, "Error! No photo selected for editing.", $profileURL);
         while($row = mysql_fetch_array($result_photo))
         {
-            $photo_title = $row[title];
-            $pathname = $row[path];
+            $photo_title = $row['title'];
+            $pathname = $row['path'];
             $private = $row['private'];
-            $album_id = $row[album_id];
-            $description = $row[description];;
+            $album_id = $row['album_id'];
+            $description = $row['description'];
         }
         $query = "select id, type, text from tags where photo_id = ".$p_id.";";
         //echo $query . "<br/>";
@@ -104,7 +104,7 @@
     
 ?>
 
-<p>Your photo: <?php echo $photo_id;?></p>
+<p>Your photo: <?php echo $p_id;?></p>
 <form id="Insert" action="<?php echo $editHandlerURL.'?p_id='.$p_id.'&a_id='.$album_id; ?>" enctype="multipart/form-data" method="post"> 
     <div class="pic" ><!--style="float:top; float:left; padding:50px;"-->
         <img src="<?php echo $pathname;?>" alt="<?php echo $pathname;?>" width=400 height=400/>
@@ -112,7 +112,7 @@
             Album: <?php echo $album_id ?> <br/>
             Title: <input type="text" name="title" value=<?php echo $photo_title;?>><br/>
             Description: <br/>
-            <input type="textarea" name="description" value=<?php echo $description;?>><br/>
+            <textarea type="textarea" name="description" value=<?php echo $description;?>></textarea><br/>
             Visibility: 
             <a href="<?php echo $editHandlerURL.'?p_id='.$p_id.'&a_id='.$album_id.'&private=1'; ?>">private</a>
             <a href="<?php echo $editHandlerURL.'?p_id='.$p_id.'&a_id='.$album_id.'&private=0'; ?>">public</a>
@@ -125,9 +125,9 @@
                 while($row = mysql_fetch_array($result_tags))
                 {
                     echo '<tr>'
-                        .'<td><a href='.$deleteTagURL.'?a_id='.$album_id.'&p_id='.$photo_id.'&t_id='.$row[id].'>X </a></td>'
-                        .'<td>'.$row[type].': </td>'
-                        .'<td>'.$row[text].'</td>'
+                        .'<td><a href='.$deleteTagURL.'?a_id='.$album_id.'&p_id='.$p_id.'&t_id='.$row['id'].'>X </a></td>'
+                        .'<td>'.$row['type'].': </td>'
+                        .'<td>'.$row['text'].'</td>'
                         .'</tr>';
                 }
             ?>

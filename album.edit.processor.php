@@ -2,7 +2,6 @@
 
 <?php
     //to pass album_id
-    session_start();
     $albumsURL = $baseURL . 'albums.php';
     $edit = $baseURL . 'album.editor.php';
 
@@ -10,7 +9,8 @@
     {
         connectToDb();
         $uid = $currentUser['id'];  
-        $album_id = $_SESSION['album_id'];
+        $album_id = $_GET['album_id'];
+        print($album_id);
         $title = $_POST['title'];
         $private = 'unchecked';
         $public = 'unchecked';

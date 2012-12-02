@@ -153,7 +153,25 @@ function colorPalette($imageFile, $numColors, $granularity = 5)
       user_error("Unable to get image size data"); 
       return false; 
    } 
-   $img = @imagecreatefromjpeg($imageFile);
+
+   //$fhandle = finfo_open(FILEINFO_MIME);
+   $mime_type = $size['mime'];//finfo_file($fhandle,$imageFile);
+   //echo "type: " . $mime_type . "<br/>";
+   if($mime_type == "image/jpeg")
+   {
+      $img = @imagecreatefromjpeg($imageFile); 
+      //echo "<br/>jpeg<br/>";
+   }
+   else if($mime_type == "image/png")
+   {
+      $img = @imagecreatefrompng($imageFile);
+      echo "<br/>png<br/>";
+   }
+   else if($mime_type == "image/gif")
+   {
+      $img = @imagecreatefromgif($imageFile);
+      echo "<br/>gif<br/>";
+   }
 
    if(!$img) 
    { 
@@ -222,20 +240,29 @@ foreach($palette as $color)
 
 function getPhotoInfo($file)
 {
-   list($width, $height) = getimagesize($file);
+   list($mime, $width, $height) = getimagesize($file);
 
-   $exif = exif_read_data($file);
-   $model = $exif['Model'];
-   $iso = $exif['ISOSpeedRatings'];
-   $taken = $exif['DateTime'];
-
-   $info = array(
+   if($mime == "image/jpeg")
+   {
+      $exif = exif_read_data($file);
+      $model = $exif['Model'];
+      $iso = $exif['ISOSpeedRatings'];
+      $taken = $exif['DateTime'];
+      $info = array(
             "camera_model" => $model,
             "date_taken" => $taken,
             "width" => $width,
             "height" => $height
         );
-   return $info;
+   }
+   else
+   {
+      $info = array(
+            "width" => $width,
+            "height" => $height
+        );
+   }
+    return $info;
 }
 
 function getPhotoColors($file)

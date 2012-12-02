@@ -55,7 +55,6 @@ EOT;
     }
 ?>
 <script src="js/jquery.iskip.js"></script>
-<form id="AddAlbum" action="<?php echo $baseURL . 'album.processor.php' ?>" method="post">
 
 <form id="EditAlbums" action="<?php echo $baseURL . 'album.editor.php' ?>" enctype="multipart/form-data" method="post"> 
  
@@ -91,6 +90,7 @@ EOT;
  
 </form>
 
+<form id="AddAlbum" action="<?php echo $baseURL . 'album.processor.php' ?>" method="post">
 <div style="clear: both;"></div>
 
 <h2>

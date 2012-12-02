@@ -1,13 +1,12 @@
 <?php INCLUDE 'include/head.php'; ?>
 
 <?php
-    session_start();
     $albumsURL = $baseURL . 'albums.php';
 
     if(isset($currentUser['id']) && $currentUser['id'] > 0)
     {
         $uid = $currentUser['id'];
-        $album_id = $_SESSION['album_id'];
+        $album_id = $_GET['album_id'];
         connectToDb();
     }
     else if(!isset($currentUser['id']) <= 0)

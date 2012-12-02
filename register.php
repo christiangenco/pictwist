@@ -21,11 +21,12 @@
 						</div>
 						<div class="m-input-prepend">
 							<span class="add-on"><label for="password_hash">Password *</label></span>
-							<input class="m-wrap" id="password_hash" type="password" name="password_hash" onkeyup="checkPasswordMatch()">
+							<input class="m-wrap" id="password_hash" type="password" name="password_hash" onkeyup="checkPassword()">
 						</div>
+						<div id="passwordLengthMsg">Too short</div>
 						<div class="m-input-prepend">
 							<span class="add-on"><label for="password_hash2">Repeat password *</label></span>
-							<input class="m-wrap" id="password_hash2" type="password" name="password_hash2" onkeyup="checkPasswordMatch()">
+							<input class="m-wrap" id="password_hash2" type="password" name="password_hash2" onkeyup="checkPassword()">
 						</div>
 						<div id="passwordMatchIcon" class="passwordMatchIcon"></div>
 						<div class="m-input-prepend">

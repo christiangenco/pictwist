@@ -59,12 +59,18 @@
 				$result_content = sql($query);
 				if($row2[content_type] == "comments")
 				{
-					$query = "SELECT * from comments c JOIN photos p WHERE c.id=".$row2['content_id']." AND c.photo_id=p.id;";
+					$query = "SELECT c.id, c.text, c.photo_id, p.album_id from comments c JOIN photos p WHERE c.id=".$row2['content_id']." AND c.photo_id=p.id;";
 					//echo $query . "<br/>";
 					$result_content = sql($query);
 					if($row = mysql_fetch_array($result_content))
 					{
-						echo "<p><a href='".$flagClearURL."?fl_id=".$row2['id']."'>X </a>Comment: ".$row['text']." on photo <a href='".$viewURL."?p_id=".$row['photo_id']."&a_id=".$row['album_id']."'>".$row['photo_id']."</a></p>";
+						echo "<p><a href='".$flagClearURL."?fl_id=".$row2['id']."'>X </a>"
+						."<form action='".$sensorshipURL."' method='post'>"
+						."<input type='text' value='".$row['text']."' name='comment'>"
+						."<input type='hidden' value='".$row['id']."' name='id'>"
+						."<input type='submit' value='sensor' name='submit'>"
+
+						." on photo <a href='".$viewURL."?p_id=".$row['photo_id']."&a_id=".$row['album_id']."'>".$row['photo_id']."</a></p>";
 					}
 				}
 
