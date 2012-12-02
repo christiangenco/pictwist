@@ -88,6 +88,9 @@
   
   // URL of deletion handler script
   $editInfoHandlerURL = $baseURL . 'editInfo.processor.php';
+
+  //URL of album editor script
+  $albumEditURL = $baseURL . 'album.editor.php';
   
   // ### DATABASE ###
   $currentUser = getCurrentUser();
