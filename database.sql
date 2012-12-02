@@ -12,6 +12,7 @@ GRANT ALL PRIVILEGES ON pictwist.* TO 'pictwist'@'localhost' IDENTIFIED BY 'secr
 # Creating Users table
 CREATE TABLE users(
   id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  suspended INTEGER DEFAULT FALSE,
   email VARCHAR(255) UNIQUE NOT NULL,
   password_hash VARCHAR(255) NOT NULL,
   name VARCHAR(255) NOT NULL,
