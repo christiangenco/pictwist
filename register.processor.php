@@ -58,6 +58,13 @@
 							$addUserInfo = "INSERT INTO users(name, email, password_hash, city, state, country, bio)
 							values('$name', '$email', '$hash','$city', '$state', '$country', '$bio');";
 							$added = mysql_query($addUserInfo);
+							
+							$query = "SELECT id, email FROM users WHERE email='$email';";
+							$result = mysql_query($query);
+							$row = mysql_fetch_array($result);
+							$newid = $row['id'];
+							//echo "<br>New id: " . $newid;
+							$defaultAlbum = mysql_query("INSERT INTO albums(title, user_id) VALUES('My Album', $newid);");
 							//Confirm successful registration with the user
 							$_SESSION['error'] = "Your new account has been successfully created! Please log in to verify your account";
 							$_SESSION['redirect'] = $loginURL;	//redirected to login to verify username & password
