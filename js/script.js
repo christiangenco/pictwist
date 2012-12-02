@@ -51,6 +51,10 @@ $(document).ready(function() {
 		function() {		
 			$(this).closest(".tagContainer").children(".flagBtn").hide();
 		});
+		
+	$("#showShareAlbum").click(function() {
+		$("#shareAlbum").fadeToggle();	
+	});	
 	
 });
 
