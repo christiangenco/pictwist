@@ -1,12 +1,12 @@
 <?php INCLUDE 'include/head.php'; ?>
 
 <?php
-    $albumURL = $baseURL . 'album.photos.php';
+    $albumURL = $baseURL . 'album.photos.php?album_id=' . $_GET['album_id'];
 
     if(isset($currentUser['id']) && $currentUser['id'] > 0 && isset($_REQUEST['username']))
     {
         $uid = $currentUser['id'];
-        $album_id = $_SESSION['a_id'];
+        $album_id = $_GET['album_id'];
         $user = $_REQUEST['username'];
         connectToDb();
         $query = "SELECT id from users where name = '$user';";
@@ -16,7 +16,7 @@
     else if(isset($currentUser['id']) && $currentUser['id'] > 0 && isset($_REQUEST['useremail']))
     {
         $uid = $currentUser['id'];
-        $album_id = $_SESSION['a_id'];
+        $album_id = $_GET['album_id'];
         $user = $_REQUEST['useremail'];
         connectToDb();
         $query = "SELECT id from users where email = '$user';";

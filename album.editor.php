@@ -2,10 +2,10 @@
 
 <?php
     //passing of album_id
-    if(isset($currentUser['id']) && $currentUser['id'] > 0 && isset($_SESSION['a_id']))
+    if(isset($currentUser['id']) && $currentUser['id'] > 0)
     {
         $uid = $currentUser['id'];
-        $a_id = $_SESSION['a_id'];
+        $a_id = $_GET['album_id'];
         connectToDb();
 
         $query = "SELECT title, private from albums where id = $a_id;";
@@ -19,7 +19,7 @@
     }
 ?>
 
-<form id="Edit Album" action="<?php echo $baseURL . 'album.edit.processor.php' ?>" enctype="multipart/form-data" method="post"> 
+<form id="Edit Album" action="<?php echo $baseURL . 'album.edit.processor.php?album_id=' . $a_id ?>" enctype="multipart/form-data" method="post"> 
  
     <h1> 
         Edit Album Info
@@ -42,7 +42,7 @@
  
 </form>
 
-<form id="Delete Album" action="<?php echo $baseURL . 'album.deletion.php' ?>" enctype="multipart/form-data" method="post">
+<form id="Delete Album" action="<?php echo $baseURL . 'album.deletion.php?album_id=' . $a_id ?>" enctype="multipart/form-data" method="post">
     <p>
         <input type="submit" name="DeleteAlbum" value="Delete Album" />
     </p> 
