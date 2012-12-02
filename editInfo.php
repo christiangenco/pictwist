@@ -47,8 +47,7 @@
     <li>State: <input type="text" name="state" value="<?php echo $state;?>">
     <li>Country: <input type="text" name="country" value="<?php echo $country;?>">
     <li>About Me: <input type="text" name="bio" value="<?php echo $bio;?>">
-    <!-- <li>Admin: <input type="radio" name="isadmin" value="yes" //<?php echo $yes_status;?>>Yes
-        <input type="radio" name="isadmin" value="no" //<?php echo $no_status;?>>No -->
+
   </ul>
 
   <input type="submit" name="submit" value="Save Changes">
