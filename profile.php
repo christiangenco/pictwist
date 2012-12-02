@@ -135,8 +135,7 @@
                 while($row = mysql_fetch_array($result_albums))
                 {
                 	//fixes earlier problem
-                		$_SESSION['a_id'] = $row[id];
-                        echo '<a href="album.photos.php?album_id=' . $row["id"] . '">' . $row["title"] . '</a><br/>';
+                    echo '<a href="album.photos.php?album_id=' . $row["id"] . '">' . $row["title"] . '</a><br/>';
                 }
                 echo '<a href="favorite.display.php">Favorites</a><br/>';
                 echo '<a href="albums.php">Add a new album</a><br/>';
@@ -160,7 +159,7 @@
         <?php
                 while($row = mysql_fetch_array($shared_albums))
                 {
-                        echo '<a href="album.shared.photos.php?album_id=' . $row["id"] . '">' . $row["title"] . '</a><br/>';
+                    echo '<a href="album.shared.photos.php?album_id=' . $row["id"] . '">' . $row["title"] . '</a><br/>';
                 }
             ?>
 

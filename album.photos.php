@@ -51,10 +51,10 @@
 <?php
     connectToDb();
 
-    if(isset($currentUser['id']) && $currentUser['id'] > 0 && isset($_SESSION['a_id']))
+    if(isset($currentUser['id']) && $currentUser['id'] > 0)
     {
         $uid = $currentUser['id'];
-        $a_id = $_SESSION['a_id'];
+        $a_id = $_GET['album_id'];
         $sql = "SELECT title from albums where id=$a_id;";
         $result = sql($sql);
         $title = mysql_fetch_array($result);
@@ -68,7 +68,7 @@
     } 
 ?>
 
-<form id="AlbumPhotos" action="<?php echo $baseURL . 'album.photos.php' ?>" enctype="multipart/form-data" method="post"> 
+<form id="AlbumPhotos" action="<?php echo $baseURL . 'album.photos.php?album_id=' . $a_id ?>" enctype="multipart/form-data" method="post"> 
  
     <h1> 
         <?php echo $title[title] ?>
@@ -99,13 +99,13 @@
     </p> 
 </form> 
 
-<form id="EditAlbum" action="<?php echo $baseURL . 'album.editor.php' ?>" enctype="multipart/form-data" method="post"> 
+<form id="EditAlbum" action="<?php echo $baseURL . 'album.editor.php?album_id=' . $a_id ?>" enctype="multipart/form-data" method="post"> 
     <p>
         <input type="submit" name="EditAlbum" value="Edit Album" />
     </p>
 </form>
 
-<form id="ShareAlbum" action="<?php echo $baseURL . 'album.share.php' ?>" enctype="multipart/form-data" method="post"> 
+<form id="ShareAlbum" action="<?php echo $baseURL . 'album.share.php?album_id=' . $a_id ?>" enctype="multipart/form-data" method="post"> 
     <h1> 
         Share Album 
     </h1> 

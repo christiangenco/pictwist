@@ -51,16 +51,18 @@
 <?php
     connectToDb();
 
-    if(isset($currentUser['id']) && $currentUser['id'] > 0 && isset($_REQUEST['album_id']))
+    if(isset($currentUser['id']) && $currentUser['id'] > 0)
     {
         $uid = $currentUser['id'];
-        $_SESSION['a_id'] = $_REQUEST['album_id'];
-        $a_id = $_REQUEST['album_id'];
+        $a_id = $_GET['album_id'];
         $sql = "SELECT title from albums where id=$a_id;";
-        $album_title = mysql_fetch_row(sql($sql));
+        $result = sql($sql);
+        $title = mysql_fetch_array($result);
+        $query = "select id, title from photos where album_id='".$a_id."';";
+        $result_photos = sql($query);
         
-        $query = "select a.title, p.id, p.path from albums a JOIN photos p where a.id = $a_id AND a.id = p.album_id AND user_id='$currentUser[id]' order by a.id desc;";
-        $result = mysql_query($query);
+        //$query = "select a.title, p.id, p.path from albums a JOIN photos p where a.id = $a_id AND a.id = p.album_id AND user_id='$currentUser[id]' order by a.id desc;";
+        //$result = mysql_query($query);
         while($row = mysql_fetch_array($result))
         {
             echo '<a id="' . $row[id] . '" class="fancybox-iframe" rel="g1" href="'.$viewLightBoxURL.'?p_id=' . $row[id] . '">'.
@@ -79,13 +81,26 @@
 <form id="AlbumPhotos" action="<?php echo $baseURL . 'album.photos.php' ?>" enctype="multipart/form-data" method="post"> 
  
     <h1> 
-        <?php echo $row[title] ?>
+        <?php echo $title[title] ?>
     </h1> 
      
     <p> 
         <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $max_file_size ?>"> 
     </p> 
- 
+
+    <?php
+        $query = "select a.title, p.id, p.path from albums a JOIN photos p where a.id = $a_id AND a.id = p.album_id order by a.id desc;";
+        $result = sql($query);
+    
+        echo '<div class="imageList_title"></div><div class="imageList">';
+        while($row = mysql_fetch_array($result))
+        {
+            echo '<a id="' . $row["id"] . '" class="fancybox-iframe" rel="g1" href="'.$viewLightBoxURL.'?p_id=' . $row["id"] . '&a_id=' . $row["album_id"] . '">'.
+                '<img src="'.$row["path"].'" alt="'.$row["title"].'"></a>';
+        }
+            echo '</div>';
+    ?>
+     
 </form>
 
 <?php INCLUDE 'include/foot.php' ?> 
