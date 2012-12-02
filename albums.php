@@ -32,9 +32,9 @@
         <?php
 	        while($row = mysql_fetch_array($result_albums))
 	        {
-	            if($row[title] != 'Favorites' && $row[title] != 'Default')
+	            if($row["title"] != 'Favorites' && $row["title"] != 'Default')
 	            {
-                    echo '<a href="album.editor.php?album_id=' . $row[id] . '">' . $row[title] . '</a><br/>';
+                    echo '<a href="album.editor.php?album_id=' . $row["id"] . '">' . $row["title"] . '</a><br/>';
 	            }
 	        }
         ?>

@@ -46,6 +46,60 @@
              echo "<br/>".$query;
             $result = sql($query);
         }
+
+        if(isset($_SESSION['color']))
+        {
+            $colors = $_SESSION['color'];
+            unset($_SESSION['color']);
+            echo "colors: "; print_r($colors); echo " ".$colors[1]." ggg<br/>";
+            foreach($colors as $c)
+            {
+                if($c != "")
+                {
+
+                    $query = "insert into tags(type, text, photo_id) values('color', '" . $c . "', " . $photo_id . ");";
+                     echo "<br/>".$query;
+                    $result_temp = sql($query);
+                    //if(!$result_temp){$result++;}
+                }
+                
+            }
+        }
+        
+        if(isset($_SESSION['info']))
+        {
+            $info = $_SESSION['info'];
+            unset($_SESSION['info']);
+            //echo "colors: "; print_r($colors); echo " ".$colors[1]." ggg<br/>";
+            if(isNotNull($info['height']))
+            {
+                $i = $info['height'];
+                $query = "insert into tags(type, text, photo_id) values('height', '" . $i . "', " . $photo_id . ");";
+                echo "<br/>".$query;
+                $result_temp = sql($query);
+            }
+            if(isNotNull($info['width']))
+            {
+                $i = $info['width'];
+                $query = "insert into tags(type, text, photo_id) values('width', '" . $i . "', " . $photo_id . ");";
+                echo "<br/>".$query;
+                $result_temp = sql($query);
+            }
+            if(isNotNull($info['camera_model']))
+            {
+                $i = $info['camera_model'];
+                $query = "insert into tags(type, text, photo_id) values('camera', '" . $i . "', " . $photo_id . ");";
+                echo "<br/>".$query;
+                $result_temp = sql($query);
+            }
+            if(isNotNull($info['date_taken']))
+            {
+                $i = $info['date_taken'];
+                $query = "insert into tags(type, text, photo_id) values('date', '" . $i . "', " . $photo_id . ");";
+                echo "<br/>".$query;
+                $result_temp = sql($query);
+            }
+        }
         
         errorRedirect(!$result, "Photo information could not be updated.", $editURL."?p_id=".$photo_id."&a_id=".$album_id);
 
@@ -55,7 +109,7 @@
         {
             if($_POST['tagContent']['index'] != "")
             {
-                $query = "insert into tags(type, text, photo_id) values('" . $_POST['tag'][$index] . "', '" . $_POST['tagContent'][$index] . "', '" . $photo_id . "');";
+                $query = "insert into tags(type, text, photo_id) values('" . $_POST['tag'][$index] . "', '" . $_POST['tagContent'][$index] . "', " . $photo_id . ");";
                  echo "<br/>".$query;
                 $result_temp = sql($query);
                 if(!$result_temp){$result++;}

@@ -17,15 +17,15 @@
           <!-- only one of these will actually be shown -->
           <? if ($currentUser['id'] == -1): ?>
             <div id="notSignedIn">
-              <a id="gotoSignIn" href="#" class="m-btn blue thinShadow">Sign In</a><a  id="gotoRegister" href="<?php echo $registerURL;?>" class="m-btn blue thinShadow">Join PicTwist</a>
+              <a id="gotoSignIn" href="javascript:;" class="m-btn blue thinShadow">Log In</a><a  id="gotoRegister" href="<?php echo $registerURL;?>" class="m-btn blue thinShadow">Join PicTwist</a>
             </div>
           
           
           <div id="signInFormContainer">
             <form id="signInForm" method="get" action="<?php echo $loginHandlerURL ?>">
-              <input id="usernameField" class="m-wrap" type="text" type="text" name="email" placeholder="Email" />
+              <input id="usernameField" class="m-wrap" type="text" type="text" name="email" placeholder="E-mail" />
               <input id="passwordField" class="m-wrap" type="password" name="pwd" placeholder="Password" />
-              <a id="signInBtn" class="m-btn icn-only blue thinShadow">Sign In</a>
+              <input id="signInBtn" class="m-btn icn-only blue thinShadow" type="submit" name="submit" value="Log In"/>
             </form>
       
             <i id="closeBtn"></i>
@@ -49,7 +49,7 @@
 
         <div id="searchContainer">
           <form id="searchForm" method="get" action=<?php echo $searchURL;?>>
-            <input id="searchField" class="m-wrap" name="query" type="text" placeholder="Search for photos" value="<? echo $_REQUEST['query'] ?>"/>
+            <input id="searchField" class="m-wrap" name="query" type="text" placeholder="Search for photos" value="<? if (isset($_REQUEST['query'])) {echo $_REQUEST['query'];} ?>"/>
             <a id="searchBtn" class="m-btn icn-only blue thinShadow"><i class="icon-search icon-white"></i></a>
           </form>
         </div>          

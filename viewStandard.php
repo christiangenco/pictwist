@@ -23,11 +23,11 @@
     $result_photo = sql($query);
     while($row = mysql_fetch_array($result_photo))
     {
-        $photo_title = $row[title];
-        $pathname = $row[path];
+        $photo_title = $row["title"];
+        $pathname = $row["path"];
         $private = $row['private'];
-        $album_id = $row[album_id];
-        $description = $row[description];;
+        $album_id = $row["album_id"];
+        $description = $row["description"];
     }
     $query = "select id, type, text from tags where photo_id = '".$photo_id."';";
     //echo $query . "<br/><br/>";
@@ -74,8 +74,8 @@
 	                {
 	                    echo '<tr>'
 	                    	.'<td><a href='.$deleteTagURL.'?a_id='.$album_id.'&p_id='.$photo_id.'&t_id='.$row['id'].'>X </a></td>'
-	                        .'<td>'.$row[type].': </td>'
-	                        .'<td>'.$row[text].'</td>'
+	                        .'<td>'.$row["type"].': </td>'
+	                        .'<td>'.$row["text"].'</td>'
 	                        .'</tr>';
 	                }
 	            ?>
@@ -83,8 +83,6 @@
 	        <form id="Insert" action="<?php echo $viewHandlerURL.'?p_id='.$photo_id.'&a_id='.$album_id ?>" enctype="multipart/form-data" method="post">
 	        <select name='tag'>
 	            <option value='location'>Location</option>
-	            <option value='camera type'>Camera Type</option>
-	            <option value='color'>Color</option>
 	            <option value='keyword'>Keyword</option>
 	            <option value='person'>Person</option>
 	        </select>
@@ -103,7 +101,7 @@
 			while($row = mysql_fetch_array($result_comments))
 			{
 				echo '<div class="comment">'.
-					'<a href='.$deleteCommentURL.'?a_id='.$album_id.'&p_id='.$photo_id.'&c_id='.$row[id].'>X </a>'.$row[name] . ' said ' . $row[text] . ' on '. $row[updated_at] .
+					'<a href='.$deleteCommentURL.'?a_id='.$album_id.'&p_id='.$photo_id.'&c_id='.$row["id"].'>X </a>'.$row["name"] . ' said ' . $row["text"] . ' on '. $row["updated_at"] .
 					'</div>';
 			}
 		?>

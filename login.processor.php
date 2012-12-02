@@ -48,6 +48,21 @@
 			//if the savedEmail matches the entered email AND the passwords are verified then go on to profile 
 			if(($savedEmail  == $email) && ($go == true))//($hashedpw == $hash))//($go == true))
 			{
+				$queryAdmin = mysql_query("SELECT admin, id FROM users WHERE id='$id';");
+				$row = mysql_fetch_array($queryAdmin);
+				
+				$admin = $row['admin'];
+				if($admin == 1)
+				{
+					$_SESSION['admin'] = $admin;
+					$_SESSION['uid'] = $id;
+					$_SESSION['email'] = $email;
+					$_SESSION['name'] = $name;
+					redirect($profileURL);
+					//echo "&&&& is admin!!!";
+				}
+				else
+				{
 				//echo "will sign in";
 				$_SESSION['uid'] = $id;
 				$_SESSION['email'] = $email;
@@ -55,6 +70,7 @@
 				//$_SESSION['admin'] = $admin;
 				redirect($profileURL);
 				//echo "<script>window.location = '$profileURL'</script>";
+				}
 			}
 			else	//otherwise alert user that the username or password is wrong and try again 
 			{
