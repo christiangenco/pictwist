@@ -30,7 +30,7 @@
 <form id="AlbumPhotos" action="<?php echo $baseURL . 'album.photos.php' ?>" enctype="multipart/form-data" method="post"> 
  
     <h1> 
-        <?php echo $album_title[title] ?>
+        <?php echo $album_title['title'] ?>
     </h1> 
      
     <p> 
