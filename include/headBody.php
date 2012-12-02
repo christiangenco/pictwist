@@ -37,7 +37,7 @@
               <img id="userPic" src="img/default_pic.png" />
               <div id="userInfo">
                 <div id="userName"><?echo $currentUser['username'];?></div>
-                <div id="userLinks"><a href="<?php echo $profileURL;?>">My Albums</a> | <a href="<?php echo $logoutURL;?>">Sign out</a></div>
+                <div id="userLinks"><a href="<?php echo $albumsURL;?>">My Albums</a> | <a href="<?php echo $logoutURL;?>">Sign out</a></div>
               </div>
             </div>
             

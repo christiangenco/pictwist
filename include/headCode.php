@@ -92,6 +92,8 @@
   //URL of album editor script
   $albumEditURL = $baseURL . 'album.editor.php';
 
+  $albumsURL = $baseURL . 'albums.php';
+
   // URL of admin script
   $adminURL = $baseURL . 'admin.php';
 
@@ -355,11 +357,16 @@
 
   //echo print_r($currentUser);  
 
+  // escapes strings to prevent SQL injections
+  function escape($string){
+    return mysql_real_escape_string(stripslashes($string));
+  }
+
   // usage: params("username")
   // escapes the strings so you can insert things returned by
   // this method directly into the database
   function params($key){
-    return $_REQUEST[$key] ? mysql_real_escape_string(stripslashes($_REQUEST[$key])) : null;
+    return $_REQUEST[$key] ? escape($_REQUEST[$key]) : null;
   }
 
   // if the user is on a page (s)he shouldn't be on,
