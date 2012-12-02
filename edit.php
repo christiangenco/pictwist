@@ -22,10 +22,12 @@
         {
             $query = "insert into photos(path, parent_photo_id, album_id) values('" . $pathname . "', " . $_SESSION['parent'] . ", " . $a_id . ");";
             unset($_SESSION['parent']);
+            echo $query . "<br/>";
         }
         else
         {
             $query = "insert into photos(path, album_id) values('" . $pathname . "', " . $a_id . ");";
+            echo $query . "<br/>";
         }
         $result = sql($query);
         if(!$result)
@@ -38,6 +40,7 @@
         else
         {
             $query = "select id, album_id from photos where path = '".$pathname."';";
+            echo $query . "<br/>";
             $result_id = sql($query);
             if($row = mysql_fetch_array($result_id))
             {
@@ -73,8 +76,10 @@
         //header("Location: $loginURL");
         errorRedirect(!isOwner($p_id), "Error! You do not have permission to edit this photo!", $viewURL."?p_id=".$p_id."&a_id=".$a_id);
         $query = "UPDATE photos SET views = views + 1 WHERE id = ".$p_id.";";
+        echo $query . "<br/>";
         $result = sql($query);
         $query = "select title, description, path, private, album_id from photos where id = ".$p_id.";";
+        echo $query . "<br/>";
         $result_photo = sql($query);
         errorRedirect(!$result_photo, "Error! No photo selected for editing.", $profileURL);
         while($row = mysql_fetch_array($result_photo))
