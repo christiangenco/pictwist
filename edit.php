@@ -96,6 +96,7 @@
             $description = $row[description];;
         }
         $query = "select id, type, text from tags where photo_id = ".$p_id.";";
+        echo $query . "<br/>";
         $result_tags = sql($query);
         
         $colors = getPhotoColors($pathname);
