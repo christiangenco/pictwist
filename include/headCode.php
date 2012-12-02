@@ -113,6 +113,9 @@
   // URL of deleteAccount handler script
   $deleteAccountHandlerURL = $baseURL . 'deleteAccount.processor.php';
 
+  // URL of subscribing script
+  $subscriptionHandlerURL = $baseURL . 'subscribe.processor.php';
+
   
   // ### DATABASE ###
   $currentUser = getCurrentUser();
