@@ -12,7 +12,8 @@ echo "FUCK";
             $setAdminUserName = mysql_real_escape_string($_POST['setAdminUserName']);
             $setAdminUserEmail = mysql_real_escape_string($_POST['setAdminUserEmail']);
             $viewUserInfo = mysql_real_escape_string($_POST['viewUserInfo']);
-            //$suspendUser = mysql_real_escape_string($_POST['suspendUser']);
+            $suspendUser = mysql_real_escape_string($_POST['suspendUser']);
+            $unsuspendUser = mysql_real_escape_string($_POST['unsuspendUser']);
             $deleteUser = mysql_real_escape_string($_POST['deleteUser']);
             
             //if Admin is going to be set
@@ -120,10 +121,10 @@ echo "FUCK";
                 }
             }
             
-            /*
             //SUSPEND user found by EMAIL
             if(!empty($suspendUser))
             {
+                //echo "HERE<br/>";
                 $query5 = mysql_query("SELECT * from users where email='$suspendUser';");
                 if(mysql_numrows($query5) ==0)
                 {
@@ -134,13 +135,36 @@ echo "FUCK";
                 }
                 else 
                 {
-                    $query = mysql_query("UPDATE users SET admin='1' WHERE email='$suspendUser';");
+                    $query = mysql_query("UPDATE users SET suspended=1 WHERE email='$suspendUser';");
+                    echo $query . "<br/>";
                     $_SESSION['error'] = "User has been suspended";
                     $_SESSION['redirect'] = $adminURL;
                     redirect($errorURL);
                 }
             }
-            */
+
+             //UNSUSPEND user found by EMAIL
+            if(!empty($unsuspendUser))
+            {
+                //echo "HERE<br/>";
+                $query7 = mysql_query("SELECT * from users where email='$unsuspendUser';");
+                if(mysql_numrows($query7) ==0)
+                {
+                    //id was NOT found - therefore the user/email is not registered     
+                    $_SESSION['error'] = "ERROR! Email entered is not registered";
+                    $_SESSION['redirect'] = $adminURL;
+                    redirect($errorURL);
+                }
+                else 
+                {
+                    $query = mysql_query("UPDATE users SET suspended=0 WHERE email='$unsuspendUser';");
+                    echo $query . "<br/>";
+                    $_SESSION['error'] = "User has been unsuspended";
+                    $_SESSION['redirect'] = $adminURL;
+                    redirect($errorURL);
+                }
+            }
+            
             //DELETE user found by EMAIL
             if(!empty($deleteUser))
             {
