@@ -10,9 +10,27 @@
 
        if(isset($_POST['tagContent']) && $_POST['tagContent'] !== "")
         {
-            $query = "insert into tags(type, text, photo_id) values('" . $_POST['tag'] . "', '" . $_POST['tagContent'] . "', '" . $_REQUEST['p_id'] . "');";
-            $result = sql($query);
-            errorRedirect(!$result, "Tag could not be added.", $viewURL.'?p_id='.$photo_id.'&a_id='.$album_id);
+            if($_POST['tag'] == "person")
+            {
+                if(!isUser($_POST['tagContent']))
+                {
+                    errorRedirect(TRUE, "Error! This user does not exist.", $viewURL."?p_id=".$photo_id."&a_id=".$album_id);
+                }
+                else
+                {
+                    $query = "insert into tags(type, text, photo_id) values('" . $_POST['tag'] . "', '" . $_POST['tagContent'] . "', '" . $_REQUEST['p_id'] . "');";
+                    //echo $query . "<br/>";
+                    $result = sql($query);
+                    errorRedirect(!$result, "Tag could not be added.", $viewURL.'?p_id='.$photo_id.'&a_id='.$album_id);
+                }
+            }
+            else
+            {
+                $query = "insert into tags(type, text, photo_id) values('" . $_POST['tag'] . "', '" . $_POST['tagContent'] . "', '" . $_REQUEST['p_id'] . "');";
+                //echo $query . "<br/>";
+                $result = sql($query);
+                errorRedirect(!$result, "Tag could not be added.", $viewURL.'?p_id='.$photo_id.'&a_id='.$album_id);
+            }
         }
         if(isset($_POST['comment']) && $_POST['comment'] !== "")
         {

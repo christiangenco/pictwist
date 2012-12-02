@@ -57,7 +57,13 @@
             {
                 if($t != "")
                 {
-
+                    if($type[$i] == "person")
+                    {
+                        if(!isUser($t))
+                        {
+                            errorRedirect(TRUE, "Error! This user does not exist.", $editURL."?p_id=".$photo_id."&a_id=".$album_id);
+                        }
+                    }
                     $query = "insert into tags(type, text, photo_id) values('".$type[$i]."', '" . $t . "', " . $photo_id . ");";
                      echo "<br/>".$query;
                     $result_temp = sql($query);

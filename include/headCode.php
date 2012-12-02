@@ -161,6 +161,21 @@
     return $currentUser;
   }
 
+  function isUser($email){
+    $query = "Select id, email FROM users WHERE email = '".$email."';";
+    //echo $query . "<br/><br/>";
+    $result = sql($query);
+    if($row = mysql_fetch_array($result))
+    {
+      if($email = $row['email'])
+      {
+        return TRUE;
+      }
+      return FALSE;
+    }
+    return FALSE;
+  }
+
   function isContainingAlbum($photo_id, $album_id)
   {
     $query = "Select id, album_id FROM photos WHERE id = ".$photo_id." AND album_id = ". $album_id .";";
