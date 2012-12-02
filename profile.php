@@ -136,10 +136,14 @@
                 {
                         echo '<a href="album.photos.php?album_id=' . $row["id"] . '">' . $row["title"] . '</a><br/>';
                 }
+                echo '<a href="favorite.display.php">Favorites</a><br/>';
+                echo '<a href="albums.php">Add a new album</a><br/>';
             ?>
 
         <br/>
-    </p>  
+    </p> 
+
+
 </form>
 
 <form id="MySharedAlbums" action="<?php echo $baseURL . 'album.photos.php' ?>" enctype="multipart/form-data" method="post"> 
@@ -164,26 +168,6 @@
     </p> 
 </form>
 
-<form id="AddAlbum" action="<?php echo $baseURL . 'album.processor.php' ?>" method="post">
-            <h2>
-                Add an Album!
-            </h2>
-
-            <p>
-                <label for="title">Album Title:</label> 
-                <input type="text" name="title">
-            </p>
-
-            <p>
-                Would you like this album to be private?
-                <input type="checkbox" name="private" value="1" />
-            </p>
-
-            <p>
-                <input type="submit" name="AlbumSubmit" value="Submit" />
-            </p>
-
-     </form>
 
 </div>
 <?php INCLUDE 'include/foot.php' ?>

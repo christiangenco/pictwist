@@ -88,6 +88,12 @@
  
 </form>
 
+<form id="Add Photo" action="<?php echo $uploadURL ?>" enctype="multipart/form-data" method="post">
+    <p>
+        <input type="submit" name="Add Photo" value="Add Photo" />
+    </p> 
+</form> 
+
 <form id="EditAlbum" action="<?php echo $baseURL . 'album.editor.php' ?>" enctype="multipart/form-data" method="post"> 
     <p>
         <input type="submit" name="EditAlbum" value="Edit Album" />
@@ -101,8 +107,14 @@
 
     <p> 
         <label for="User">Name of user with whom you would like to share the album:</label> 
-        <input id="user" type="text" name="user">
+        <input id="user" type="text" name="username">
     </p>
+
+    <p> 
+        <label for="User">Email of user with whom you would like to share the album:</label> 
+        <input id="user" type="text" name="useremail">
+    </p>
+
     <p>
         <input type="submit" name="ShareAlbum" value="Share Album" />
     </p>

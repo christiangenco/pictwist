@@ -2,8 +2,6 @@
 
 <?php
     //passing of album_id
-    session_start();
-
     if(isset($currentUser['id']) && $currentUser['id'] > 0 && isset($_SESSION['a_id']))
     {
         $uid = $currentUser['id'];
@@ -24,7 +22,7 @@
 <form id="Edit Album" action="<?php echo $baseURL . 'album.edit.processor.php' ?>" enctype="multipart/form-data" method="post"> 
  
     <h1> 
-        Edit Album 
+        Edit Album Info
     </h1> 
 
     <p> 
