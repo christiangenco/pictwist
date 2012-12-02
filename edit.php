@@ -11,10 +11,10 @@
         $pathname = params('p_path');
         $colors = getPhotoColors($pathname);
         $colors = array_unique($colors);
-        print_r($colors);
+       
         $info = getPhotoInfo($pathname);
-        echo "<br/>";
-        print_r($info);
+        $_SESSION['info'] = $info;
+        $_SESSION['color'] = $colors;
         //unset ($_REQUEST['album_id']);
         //unset ($_REQUEST['photo_path']);
 
@@ -87,6 +87,11 @@
         }
         $query = "select id, type, text from tags where photo_id = ".$p_id.";";
         $result_tags = sql($query);
+        
+        $colors = getPhotoColors($pathname);
+        $colors = array_unique($colors);
+        
+        $info = getPhotoInfo($pathname);
     }
     
     
@@ -121,6 +126,7 @@
             ?>
         </table>
     </div>
+    <input type="hidden" name="color[]" value="<?php print_r($colors);?>">
     <p>
         <input type="button" value="Add Another Tag" onclick="addTagField();">
     <p> 
@@ -135,8 +141,6 @@
         var newdiv = document.createElement('div');
           newdiv.innerHTML = "<select name='tag[]'>"
             +"<option value='location'>Location</option>"
-            +"<option value='camera type'>Camera Type</option>"
-            +"<option value='color'>Color</option>"
             +"<option value='keyword'>Keyword</option>"
             +"<option value='person'>Person</option>"
             +"</select>" 
