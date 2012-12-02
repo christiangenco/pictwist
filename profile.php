@@ -134,6 +134,7 @@
         <?php
                 while($row = mysql_fetch_array($result_albums))
                 {
+                	//fixes earlier problem
                 		$_SESSION['a_id'] = $row[id];
                         echo '<a href="album.photos.php?album_id=' . $row["id"] . '">' . $row["title"] . '</a><br/>';
                 }
