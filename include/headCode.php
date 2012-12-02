@@ -98,6 +98,13 @@
   // URL of admin script
   $adminHandlerURL = $baseURL . 'admin.processor.php';
 
+
+  // URL of deleteAccount script
+  $deleteAccountURL = $baseURL . 'deleteAccount.php';
+
+  // URL of deleteAccount handler script
+  $deleteAccountHandlerURL = $baseURL . 'deleteAccount.processor.php';
+
   
   // ### DATABASE ###
   $currentUser = getCurrentUser();

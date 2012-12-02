@@ -56,3 +56,6 @@
 <form method="post" action="profile.php">
 	<br><input type="submit" value="Cancel">
 </form>
+<form method="post" action="deleteAccount.php">
+	<br><input type="submit" value="Delete Account">
+</form>
