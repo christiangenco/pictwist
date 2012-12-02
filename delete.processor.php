@@ -12,7 +12,7 @@
     }
     else
     {
-        $query = "SELECT path FROM Photos WHERE id=".$p_id.";";
+        $query = "SELECT path FROM photos WHERE id=".$p_id.";";
         //echo $query . "<br/><br/>";
         $result_path = sql($query);
         
@@ -21,7 +21,7 @@
             unlink($row['path']);
 
         }
-        $query = "Delete from Photos WHERE id = ".$p_id;
+        $query = "Delete from photos WHERE id = ".$p_id;
         //echo $query . "<br/><br/>";
         $result = sql($query); 
 

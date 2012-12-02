@@ -3,22 +3,20 @@
 <?php
     //passing of album_id
     session_start();
-    $_SESSION['album_id'] = $_REQUEST['album_id'];
 
-    if(isset($currentUser['id']) && $currentUser['id'] > 0 && isset($_REQUEST['album_id']))
+    if(isset($currentUser['id']) && $currentUser['id'] > 0 && isset($_SESSION['a_id']))
     {
         $uid = $currentUser['id'];
-        $album_id = $_REQUEST['album_id'];
+        $a_id = $_SESSION['a_id'];
         connectToDb();
 
-        $query = "SELECT title, private from albums where id = $album_id;";
+        $query = "SELECT title, private from albums where id = $a_id;";
         $result = sql($query);
-        $rows = mysql_fetch_row($result);
-        echo $rows;
+        $row = mysql_fetch_array($result);
     }
     else if(!isset($currentUser['id']) <= 0)
     {
-        $_SESSION['error'] = 'Error! You must be logged in to upload photos!';
+        $_SESSION['error'] = 'Error! You must be logged in to edit albums!';
         redirect($logoutURL); 
     }
 ?>
@@ -31,13 +29,13 @@
 
     <p> 
         <label for="title">New Album Title:</label> 
-        <input id="title" type="text" value= "<?php print($_POST['title']); ?>" name="title">
+        <input id="title" type="text" value= "<?php echo $row[title]; ?>" name="title">
     </p>
 
     <p>
         <lable for="PrivateRadio">Would you like this album to be: </label>
-        <input type="radio" name="PrivateRadio" value="Public" <?php echo ($result['private'] == '0')?'checked':' ' ?>/> Public
-        <input type="radio" name="PrivateRadio" value="Private" <?php echo ($result['private'] == '1')?'checked':' ' ?>/> Private
+        <input type="radio" name="PrivateRadio" value="Public" <?php echo ($row['private'] == '0')?'checked':' ' ?>/> Public
+        <input type="radio" name="PrivateRadio" value="Private" <?php echo ($row['private'] == '1')?'checked':' ' ?>/> Private
     </p>
 
     <p>

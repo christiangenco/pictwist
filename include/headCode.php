@@ -89,17 +89,22 @@
   // URL of deletion handler script
   $editInfoHandlerURL = $baseURL . 'editInfo.processor.php';
 
+  //URL of album editor script
+  $albumEditURL = $baseURL . 'album.editor.php';
+
   // URL of admin script
   $adminURL = $baseURL . 'admin.php';
 
   // URL of admin script
   $adminHandlerURL = $baseURL . 'admin.processor.php';
 
+
   // URL of deleteAccount script
   $deleteAccountURL = $baseURL . 'deleteAccount.php';
 
   // URL of deleteAccount handler script
   $deleteAccountHandlerURL = $baseURL . 'deleteAccount.processor.php';
+
   
   // ### DATABASE ###
   $currentUser = getCurrentUser();
@@ -158,7 +163,7 @@
 
   function isContainingAlbum($photo_id, $album_id)
   {
-    $query = "Select id, album_id FROM Photos WHERE id = ".$photo_id." AND album_id = ". $album_id .";";
+    $query = "Select id, album_id FROM photos WHERE id = ".$photo_id." AND album_id = ". $album_id .";";
     //echo $query . "<br/><br/>";
     $result = sql($query);
     if($row = mysql_fetch_array($result))
@@ -195,7 +200,7 @@
 
   function isPrivateAlbum($album_id)
   {
-    $query = "SELECT private from Albums WHERE id = ".$album_id.";";
+    $query = "SELECT private from albums WHERE id = ".$album_id.";";
     $result = sql($query);
     if($row = mysql_fetch_array($result))
     {
@@ -209,7 +214,7 @@
     if(!isLoggedIn())
       {return false;}
     $currentUser = getCurrentUser();
-    $query = "SELECT user_id, album_id FROM Shared WHERE user_id = ".$currentUser['id']." AND album_id = ".$album_id.";";
+    $query = "SELECT user_id, album_id FROM shared WHERE user_id = ".$currentUser['id']." AND album_id = ".$album_id.";";
     $result = sql($query);
     if(!$result)
       {return FALSE;}
@@ -218,7 +223,7 @@
 
   function isPrivatePhoto($photo_id)
   {
-    $query = "SELECT private from Photos WHERE id = ".$photo_id.";";
+    $query = "SELECT private from photos WHERE id = ".$photo_id.";";
     $result = sql($query);
     if($row = mysql_fetch_array($result))
     {
