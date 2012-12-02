@@ -53,6 +53,8 @@
     
 ?>
 
+<?php echo isFavorite($photo_id);?>
+
 <div class="bigPhoto" >
 	<div class="bigPhotoContainer">
 		<div class="photoTitle"><?php echo $photo_title;?></div>
@@ -107,17 +109,17 @@
 	<div id="photoOptions">
 		<div class="m-btn-group">
 			<?php
-			echo '<a class="m-btn" id="' . $photo_id . '" href="javascript:;" onclick="redirectParent(\''.$editURL.'?p_id='.$photo_id.'&a_id='.$album_id . '\');">'.
+			echo '<a class="m-btn" id="' . $photo_id . '" href="'.$editURL.'?p_id='.$photo_id.'&a_id='.$album_id . '" target="_parent">'.
 				'<i class="icon-pencil"></i> Edit Photo</a>';
-			echo '<a class="m-btn" id="' . $photo_id . '" href="javascript:;" onclick="redirectParent(\''.$favoriteHandlerURL.'?p_id='.$photo_id.'&a_id='.$album_id. '\');">'.
+			echo '<a class="m-btn" id="' . $photo_id . '" href="'.$favoriteHandlerURL.'?p_id='.$photo_id.'&a_id='.$album_id. '" target="_parent");">'.
 				'<i class="icon-heart"></i> Add Favorite</a>';
-			echo '<a class="m-btn blue" id="' . $photo_id . '" href="javascript:;" onclick="redirectParent(\''.$twistURL.'?p_id='.$photo_id.'&a_id='.$album_id. '\');">'.
+			echo '<a class="m-btn blue" id="' . $photo_id . '" href="'.$twistURL.'?p_id='.$photo_id.'&a_id='.$album_id. '" target="_parent");">'.
 				'Twist!</a>';
-			echo '<a class="m-btn" id="' . $photo_id . '" href="javascript:;" onclick="redirectParent(\''.$twistHistoryURL.'?p_id='.$photo_id.'&a_id='.$album_id. '\');">'.
+			echo '<a class="m-btn" id="' . $photo_id . '" href="'.$twistHistoryURL.'?p_id='.$photo_id.'&a_id='.$album_id. '" target="_parent");">'.
 				'<i class="icon-time"></i> View Twist History</a>';
-			echo '<a class="m-btn" id="' . $photo_id . '" href="javascript:;" onclick="redirectParent(\''.$deleteHandlerURL.'?p_id='.$photo_id.'&a_id='.$album_id. '\');">'.
+			echo '<a class="m-btn" id="' . $photo_id . '" href="'.$deleteHandlerURL.'?p_id='.$photo_id.'&a_id='.$album_id. '" target="_parent");">'.
 				'<i class="icon-trash"></i> Delete Photo</a>';
-			echo '<a class="m-btn" id="' . $photo_id . '" href="'.$flagContentURL.'?p_id='.$photo_id.'&a_id='.$album_id. '">'.
+			echo '<a class="m-btn" id="' . $photo_id . '" href="'.$flagContentURL.'?p_id='.$photo_id.'&a_id='.$album_id. '" target="_parent">'.
 				'<i class="icon-flag"></i> Flag Photo</a>';
 			?>
 		</div>
