@@ -16,10 +16,10 @@
 
     // ######## add to views.php!!!!
     $query = "UPDATE photos SET views = views + 1 WHERE id = ".$photo_id.";";
-    echo $query . "<br/><br/>";
+    //echo $query . "<br/><br/>";
     $result = sql($query);
     $query = "select title, description, path, private, album_id from photos where id = '".$photo_id."';";
-    echo $query . "<br/><br/>";
+    //echo $query . "<br/><br/>";
     $result_photo = sql($query);
     while($row = mysql_fetch_array($result_photo))
     {
@@ -30,10 +30,10 @@
         $description = $row["description"];
     }
     $query = "select id, type, text from tags where photo_id = '".$photo_id."';";
-    echo $query . "<br/><br/>";
+    //echo $query . "<br/><br/>";
     $result_tags = sql($query);
     $query = "select text, c.id, c.updated_at, u.name from photos p JOIN comments c JOIN users u where p.id = ".$photo_id." AND p.id = c.photo_id AND u.id = c.user_id order by c.updated_at desc;";
-    echo $query . "<br/><br/>";
+    //echo $query . "<br/><br/>";
 	//echo $query . '<br/><br/>';
 	$result_comments = sql($query);
  

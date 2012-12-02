@@ -157,7 +157,7 @@
   function isContainingAlbum($photo_id, $album_id)
   {
     $query = "Select id, album_id FROM photos WHERE id = ".$photo_id." AND album_id = ". $album_id .";";
-    echo $query . "<br/><br/>";
+    //echo $query . "<br/><br/>";
     $result = sql($query);
     if($row = mysql_fetch_array($result))
     {
