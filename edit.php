@@ -12,14 +12,14 @@
         $a_id = params('a_id');
         $pathname = params('p_path');
         echo "in here<br/>";
-        $colors = getPhotoColors($pathname);
+        //$colors = getPhotoColors($pathname);
         echo "in here<br/>";
-        $colors = array_unique($colors);
+        //$colors = array_unique($colors);
         echo "in here<br/>";
        
-        $info = getPhotoInfo($pathname);
-        $_SESSION['info'] = $info;
-        $_SESSION['color'] = $colors;
+        //$info = getPhotoInfo($pathname);
+        //$_SESSION['info'] = $info;
+        //$_SESSION['color'] = $colors;
         //unset ($_REQUEST['album_id']);
         //unset ($_REQUEST['photo_path']);
 
