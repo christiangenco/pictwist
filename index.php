@@ -1,9 +1,9 @@
 <?php INCLUDE_ONCE 'include/head.php'; ?>
 
-
-
-
 <?php
+	//$url=$_SERVER['REQUEST_URI'];
+	//header("Refresh: 60; URL=$url"); 
+
 	connectToDb();
 	$query = "select title, id, album_id, path, created_at from photos order by created_at desc limit 0, 20;";
 	$result = mysql_query($query);
