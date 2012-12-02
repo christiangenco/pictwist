@@ -83,8 +83,6 @@
 	        <form id="Insert" action="<?php echo $viewHandlerURL.'?p_id='.$photo_id.'&a_id='.$album_id ?>" enctype="multipart/form-data" method="post">
 	        <select name='tag'>
 	            <option value='location'>Location</option>
-	            <option value='camera type'>Camera Type</option>
-	            <option value='color'>Color</option>
 	            <option value='keyword'>Keyword</option>
 	            <option value='person'>Person</option>
 	        </select>
