@@ -6,7 +6,7 @@
     $upload = FALSE;
     //echo "hey there<br/>";
 
-    if(isset($_REQUEST['p_path']) && sNotNull($_REQUEST['p_path']) && isNotNull($_REQUEST['a_id']))
+    if(isset($_REQUEST['p_path']) && isNotNull($_REQUEST['p_path']) && isNotNull($_REQUEST['a_id']))
     {
         //echo "in here<br/>";
         $a_id = params('a_id');
