@@ -168,6 +168,12 @@
     </p> 
 </form>
 
+<form id="Add Photo" action="<?php echo $uploadURL ?>" enctype="multipart/form-data" method="post">
+    <p>
+        <input type="submit" name="Add Photo" value="Add Photo" />
+    </p> 
+</form> 
+
 
 </div>
 <?php INCLUDE 'include/foot.php' ?>
