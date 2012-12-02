@@ -33,52 +33,66 @@
 		}
 		else	//else the email WAS found
 		{
-			//query to find email and id that belong to the entered email and password 
-			$query = "SELECT email, id, name FROM users WHERE email='$email' AND password_hash='$hash';";		//here
-			echo "<br/> Query: " . $query.'<br/>';
-			$result = sql($query);
-			$row = mysql_fetch_array($result);
+			$suspended = mysql_query("SELECT suspended, email FROM users WHERE email='$email';");
+			$row = mysql_fetch_array($suspended);
+			$isSuspended = $row['suspended'];
 			
-			$savedEmail = $row['email'];
-			$id = $row['id'];
-			$hashedpw = $row['password_hash'];
-			$name = $row['name'];
-			//$admin = $row['admin'];
-			
-			//if the savedEmail matches the entered email AND the passwords are verified then go on to profile 
-			if(($savedEmail  == $email) && ($go == true))//($hashedpw == $hash))//($go == true))
+			if($isSuspended == 1)
 			{
-				$queryAdmin = mysql_query("SELECT admin, id FROM users WHERE id='$id';");
-				$row = mysql_fetch_array($queryAdmin);
+				//echo "User is suspended";
+				$_SESSION['error'] = "You are suspended! Sorry you can not log in.";
+				$_SESSION['redirect'] = $loginURL;
+				redirect($errorURL);
+			}
+			else
+			{
+				//query to find email and id that belong to the entered email and password 
+				$query = "SELECT email, id, name FROM users WHERE email='$email' AND password_hash='$hash';";		//here
+				echo "<br/> Query: " . $query.'<br/>';
+				$result = sql($query);
+				$row = mysql_fetch_array($result);
 				
-				$admin = $row['admin'];
-				if($admin == 1)
+				$savedEmail = $row['email'];
+				$id = $row['id'];
+				$hashedpw = $row['password_hash'];
+				$name = $row['name'];
+				//$admin = $row['admin'];
+				
+				//if the savedEmail matches the entered email AND the passwords are verified then go on to profile 
+				if(($savedEmail  == $email) && ($go == true))//($hashedpw == $hash))//($go == true))
 				{
-					$_SESSION['admin'] = $admin;
+					$queryAdmin = mysql_query("SELECT admin, id FROM users WHERE id='$id';");
+					$row = mysql_fetch_array($queryAdmin);
+					
+					$admin = $row['admin'];
+					if($admin == 1)
+					{
+						$_SESSION['admin'] = $admin;
+						$_SESSION['uid'] = $id;
+						$_SESSION['email'] = $email;
+						$_SESSION['name'] = $name;
+						redirect($profileURL);
+						//echo "&&&& is admin!!!";
+					}
+					else
+					{
+					//echo "will sign in";
 					$_SESSION['uid'] = $id;
 					$_SESSION['email'] = $email;
 					$_SESSION['name'] = $name;
+					//$_SESSION['admin'] = $admin;
 					redirect($profileURL);
-					//echo "&&&& is admin!!!";
+					//echo "<script>window.location = '$profileURL'</script>";
+					}
 				}
-				else
+				else	//otherwise alert user that the username or password is wrong and try again 
 				{
-				//echo "will sign in";
-				$_SESSION['uid'] = $id;
-				$_SESSION['email'] = $email;
-				$_SESSION['name'] = $name;
-				//$_SESSION['admin'] = $admin;
-				redirect($profileURL);
-				//echo "<script>window.location = '$profileURL'</script>";
-				}
+					//echo "will ps or user is wrong";
+					$_SESSION['error'] = "Username or Password is incorrect. Please try again.";
+					$_SESSION['redirect'] = $loginURL;
+					redirect($errorURL);
+				} // end error handler
 			}
-			else	//otherwise alert user that the username or password is wrong and try again 
-			{
-				//echo "will ps or user is wrong";
-				$_SESSION['error'] = "Username or Password is incorrect. Please try again.";
-				$_SESSION['redirect'] = $loginURL;
-				redirect($errorURL);
-			} // end error handler
 		}	
 	}
 	//check if either the email slot or the password slot are empty and automatically redirects to the login in again
