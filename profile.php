@@ -2,7 +2,27 @@
 <div id="user info">
 <?php
 	date_default_timezone_set('America/Chicago');
-	if(isset($currentUser['id']) && $currentUser['id'] > 0)
+	if(isset($_REQUEST['u_id']))
+    {
+        $uid = params('u_id');
+        //echo "ID is: " . $uid;
+        connectToDb();
+        $query = mysql_query("SELECT id, created_at, name, city, state, country, bio, updated_at, admin FROM users WHERE id='$uid';");
+        //echo "<br> QUERY: " . $query;
+        $row = mysql_fetch_array($query);
+
+        $id = $row['id'];
+        $tstamp = $row['created_at'];
+        $lastUpdate = $row['updated_at'];
+        $name = $row['name'];
+        $city = $row['city'];
+        $state = $row['state'];
+        $country = $row['country'];
+        $bio = $row['bio'];
+        $admin = $row['admin'];
+        //echo "timestamp: " . $tstamp;
+    }
+    else if(isset($currentUser['id']) && $currentUser['id'] > 0)
 	{
 		$uid = $currentUser['id'];
 		//echo "ID is: " . $uid;
@@ -50,6 +70,11 @@
 		}		
 		echo "<br><b>Member since </b>" . date("F j, Y", strtotime($tstamp));
 		echo "<br><b>Last login was </b>" . date("F j, Y", strtotime($lastUpdate)); 
+
+
+        echo '<br/><a href="'.$flagContentURL.'?u_id='.$id.'">Report User</a>';
+        echo '<br/><a href="'.$subscriptionHandlerURL.'?u_id='.$id.'">Subscribe</a>';
+
         ?>
 	<br/>
     </p>  
@@ -70,13 +95,13 @@
 <div id="album info">
 <?php
 	connectToDb();
-	$query = "select p.album_id, a.title, p.id, p.path from albums a JOIN photos p where a.id = p.album_id AND user_id='$currentUser[id]' order by a.id desc;";
-	$result = mysql_query($query);
-	while($row = mysql_fetch_array($result))
-	{
-		echo '<a id="' . $row["id"] . '" class="fancybox-iframe" rel="g1" href="'.$viewLightBoxURL.'?p_id=' . $row["id"] . '&a_id=' . $row["album_id"] . '">'.
-			'<img src="'.$row["path"].'" height=100 width=100 alt="'.$row["title"].'"></a>';
-	}
+	//$query = "select p.album_id, a.title, p.id, p.path from albums a JOIN photos p where a.id = p.album_id AND user_id='$currentUser[id]' order by a.id desc;";
+	//$result = mysql_query($query);
+	//while($row = mysql_fetch_array($result))
+	//{
+	//	echo '<a id="' . $row["id"] . '" class="fancybox-iframe" rel="g1" href="'.$viewLightBoxURL.'?p_id=' . $row["id"] . '&a_id=' . $row["album_id"] . '">'.
+	//		'<img src="'.$row["path"].'" height=100 width=100 alt="'.$row["title"].'"></a>';
+	//}
 
 	if(isset($currentUser['id']) && $currentUser['id'] > 0)
     {

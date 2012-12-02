@@ -1,9 +1,9 @@
 <?php INCLUDE_ONCE 'include/head.php'; ?>
 
-
-
-
 <?php
+	//$url=$_SERVER['REQUEST_URI'];
+	//header("Refresh: 60; URL=$url"); 
+
 	connectToDb();
 	$query = "select title, id, album_id, path, created_at from photos order by created_at desc limit 0, 20;";
 	$result = mysql_query($query);
@@ -51,7 +51,7 @@
 		echo '</div>';
 
 
-		$query = "select p.id, p.title, p.album_id, s.user_id, path, p.created_at from photos p JOIn albums a JOIN subscribes s WHERE p.album_id=a.id AND s.user_id_subscriber=1 AND a.user_id=s.user_id order by p.created_at desc limit 0, 20;";
+		$query = "select p.id, p.title, p.album_id, s.user_id, path, p.created_at from photos p JOIn albums a JOIN subscribes s WHERE p.album_id=a.id AND s.user_id_subscriber=1 AND a.user_id=s.user_id AND a.user_id=".$currentUser['id']." order by p.created_at desc limit 0, 20;";
 		$result = mysql_query($query);
 		echo '<div class="imageList_title">My Subscriptions</div><div class="imageList">';
 		while($row = mysql_fetch_array($result))

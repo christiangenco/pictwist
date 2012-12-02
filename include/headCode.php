@@ -95,15 +95,26 @@
   // URL of admin script
   $adminURL = $baseURL . 'admin.php';
 
+  // URL of index script
+  $indexURL = $baseURL . 'index.php';
+
   // URL of admin script
   $adminHandlerURL = $baseURL . 'admin.processor.php';
 
+  // URL of flagging script
+  $flagContentURL = $baseURL . 'flag.processor.php';
+
+  //URL of flag clearing script
+  $flagClearURL = $baseURL . 'flag.clear.php';
 
   // URL of deleteAccount script
   $deleteAccountURL = $baseURL . 'deleteAccount.php';
 
   // URL of deleteAccount handler script
   $deleteAccountHandlerURL = $baseURL . 'deleteAccount.processor.php';
+
+  // URL of subscribing script
+  $subscriptionHandlerURL = $baseURL . 'subscribe.processor.php';
 
   
   // ### DATABASE ###
@@ -159,6 +170,21 @@
     $currentUser = array("username" => $email, "id" => $uid, "name" => $name, "admin" => $admin);
     
     return $currentUser;
+  }
+
+  function isUser($email){
+    $query = "Select id, email FROM users WHERE email = '".$email."';";
+    //echo $query . "<br/><br/>";
+    $result = sql($query);
+    if($row = mysql_fetch_array($result))
+    {
+      if($email = $row['email'])
+      {
+        return TRUE;
+      }
+      return FALSE;
+    }
+    return FALSE;
   }
 
   function isContainingAlbum($photo_id, $album_id)
