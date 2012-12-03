@@ -122,7 +122,7 @@
 				}
 			}
 
-			else
+			else if(isAdmin())
 			{
 				echo "<br/>admin<br/>";
 				foreach ($search_tag as $index => $tags) {
