@@ -14,13 +14,13 @@
 
     function album_html($album_id, $album_title, $albumURL, $first_photo_path, $photo_urls){
         return <<<EOT
-        <div class='album' style='float:left; margin: 20px'>
+        <div class='album' style='float:left; margin: 20px;'>
         <a href='$albumURL?album_id=$album_id'><h3>$album_title</h3></a>
         <!--<a href='uploadURL?a_id=album_id'>add photos</a>-->
 
         <a href="$albumURL?album_id=$album_id">
-        <div style="width: 200px; height: 200px;">
-            <img src="$first_photo_path" alt="" id="album_$album_id" style="max-width: 200px; max-height: 200px" />
+        <div style="width: 200px; height: 200px; border: 1px solid black; border-radius: 20px;">
+            <img src="$first_photo_path" alt="" id="album_$album_id" style="max-width: 200px; max-height: 200px; border-radius: 20px" />
         </div>
         </a>
         <script type="text/javascript">
