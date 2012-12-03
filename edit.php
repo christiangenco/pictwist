@@ -90,6 +90,7 @@
         while($row = mysql_fetch_array($result_photo))
         {
             $photo_title = $row['title'];
+            echo $photo_title . "<br/>";
             $pathname = $row['path'];
             $private = $row['private'];
             $album_id = $row['album_id'];
@@ -110,9 +111,9 @@
         <img src="<?php echo $pathname;?>" alt="<?php echo $pathname;?>" width=400 height=400/>
         <p>
             Album: <?php echo $album_id ?> <br/>
-            Title: <input type="text" name="title" value=<?php echo $photo_title;?>><br/>
+            Title: <input type="text" name="title" value="<?php echo $photo_title;?>"><br/>
             Description: <br/>
-            <textarea type="textarea" name="description" value=<?php echo $description;?>></textarea><br/>
+            <textarea type="textarea" name="description"><?php echo $description;?></textarea><br/>
             Visibility: 
             <? if($private==0): ?>
                 <a href="<?php echo $editHandlerURL.'?p_id='.$p_id.'&a_id='.$album_id.'&private=1'; ?>">private</a>
