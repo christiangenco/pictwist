@@ -25,7 +25,7 @@
 
         if(isnotnull($_REQUEST['parent_photo_id']))
         {
-            echo "parent_photo_id is set and is: " . $_REQUEST['parent_photo_id'];
+            //echo "parent_photo_id is set and is: " . $_REQUEST['parent_photo_id'];
             $query = "insert into photos(path, parent_photo_id, album_id) values('" . $pathname . "', " . $_REQUEST['parent_photo_id'] . ", " . $a_id . ");";
             //echo $query . "<br/>";
         }
@@ -90,7 +90,7 @@
         while($row = mysql_fetch_array($result_photo))
         {
             $photo_title = $row['title'];
-            echo $photo_title . "<br/>";
+            //echo $photo_title . "<br/>";
             $pathname = $row['path'];
             $private = $row['private'];
             $album_id = $row['album_id'];
@@ -105,7 +105,6 @@
     
 ?>
 
-<p>Your photo: <?php echo $p_id;?></p>
 <form id="Insert" action="<?php echo $editHandlerURL.'?p_id='.$p_id.'&a_id='.$album_id; ?>" enctype="multipart/form-data" method="post"> 
     <div class="pic" ><!--style="float:top; float:left; padding:50px;"-->
         <img src="<?php echo $pathname;?>" alt="<?php echo $pathname;?>" width=400 height=400/>

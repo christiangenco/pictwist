@@ -124,7 +124,7 @@
 
 			else if(isAdmin())
 			{
-				echo "<br/>admin<br/>";
+				//echo "<br/>admin<br/>";
 				foreach ($search_tag as $index => $tags) {
 					$search_seg = (explode(":", $tags));
 					$tag = trim($search_seg["0"]);
@@ -241,7 +241,7 @@
 
 					else if(isAdmin())
 					{
-						echo "<br/>admin<br/>";
+						//echo "<br/>admin<br/>";
 						$query = $query . " (id IN (SELECT p.id FROM photos p LEFT JOIN tags t ON p.id = t.photo_id"
 						." WHERE (t.text LIKE '%".$q."%' OR p.title LIKE '%".$q."%' OR p.description LIKE '%".$q."%')"
 						." GROUP BY p.id"
