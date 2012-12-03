@@ -147,3 +147,7 @@
 
 <?php INCLUDE 'include/foot.php'; ?>
 
+<script type="text/javascript">
+	$("#footer").hide();
+</script>
+
