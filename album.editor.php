@@ -5,9 +5,8 @@
     if(isset($currentUser['id']) && $currentUser['id'] > 0)
     {
         $uid = $currentUser['id'];
-        $a_id = $_GET['album_id'];
+        $a_id = $_REQUEST['album_id'];
         connectToDb();
-
         $query = "SELECT title, private from albums where id = $a_id;";
         $result = sql($query);
         $row = mysql_fetch_array($result);
