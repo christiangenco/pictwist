@@ -55,7 +55,7 @@
 <?php if($uid == $currentUser['id']):?>	 
 <div class="centerAlign">	 
 
-	<a class="m-btn blue thinBorder" href="<? echo $uploadURL ?>"><i class="icon-plus icon-white"></i> Add Photo</a>
+	<a class="m-btn blue thinBorder" href="<? echo $uploadURL ?>?a_id=<? echo $a_id ?>"><i class="icon-plus icon-white"></i> Add Photo</a>
 
 	<a class="m-btn blue thinBorder" href="<?php echo $baseURL . 'album.editor.php?album_id=' . $a_id ?>"><i class="icon-pencil icon-white"></i> Edit Album</a>	 
 
