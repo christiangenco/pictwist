@@ -81,7 +81,12 @@
     <?php
       while($row = mysql_fetch_array($result_tags))
       {
-        echo '<div class="tagContainer"><a class="m-btn mini rnd tag" href='.$deleteTagURL.'?a_id='.$album_id.'&p_id='.$photo_id.'&t_id='.$row['id'].' target="_parent">';
+        echo '<div class="tagContainer">';
+        echo '<a class="m-btn mini rnd tag"';
+        if(isAdmin() || isOwner($photo_id)){
+          echo 'href='.$deleteTagURL.'?a_id='.$album_id.'&p_id='.$photo_id.'&t_id='.$row['id'];
+        }
+        echo ' target="_parent">';
 
           if ($row["type"] != "keyword") {
             echo $row["type"].': ';
@@ -91,8 +96,11 @@
           echo '</div>';
       }
     ?>
+    <?php if(isAdmin || isOwner($photo_id)): ?>
     <a href="javascript:;" id="showAddTags" class="m-btn mini rnd tag"><i class="icon-plus"></i></a>
-    
+    <?php endif; ?>
+
+    <?php if(isLoggedIn()): ?>
     <div id="addTags">
       <form id="addTagsForm" action="<?php echo $viewHandlerURL.'?p_id='.$photo_id.'&a_id='.$album_id ?>" enctype="multipart/form-data" method="post">
       <select class="m-wrap m-ctrl-small" name='tag'>
@@ -106,35 +114,39 @@
       </span>
       </form>
     </div>
+  <?php endif;?>
     
   </div>      
   <div id="photoOptions">
     <div class="m-btn-group">
       <?php
-      if(true){
+      if(isOwner($photo_id)){
         echo '<a class="m-btn" id="' . $photo_id . '" href="'.$editURL.'?p_id='.$photo_id.'&a_id='.$album_id . '" target="_parent">'.
         '<i class="icon-pencil"></i> Edit Photo</a>';
       }
 
-      if(true){
+      if(isOwner($photo_id)){
         echo '<a class="m-btn" href="'.$updateProfilePictureHandlerURL.'?p_id='.$photo_id.'" target="_parent">'.
         '<i class="icon-pencil"></i> Make Profile Picture</a>';
       }
 
-      if (isFavorite($photo_id)) {  
-        echo '<a class="m-btn" id="' . $photo_id . '" href="'.$favoriteHandlerURL.'?p_id='.$photo_id.'&a_id='.$album_id. '" target="_parent");">'.
-          '<i class="icon-star-empty"></i> Remove Favorite</a>';
-      } else {
-        echo '<a class="m-btn" id="' . $photo_id . '" href="'.$favoriteHandlerURL.'?p_id='.$photo_id.'&a_id='.$album_id. '" target="_parent");">'.
-          '<i class="icon-star"></i> Add Favorite</a>';
-      }
+      if(isLoggedIn()){
+        if (isFavorite($photo_id)) {  
+          echo '<a class="m-btn" id="' . $photo_id . '" href="'.$favoriteHandlerURL.'?p_id='.$photo_id.'&a_id='.$album_id. '" target="_parent");">'.
+            '<i class="icon-star-empty"></i> Remove Favorite</a>';
+        } else {
+          echo '<a class="m-btn" id="' . $photo_id . '" href="'.$favoriteHandlerURL.'?p_id='.$photo_id.'&a_id='.$album_id. '" target="_parent");">'.
+            '<i class="icon-star"></i> Add Favorite</a>';
+        }
 
       echo '<a class="m-btn blue" id="' . $photo_id . '" href="'.$twistURL.'?p_id='.$photo_id.'&a_id='.$album_id. '" target="_parent");">'.
         'Twist!</a>';
+      }
+
       echo '<a class="m-btn" id="' . $photo_id . '" href="'.$twistHistoryURL.'?p_id='.$photo_id.'&a_id='.$album_id. '" target="_parent");">'.
         '<i class="icon-time"></i> View Twist History</a>';
 
-      if(true){
+      if(isOwner($photo_id) || isAdmin()){
         echo '<a class="m-btn" id="' . $photo_id . '" href="'.$deleteHandlerURL.'?p_id='.$photo_id.'&a_id='.$album_id. '" target="_parent");">'.
         '<i class="icon-trash"></i> Delete Photo</a>';
       }
@@ -154,7 +166,7 @@
         echo '<div class="comment">';
         echo '<div class="comment_user"><a href="'.$profileURL.'?u_id='.$row["user_id"].'" target="_parent">'.$row["name"].'</a></div><div class="comment_time">'.$row["updated_at"].'</div>';
         echo '<div class="comment_body">'.$row["text"];
-        echo '<a href="'.$deleteCommentURL.'?a_id='.$album_id.'&p_id='.$photo_id.'&c_id='.$row["id"].'" target="_parent"><i class="deleteCommentBtn"></i></a>';//removed a div tag here...
+        if(isAdmin() || isOwner($photo_id) || $currentUser['id'] == $row["user_id"]){echo '<a href="'.$deleteCommentURL.'?a_id='.$album_id.'&p_id='.$photo_id.'&c_id='.$row["id"].'" target="_parent"><i class="deleteCommentBtn"></i></a>';}//removed a div tag here...
         echo '<a href="'.$flagContentURL.'?a_id='.$album_id.'&p_id='.$photo_id.'&c_id='.$row["id"].'" target="_parent"><i class="flagCommentBtn"></i></a></div>';
         echo '</div>';
       }

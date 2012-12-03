@@ -37,9 +37,7 @@
 
 
  
-<a class="returnLink" href="<?php echo $profileURL;?>">< Back to my profile</a>
-   
-
+<a class="returnLink" href="<?php echo $profileURL;?>"<?php if($uid != $currentUser['id']){echo "?u_id=".$uid;}?>>&lt; Back to <?php if($uid == $currentUser['id']){echo " My ";} else{echo " the ";}?> Profile</a>
     <?php
         $query = "select a.title, p.id, p.path from albums a JOIN photos p where a.id = $a_id AND a.id = p.album_id AND user_id=".$uid." order by a.id desc;";
         $result = sql($query);
@@ -54,7 +52,7 @@
     ?>
      
 <div class="divider"></div>	 
-	 
+<?php if($uid == $currentUser['id']):?>	 
 <div class="centerAlign">	 
 
 	<a class="m-btn blue thinBorder" href="<? echo $uploadURL ?>"><i class="icon-plus icon-white"></i> Add Photo</a>
@@ -86,5 +84,6 @@
 		</div>
 	</div>
 </div>
+<?php endif; ?>
 
 <?php INCLUDE 'include/foot.php' ?> 

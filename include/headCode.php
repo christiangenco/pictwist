@@ -307,7 +307,7 @@
     //echo "result: " . $result;
     if($row = mysql_fetch_array($result))
     {
-      echo "pid: " . $row['id'];
+      //echo "pid: " . $row['id'];
       if($row['id'] === $photo_id)
         {//echo "OWNER=true"; 
       return TRUE;}
