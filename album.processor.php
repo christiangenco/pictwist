@@ -36,7 +36,11 @@
 
     sql($sql);
 
-    redirect($profileURL);
+    // get the newly created album URL
+    $album_data = mysql_fetch_array(sql("SELECT id FROM albums WHERE title=\"".$title."\" AND user_id=\"".$uid."\""));
+    $album_id = $album_data["id"];
+
+    redirect($albumURL."?album_id=$album_id");
 ?>
 
 <?php INCLUDE 'include/foot.php' ?>
