@@ -33,7 +33,7 @@
 									
 					<div class="m-input-prepend">
 						<span class="add-on"><label for="setAdminUserName">By User Name: </label></span>
-						<input class="m-wrap" id="setAdminUserName" type="text" name="setAdminUserName" placeholder="User Name">
+						<input class="m-wrap" id="setAdminUserName" type="text" name="setAdminUserName" placeholder="Name">
 					</div>
 									
 					<div class="m-input-prepend">
