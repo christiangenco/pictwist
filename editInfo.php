@@ -38,6 +38,8 @@
 	setTitle("Edit Profile");
 </script>
 
+<a class="returnLink" href="<?php echo $profileURL;?>">< Back to my profile</a>
+
 <div class="centerBox">
 
 <h1>Edit Profile</h1>
