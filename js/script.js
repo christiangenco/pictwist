@@ -97,9 +97,9 @@ function validateRegister() {
 	if (!name || !email || !pass1 || !pass2) {
 		$("#registerValidation").html("Please fill out required fields (*)").show().fadeOut(5000);
 		return false;
-	} else if (!validateEmail(email)) {		
+	/* } else if (!validateEmail(email)) {		
 		$("#registerValidation").html("E-mail is not valid").show().fadeOut(5000);
-		return false;
+		return false; */
 	} else if ($("#password_hash").val() != $("#password_hash2").val()) {
 		$("#registerValidation").html("Passwords do not match").show().fadeOut(5000);
 		return false;
