@@ -41,7 +41,7 @@
    
 
     <?php
-        $query = "select a.title, p.id, p.path from albums a JOIN photos p where a.id = $a_id AND a.id = p.album_id AND user_id='$uid' order by a.id desc;";
+        $query = "select a.title, p.id, p.path from albums a JOIN photos p where a.id = $a_id AND a.id = p.album_id AND user_id=".$uid." order by a.id desc;";
         $result = sql($query);
     
         echo '<div class="imageList_title">'.$title['title'].'</div><div class="imageList">';

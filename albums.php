@@ -13,24 +13,42 @@
     }
 
     function album_html($album_id, $album_title, $albumURL, $first_photo_path, $photo_urls){
-        return <<<EOT
-        <div class='album' style='float:left; margin: 20px;'>
-        <a href='$albumURL?album_id=$album_id'><h3>$album_title</h3></a>
+        $html = <<<EOT
+        
+		<div class='albumContainer'>
+		<div class='albumTitle'><a href='$albumURL?album_id=$album_id'>$album_title</a>
+EOT;
+		if ($album_id == "favorites") {
+			$html .= " <i class='star'></i>";
+		}
+		$html .= <<<EOT
+		</div>
         <!--<a href='uploadURL?a_id=album_id'>add photos</a>-->
 
         <a href="$albumURL?album_id=$album_id">
-        <div style="width: 200px; height: 200px; border: 1px solid black; border-radius: 20px;">
-            <img src="$first_photo_path" alt="" id="album_$album_id" style="max-width: 200px; max-height: 200px; border-radius: 20px" />
-        </div>
+			<div class="album">
+				<div class="albumInner">
+EOT;
+		if (strlen($first_photo_path) > 0) {
+			$html .= '<img src="'.$first_photo_path.'" id="album_'.$album_id.'" />';
+		} else {
+			$html .= '<span class="noPhoto">Empty</span>';
+		}
+				
+		$html .= <<<EOT
+				</div>
+			</div>
         </a>
+		
         <script type="text/javascript">
         var array = [
             $photo_urls
         ];
-        $("#album_$album_id").iskip({images:array, method:'mousemove', 'cycle':3});
+        $("#album_$album_id").iskip({images:array, method:'mousemove', 'cycle':1});
         </script>
-        </div>
+		</div>
 EOT;
+		return $html;
     }
 
     function display_album($album_id){
@@ -56,11 +74,35 @@ EOT;
 ?>
 <script src="js/jquery.iskip.js"></script>
 
+<script type="text/javascript">
+	setTitle("My Albums");
+</script>
+
+<a class="returnLink" href="<?php echo $profileURL;?>">< Back to my profile</a>
+
 <form id="EditAlbums" action="<?php echo $baseURL . 'album.editor.php' ?>" enctype="multipart/form-data" method="post"> 
  
-    <h1> 
-        Albums
+    <h1 class="inline"> 
+       My Albums
     </h1> 
+	
+	<div id="albums_newAlbumContainer">
+		<a id="albums_newAlbumToggle" class="m-btn thinBorder" href="javascript:;"><i class="icon-plus"></i> New Album</a>
+		<span id="albums_newAlbum">		
+		
+			<form class="inline" id="AddAlbum" action="<?php echo $baseURL . 'album.processor.php' ?>" method="post">			
+							
+				<input class="m-wrap" type="text" name="title" placeholder="Album Name">
+				<select class="m-wrap m-ctrl-small" name="private">
+					<option>Public</option>
+					<option value="1">Private</option>
+				</select>
+				<input class="m-btn blue thinBorder" type="submit" name="AlbumSubmit" value="Create Album" />
+				
+			</form>			
+			
+		</span>
+	</div>
      
     <p> 
         <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $max_file_size ?>"> 
@@ -88,29 +130,6 @@ EOT;
         ?>
     </p> 
  
-</form>
-
-<form id="AddAlbum" action="<?php echo $baseURL . 'album.processor.php' ?>" method="post">
-<div style="clear: both;"></div>
-
-<h2>
-    New Album
-</h2>
-
-<p>
-    <label for="title">Title:</label> 
-    <input type="text" name="title">
-</p>
-
-<p>
-    Private: 
-    <input type="checkbox" name="private" value="1" />
-</p>
-
-<p>
-    <input type="submit" name="AlbumSubmit" value="Create Album" />
-</p>
-
 </form>
 
 <?php INCLUDE 'include/foot.php' ?>
