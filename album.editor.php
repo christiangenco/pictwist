@@ -11,6 +11,11 @@
         $query = "SELECT title, private from albums where id = $a_id;";
         $result = sql($query);
         $row = mysql_fetch_array($result);
+        if($row[title] == "Default")
+        {
+            $_SESSION['error'] = "You cannot edit your Default album";
+            redirect($albumsURL);
+        }
     }
     else if(!isset($currentUser['id']) <= 0)
     {

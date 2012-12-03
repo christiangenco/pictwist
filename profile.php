@@ -20,6 +20,16 @@
         $country = $row['country'];
         $bio = $row['bio'];
         $admin = $row['admin'];
+
+        if(isLoggedIn())
+        {
+            $uid = $currentUser['id'];
+        
+            $query = "select id, title from albums where user_id='".$uid."';";
+            $result_albums = sql($query);
+            $query2 = "select a.id, a.title from albums a join shared on $uid = shared.user_id and shared.album_id = a.id;";
+            $shared_albums = sql($query2);
+        }
         //echo "timestamp: " . $tstamp;
     }
     else if(isset($currentUser['id']) && $currentUser['id'] > 0)
@@ -40,8 +50,20 @@
 		$country = $row['country'];
 		$bio = $row['bio'];
 		$admin = $row['admin'];
+
+        $uid = $currentUser['id'];
+        
+        $query = "select id, title from albums where user_id='".$uid."';";
+        $result_albums = sql($query);
+        $query2 = "select a.id, a.title from albums a join shared on $uid = shared.user_id and shared.album_id = a.id;";
+        $shared_albums = sql($query2);
 		//echo "timestamp: " . $tstamp;
 	}
+    else
+    {
+        $_SESSION['error'] = 'Error! You must be logged in to view your albums!';
+        redirect($logoutURL);
+    } 
 ?>
 <form id="myProfile" action="<?php echo $baseURL . 'profile.php' ?>" enctype="multipart/form-data" method="post"> 
 
@@ -133,6 +155,7 @@
             $_SESSION['error'] = 'Error! You must be logged in to view your albums!';
             redirect($logoutURL);
     } 
+
     #move query to album.photos.php to display photos query shared albums needs to update
 ?>
 

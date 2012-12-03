@@ -20,11 +20,11 @@ CREATE TABLE users(
   state VARCHAR(255),
   country VARCHAR(255),
   bio TEXT,
-  picture VARCHAR(255),
   admin BOOLEAN DEFAULT FALSE,
   updated_at TIMESTAMP DEFAULT '0000-00-00 00:00:00',
   created_at TIMESTAMP DEFAULT '0000-00-00 00:00:00',
-  last_login timestamp default CURRENT_TIMESTAMP()
+  last_login timestamp default CURRENT_TIMESTAMP(),
+  picture VARCHAR(255)
 );
 CREATE TRIGGER user_create BEFORE INSERT ON `users`
 FOR EACH ROW SET NEW.created_at = NOW(), NEW.updated_at = NOW();

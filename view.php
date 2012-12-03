@@ -116,9 +116,14 @@
 	</div>			
 	<div id="photoOptions">
 		<div class="m-btn-group">
+			<? if(true): ?>
+				This will not be hidden
+			<? endif; ?>
 			<?php
-			echo '<a class="m-btn" id="' . $photo_id . '" href="'.$editURL.'?p_id='.$photo_id.'&a_id='.$album_id . '" target="_parent">'.
+			if(false){
+				echo '<a class="m-btn" id="' . $photo_id . '" href="'.$editURL.'?p_id='.$photo_id.'&a_id='.$album_id . '" target="_parent">'.
 				'<i class="icon-pencil"></i> Edit Photo</a>';
+			}
 				
 			if (isFavorite($photo_id)) {	
 				echo '<a class="m-btn" id="' . $photo_id . '" href="'.$favoriteHandlerURL.'?p_id='.$photo_id.'&a_id='.$album_id. '" target="_parent");">'.

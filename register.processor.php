@@ -22,14 +22,14 @@
 		{//Validation success. 
 			//Proceed with processing the form (saving to Database)
 			//Gets information from the POST
-			$name = ($_POST['name']);
-			$email =($_POST['email']);
-			$pwd = ($_POST['password_hash']);
-			$pwd2 =($_POST['password_hash2']); 
-			$city = ($_POST['city']);
-			$state = ($_POST['state']);
-			$country = ($_POST['country']);
-			$bio = ($_POST['bio']);
+			$name = mysql_real_escape_string($_POST['name']);
+			$email = mysql_real_escape_string($_POST['email']);
+			$pwd = mysql_real_escape_string($_POST['password_hash']);
+			$pwd2 = mysql_real_escape_string($_POST['password_hash2']); 
+			$city = mysql_real_escape_string($_POST['city']);
+			$state = mysql_real_escape_string($_POST['state']);
+			$country = mysql_real_escape_string($_POST['country']);
+			$bio = mysql_real_escape_string($_POST['bio']);
 
 			if(strlen($pwd) < 6)
 			{
@@ -53,7 +53,7 @@
 						$result = mysql_query($query);
 						if(mysql_numrows($result) == 0)
 						{//email was NOT found it DB so information is entered/saved in db
-							
+	
 							//insertion mysql statement 
 							$addUserInfo = "INSERT INTO users(name, email, password_hash, city, state, country, bio)
 							values('$name', '$email', '$hash','$city', '$state', '$country', '$bio');";
