@@ -257,18 +257,18 @@
   }
 
   function isFavorite($photo_id)
-  {
+  {	
     global $currentUser;
     $query = "SELECT photo_id, user_id FROM favorites WHERE photo_id = ".$photo_id." AND user_id = ".$currentUser['id'].";";
     //echo $query . "<br/>";
     $result = sql($query);
     if(mysql_num_rows($result) === 0)
     {
-      echo FALSE;
+      return FALSE;
     }
     else
     {
-      echo TRUE;
+      return TRUE;
     }
   }
 
@@ -392,5 +392,4 @@
 
   // if the user is on a page (s)he shouldn't be on,
   // redirect them to the homepage and tell them they shouldn't be here.
-
 ?>

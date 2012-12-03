@@ -54,11 +54,18 @@
     
 ?>
 
-<?php echo isFavorite($photo_id);?>
-
 <div class="bigPhoto" >
 	<div class="bigPhotoContainer">
-		<div class="photoTitle"><a href="<?php echo $albumURL."?album_id=".$album_id;?>" target="_parent"><?php echo $album_title;?></a> &lt; <?php echo $photo_title;?></div>
+
+		<div class="photoTitle"><a href="<?php echo $albumURL."?album_id=".$album_id;?>" target="_parent"><?php echo $album_title;?></a> &lt; <?php echo $photo_title;?>
+		
+		<?php 
+			if (isFavorite($photo_id)) {
+				echo '<span class="isFavorited"><i class="star"></i> Favorite</span>';
+			}
+		?>
+		
+		</div>
 		<div class="permalink"><a class="m-btn thinBorder_light" href="javascript:;" onclick="redirectParent('<?php echo $viewURL.'?p_id='.$photo_id.'&a_id='.$album_id?>');"><i class="icon-share"></i> Permalink</a></div>
 		<img src="<?php echo $pathname;?>" alt="<?php echo $pathname;?>">
 		
@@ -112,8 +119,15 @@
 			<?php
 			echo '<a class="m-btn" id="' . $photo_id . '" href="'.$editURL.'?p_id='.$photo_id.'&a_id='.$album_id . '" target="_parent">'.
 				'<i class="icon-pencil"></i> Edit Photo</a>';
-			echo '<a class="m-btn" id="' . $photo_id . '" href="'.$favoriteHandlerURL.'?p_id='.$photo_id.'&a_id='.$album_id. '" target="_parent");">'.
-				'<i class="icon-heart"></i> Add Favorite</a>';
+				
+			if (isFavorite($photo_id)) {	
+				echo '<a class="m-btn" id="' . $photo_id . '" href="'.$favoriteHandlerURL.'?p_id='.$photo_id.'&a_id='.$album_id. '" target="_parent");">'.
+					'<i class="icon-star-empty"></i> Remove Favorite</a>';
+			} else {
+				echo '<a class="m-btn" id="' . $photo_id . '" href="'.$favoriteHandlerURL.'?p_id='.$photo_id.'&a_id='.$album_id. '" target="_parent");">'.
+					'<i class="icon-star"></i> Add Favorite</a>';
+			}
+				
 			echo '<a class="m-btn blue" id="' . $photo_id . '" href="'.$twistURL.'?p_id='.$photo_id.'&a_id='.$album_id. '" target="_parent");">'.
 				'Twist!</a>';
 			echo '<a class="m-btn" id="' . $photo_id . '" href="'.$twistHistoryURL.'?p_id='.$photo_id.'&a_id='.$album_id. '" target="_parent");">'.
