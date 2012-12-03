@@ -42,7 +42,7 @@
         if(isNotNull($_POST['description']))
         {
             $description = "\"".params('description')."\"";
-            $query = "Update photos SET description = '". $description . "' where id = " . $photo_id . ";";
+            $query = "Update photos SET description = ". $description . " where id = " . $photo_id . ";";
              echo "<br/>".$query;
             $result = sql($query);
         }
