@@ -68,13 +68,7 @@
 <form id="myProfile" action="<?php echo $baseURL . 'profile.php' ?>" enctype="multipart/form-data" method="post"> 
 
     <h1> 
-        <?php 
-            $query = "select name from users where id = '$_GET[u_id]';";
-            $result = sql($query);
-            $username = mysql_fetch_array($result);
-            echo $username[name] . "'s Profile";
-        ?> 
-    </h1> 
+        <? echo $name."'s Profile"; ?></h1> 
      <img src="<? echo $currentUser['profile_picture_path'] ?>" width="300px" height="300px" alt="profile picture" />
     <p>
         
