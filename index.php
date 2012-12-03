@@ -5,7 +5,7 @@
 	//header("Refresh: 60; URL=$url"); 
 
 	connectToDb();
-	$query = "select title, id, album_id, path, created_at from photos order by created_at desc limit 0, 20;";
+	$query = "select title, id, album_id, path, created_at from photos WHERE private=0 order by created_at desc limit 0, 20;";
 	$result = mysql_query($query);
 	
 	echo '<div class="imageList_title">Recently Uploaded</div><div class="imageList">';
