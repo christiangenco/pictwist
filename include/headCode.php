@@ -47,6 +47,8 @@
   // URL of user profile page script
   $profileURL = $baseURL . 'profile.php';
 
+  $updateProfilePictureHandlerURL = $baseURL . 'update_profile_picture.processor.php';
+
   // URL of photo edit handler script
   $editHandlerURL = $baseURL . 'edit.processor.php';
   
