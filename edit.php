@@ -23,8 +23,9 @@
         //unset ($_REQUEST['album_id']);
         //unset ($_REQUEST['photo_path']);
 
-        if(isset($_REQUEST['parent_photo_id']))
+        if(isnotnull($_REQUEST['parent_photo_id']))
         {
+            echo "parent_photo_id is set and is: " . $_REQUEST['parent_photo_id'];
             $query = "insert into photos(path, parent_photo_id, album_id) values('" . $pathname . "', " . $_REQUEST['parent_photo_id'] . ", " . $a_id . ");";
             //echo $query . "<br/>";
         }
