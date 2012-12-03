@@ -52,7 +52,7 @@
 	errorRedirect(!isNotNull($_REQUEST['p_id']) || !isNotNull($_REQUEST['a_id']), "Error! No photo selected.", $indexURL);
 	// select current info
 	// select parent id
-	$query = "SELECT title, id, path, album_id, parent_photo_id FROM Photos WHERE id = ".$_REQUEST['p_id'].";";
+	$query = "SELECT title, id, path, album_id, parent_photo_id FROM photos WHERE id = ".$_REQUEST['p_id'].";";
 	$result_current = sql($query);
 
 	if($row = mysql_fetch_array($result_current))
@@ -68,7 +68,7 @@
 	// select parent info
 	if(isset($current_photo['parent_id']))
 	{
-		$query = "SELECT title, id, path, album_id FROM Photos WHERE id = ".$current_photo['parent_id'].";";
+		$query = "SELECT title, id, path, album_id FROM photos WHERE id = ".$current_photo['parent_id'].";";
 		$result_parent = sql($query);	
 		if($row = mysql_fetch_array($result_parent))
 		{
@@ -98,7 +98,7 @@
 
 	// select child ids
 	// select child info
-	$query = "SELECT id, title, path FROM Photos WHERE parent_photo_id = ".$_REQUEST['p_id'].";";
+	$query = "SELECT id, title, path FROM photos WHERE parent_photo_id = ".$_REQUEST['p_id'].";";
 	$result_children = sql($query);
 
 	echo "<br/><p>Child Photos</p>";
