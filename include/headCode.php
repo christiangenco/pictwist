@@ -258,6 +258,7 @@
 
   function isFavorite($photo_id)
   {
+    global $currentUser;
     $query = "SELECT photo_id, user_id FROM favorites WHERE photo_id = ".$photo_id." AND user_id = ".$currentUser['id'].";";
     //echo $query . "<br/>";
     $result = sql($query);

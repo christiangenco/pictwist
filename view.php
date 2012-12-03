@@ -79,13 +79,13 @@
 		<?php
 			while($row = mysql_fetch_array($result_tags))
 			{
-				echo '<div class="tagContainer"><a class="m-btn mini rnd tag" href='.$deleteTagURL.'?a_id='.$album_id.'&p_id='.$photo_id.'&t_id='.$row['id'].'>';
+				echo '<div class="tagContainer"><a class="m-btn mini rnd tag" href='.$deleteTagURL.'?a_id='.$album_id.'&p_id='.$photo_id.'&t_id='.$row['id'].' target="_parent">';
 					
 					if ($row["type"] != "keyword") {
 						echo $row["type"].': ';
 					}
 					echo $row["text"].'</a>';
-					echo '<a class="flagBtn" href='.$flagContentURL.'?a_id='.$album_id.'&p_id='.$photo_id.'&t_id='.$row['id'].'></a>';
+					echo '<a class="flagBtn" href='.$flagContentURL.'?a_id='.$album_id.'&p_id='.$photo_id.'&t_id='.$row['id'].' target="_parent"></a>';
 					echo '</div>';
 			}
 		?>
@@ -135,8 +135,8 @@
 				echo '<div class="comment">';
 				echo '<div class="comment_user">'.$row["name"].'</div><div class="comment_time">'.$row["updated_at"].'</div>';
 				echo '<div class="comment_body">'.$row["text"];
-				echo '<a href="'.$deleteCommentURL.'?a_id='.$album_id.'&p_id='.$photo_id.'&c_id='.$row["id"].'"><i class="deleteCommentBtn"></i></a>';//removed a div tag here...
-				echo '<a href="'.$flagContentURL.'?a_id='.$album_id.'&p_id='.$photo_id.'&c_id='.$row["id"].'"><i class="flagCommentBtn"></i></a></div>';
+				echo '<a href="'.$deleteCommentURL.'?a_id='.$album_id.'&p_id='.$photo_id.'&c_id='.$row["id"].'" target="_parent"><i class="deleteCommentBtn"></i></a>';//removed a div tag here...
+				echo '<a href="'.$flagContentURL.'?a_id='.$album_id.'&p_id='.$photo_id.'&c_id='.$row["id"].'" target="_parent"><i class="flagCommentBtn"></i></a></div>';
 				echo '</div>';
 			}
 		?>
@@ -146,7 +146,7 @@
 		<?php
 		if($currentUser['id'] > 0)
 		{
-			echo '<form method="post" action="' . $viewHandlerURL.'?p_id='.$photo_id.'&a_id='.$album_id. '">'.
+			echo '<form method="post" target="_parent" action="' . $viewHandlerURL.'?p_id='.$photo_id.'&a_id='.$album_id. '">'.
 				'<textarea class="m-wrap" type="textarea" name="comment" rows="2" placeholder="Add a comment"></textarea><br/>'.
 				'<input class="m-btn thinBorder_light" type="submit" name="submit" value="Submit Comment">'.
 				'</form>';

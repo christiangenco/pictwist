@@ -35,6 +35,9 @@
             //id was NOT found - therefore the user/email is not registered     
             $query = "INSERT into flagged(content_type, content_id) VALUES('comments', $c_id);";
             $result = sql($query);
+            $_SESSION['error'] = "This comment has been reported.";
+            $_SESSION['redirect'] = $viewURL."?p_id=".$p_id."&a_id=".$a_id;
+            redirect($errorURL);
         }
         else 
         {
@@ -55,6 +58,9 @@
             //id was NOT found - therefore the user/email is not registered     
             $query = "INSERT into flagged(content_type, content_id) VALUES('photos', $p_id);";
             $result = sql($query);
+            $_SESSION['error'] = "This photo has been reported.";
+            $_SESSION['redirect'] = $viewURL."?p_id=".$p_id."&a_id=".$a_id;
+            redirect($errorURL);
         }
         else 
         {
@@ -74,6 +80,9 @@
             //id was NOT found - therefore the user/email is not registered     
             $query = "INSERT into flagged(content_type, content_id) VALUES('users', $u_id);";
             $result = sql($query);
+            $_SESSION['error'] = "This user has been reported.";
+            $_SESSION['redirect'] = $profileURL."?u_id=".$u_id;
+            redirect($errorURL);
         }
         else 
         {
