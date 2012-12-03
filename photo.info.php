@@ -270,7 +270,7 @@ function getPhotoInfo($file)
         );
 
    }
-   print_r($info); echo "<br/>";
+   //print_r($info); echo "<br/>";
     return $info;
 }
 
