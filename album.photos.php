@@ -3,7 +3,17 @@
 <?php
     connectToDb();
 
-    if(isset($currentUser['id']) && $currentUser['id'] > 0)
+    if(isset($_REQUEST['u_id']))
+    {
+        $uid = $_REQUEST['u_id'];
+        $a_id = $_GET['album_id'];
+        $sql = "SELECT title from albums where id=$a_id;";
+        $result = sql($sql);
+        $title = mysql_fetch_array($result);
+        $query = "select id, title from photos where album_id='".$a_id."';";
+        $result_photos = sql($query);
+    }
+    else if(isset($currentUser['id']) && $currentUser['id'] > 0)
     {
         $uid = $currentUser['id'];
         $a_id = $_GET['album_id'];
@@ -13,13 +23,11 @@
         $query = "select id, title from photos where album_id='".$a_id."';";
         $result_photos = sql($query);
     }
-    /*
     else
     {
             $_SESSION['error'] = 'Error! You must be logged in to view your photos!';
             redirect($logoutURL);
     } 
-    */
 ?>
 
 <script type="text/javascript">
@@ -33,7 +41,7 @@
    
 
     <?php
-        $query = "select a.title, p.id, p.path from albums a JOIN photos p where a.id = $a_id AND a.id = p.album_id AND user_id='$currentUser[id]' order by a.id desc;";
+        $query = "select a.title, p.id, p.path from albums a JOIN photos p where a.id = $a_id AND a.id = p.album_id AND user_id='$uid' order by a.id desc;";
         $result = sql($query);
     
         echo '<div class="imageList_title">'.$title['title'].'</div><div class="imageList">';
