@@ -26,7 +26,7 @@
         // ######## add to views.php!!!!
         $query = "UPDATE photos SET views = views + 1 WHERE id = ".$photo_id.";";
         $result = sql($query);
-        $query = "select p.title, p.parent_id, p.description, p.path, p.private, p.album_id, a.user_id AS user_id, a.title AS album_title from photos p JOIN albums a where a.id=p.album_id AND p.id = '".$photo_id."';";
+        $query = "select p.title, p.parent_photo_id, p.description, p.path, p.private, p.album_id, a.user_id AS user_id, a.title AS album_title from photos p JOIN albums a where a.id=p.album_id AND p.id = '".$photo_id."';";
         $result_photo = sql($query);
         if($row = mysql_fetch_array($result_photo))
         {
@@ -37,7 +37,7 @@
             $description = $row["description"];
             $album_title = $row["album_title"];
             $owner = $row["user_id"];
-            $parent_id = $row["parent_id"];
+            $parent_id = $row["parent_photo_id"];
         }
         $query = "select id, type, text from tags where photo_id = '".$photo_id."';";
         $result_tags = sql($query);
