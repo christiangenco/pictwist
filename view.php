@@ -33,7 +33,7 @@
         // ######## add to views.php!!!!
         $query = "UPDATE photos SET views = views + 1 WHERE id = ".$photo_id.";";
         $result = sql($query);
-        $query = "select title, description, path, private, album_id from photos where id = '".$photo_id."';";
+        $query = "select p.title, p.description, p.path, p.private, p.album_id, a.title AS album_title from photos p JOIN albums a where a.id=p.album_id AND p.id = '".$photo_id."';";
         $result_photo = sql($query);
         if($row = mysql_fetch_array($result_photo))
         {
@@ -42,10 +42,11 @@
             $private = $row['private'];
             $album_id = $row["album_id"];
             $description = $row["description"];
+            $album_title = $row["album_title"];
         }
         $query = "select id, type, text from tags where photo_id = '".$photo_id."';";
         $result_tags = sql($query);
-        $query = "select text, c.id, c.updated_at, u.name from photos p JOIN comments c JOIN users u where p.id = ".$photo_id." AND p.id = c.photo_id AND u.id = c.user_id order by c.updated_at desc;";
+        $query = "select text, c.id, c.updated_at, u.name, u.id AS user_id from photos p JOIN comments c JOIN users u where p.id = ".$photo_id." AND p.id = c.photo_id AND u.id = c.user_id order by c.updated_at desc;";
 		//echo $query . '<br/><br/>';
 		$result_comments = sql($query);
     }
@@ -57,7 +58,7 @@
 
 <div class="bigPhoto" >
 	<div class="bigPhotoContainer">
-		<div class="photoTitle"><?php echo $photo_title;?></div>
+		<div class="photoTitle"><a href="<?php echo $albumURL."?album_id=".$album_id;?>" target="_parent"><?php echo $album_title;?></a> &lt; <?php echo $photo_title;?></div>
 		<div class="permalink"><a class="m-btn thinBorder_light" href="javascript:;" onclick="redirectParent('<?php echo $viewURL.'?p_id='.$photo_id.'&a_id='.$album_id?>');"><i class="icon-share"></i> Permalink</a></div>
 		<img src="<?php echo $pathname;?>" alt="<?php echo $pathname;?>">
 		
@@ -133,7 +134,7 @@
 			while($row = mysql_fetch_array($result_comments))
 			{
 				echo '<div class="comment">';
-				echo '<div class="comment_user">'.$row["name"].'</div><div class="comment_time">'.$row["updated_at"].'</div>';
+				echo '<div class="comment_user"><a href="'.$profileURL.'?u_id='.$row["user_id"].'" target="_parent">'.$row["name"].'</a></div><div class="comment_time">'.$row["updated_at"].'</div>';
 				echo '<div class="comment_body">'.$row["text"];
 				echo '<a href="'.$deleteCommentURL.'?a_id='.$album_id.'&p_id='.$photo_id.'&c_id='.$row["id"].'" target="_parent"><i class="deleteCommentBtn"></i></a>';//removed a div tag here...
 				echo '<a href="'.$flagContentURL.'?a_id='.$album_id.'&p_id='.$photo_id.'&c_id='.$row["id"].'" target="_parent"><i class="flagCommentBtn"></i></a></div>';
