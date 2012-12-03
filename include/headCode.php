@@ -176,7 +176,10 @@
     if(isset($_SESSION['admin'])) {$admin = $_SESSION['admin'];}
     else { $admin = FALSE; $_SESSION['admin'] = $admin;}
 
-    $currentUser = array("username" => $email, "id" => $uid, "name" => $name, "admin" => $admin);
+    if(isset($_SESSION['profile_picture_path'])) {$profile_picture_path = $_SESSION['profile_picture_path'];}
+    else { $profile_picture_path = "img/default_pic.png";}
+
+    $currentUser = array("username" => $email, "id" => $uid, "name" => $name, "admin" => $admin, "profile_picture_path" => $profile_picture_path);
     
     return $currentUser;
   }
