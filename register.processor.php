@@ -31,6 +31,7 @@
 			$country = mysql_real_escape_string($_POST['country']);
 			$bio = mysql_real_escape_string($_POST['bio']);
 
+						
 			if(strlen($pwd) < 6)
 			{
 				$_SESSION['error'] = "Password must be at least 6 characters. Please try again.";
@@ -101,6 +102,7 @@
 		{
 			//Generate error 
 			echo "<B>Validation Errors:</B>";
+			echo "EMIAIL: " . $email;
 			$error_hash = $validator->GetErrors();
 			foreach($error_hash as $inpname => $inp_err)
 			{
