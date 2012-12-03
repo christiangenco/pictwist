@@ -26,7 +26,7 @@
         // ######## add to views.php!!!!
         $query = "UPDATE photos SET views = views + 1 WHERE id = ".$photo_id.";";
         $result = sql($query);
-        $query = "select p.title, p.description, p.path, p.private, p.album_id, a.title AS album_title from photos p JOIN albums a where a.id=p.album_id AND p.id = '".$photo_id."';";
+        $query = "select p.title, p.description, p.path, p.private, p.album_id, p.id AS user_id, a.title AS album_title from photos p JOIN albums a where a.id=p.album_id AND p.id = '".$photo_id."';";
         $result_photo = sql($query);
         if($row = mysql_fetch_array($result_photo))
         {
@@ -36,6 +36,7 @@
             $album_id = $row["album_id"];
             $description = $row["description"];
             $album_title = $row["album_title"];
+            $owner = $row["user_id"];
         }
         $query = "select id, type, text from tags where photo_id = '".$photo_id."';";
         $result_tags = sql($query);
@@ -50,7 +51,7 @@
 <div class="bigPhoto" >
   <div class="bigPhotoContainer">
 
-    <div class="photoTitle"><a href="<?php echo $albumURL."?album_id=".$album_id;?>" target="_parent"><?php echo $album_title;?></a> &gt; <?php echo $photo_title;?>
+    <div class="photoTitle"><a href="<?php echo $albumURL."?album_id=".$album_id."&u_id=".$owner;?>" target="_parent"><?php echo $album_title;?></a> &gt; <?php echo $photo_title;?>
     
     <?php 
       if (isFavorite($photo_id)) {
