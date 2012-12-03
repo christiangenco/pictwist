@@ -254,10 +254,23 @@ h4 {
 }
 
 
+.fLeft {
+	float: left;
+}
+
+.fRight {
+	float: right;
+}
+
+.fLeft, .fRight {
+}
+
+
 .returnLink {
 	display: block;
 	font-size: 20px;
 	padding: 10px;
+	margin-bottom: 15px;
 }
 
 
@@ -273,6 +286,13 @@ h4 {
 	padding: 20px;
 	margin-bottom: 40px;
 	
+}
+
+.box {
+	text-align: center;	
+	background-color: rgba(8, 105, 137, .5);
+	-webkit-box-shadow: 0 0 1px 1px rgba(0, 0, 0, .8);
+	padding: 20px;
 }
 
 .centerAlign {
@@ -338,6 +358,40 @@ h4 {
 
 #chooseFile {
 	margin: 20px;
+}
+
+.adminFlags a {
+	color: #fff;
+}
+
+.adminFlags {
+	width: 500px;
+	text-align: left;
+}
+
+.isFavorited {
+	font-size: 14px;
+	opacity: .7;
+	padding: 2px;
+}
+
+.star {
+	display: inline-block;
+
+	width: 14px;
+	height: 14px;
+	margin-top: 0px;
+	line-height: 14px;
+
+	vertical-align: center;
+	background-image: url(../metro/img/glyphicons-halflings.png);
+
+	background-repeat: no-repeat;
+	
+	background-position: -120px 0;
+	
+	position: relative;
+	top: 2px;
 }
 
 .bigPhoto {

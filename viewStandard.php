@@ -40,14 +40,20 @@
     
 ?>
 
-<?php echo isFavorite($photo_id);?>
-
 <script type="text/javascript">
 	setTitle("<?php echo $photo_title;?>");
 </script>
 
 <div class="bigPhoto" >
-	<div class="photoTitle"><?php echo $photo_title;?></div>
+	<div class="photoTitle"><?php echo $photo_title;?>
+	
+	<?php 
+			if (isFavorite($photo_id)) {
+				echo '<span class="isFavorited"><i class="star"></i> Favorite</span>';
+			}
+		?>
+		
+	</div>
 	<img src="<?php echo $pathname;?>" alt="<?php echo $pathname;?>">		
 
 	<div class="photoInfo">		
@@ -97,8 +103,13 @@
 				<?php
 				echo '<a class="m-btn" id="' . $photo_id . '" href="'.$editURL.'?p_id='.$photo_id.'&a_id='.$album_id . '">'.
 					'<i class="icon-pencil"></i> Edit Photo</a>';
+				if (isFavorite($photo_id)) {	
 				echo '<a class="m-btn" id="' . $photo_id . '" href="'.$favoriteHandlerURL.'?p_id='.$photo_id.'&a_id='.$album_id. '">'.
-					'<i class="icon-heart"></i> Add Favorite</a>';
+					'<i class="icon-star-empty"></i> Remove Favorite</a>';
+			} else {
+				echo '<a class="m-btn" id="' . $photo_id . '" href="'.$favoriteHandlerURL.'?p_id='.$photo_id.'&a_id='.$album_id. '">'.
+					'<i class="icon-star"></i> Add Favorite</a>';
+			}
 				echo '<a class="m-btn blue" id="' . $photo_id . '" href="'.$twistURL.'?p_id='.$photo_id.'&a_id='.$album_id. '">'.
 					'Twist!</a>';
 				echo '<a class="m-btn" id="' . $photo_id . '" href="'.$twistHistoryURL.'?p_id='.$photo_id.'&a_id='.$album_id. '">'.
