@@ -46,7 +46,12 @@
 <form id="myProfile" action="<?php echo $baseURL . 'profile.php' ?>" enctype="multipart/form-data" method="post"> 
 
     <h1> 
-        My Profile 
+    	<?php 
+    		$query = "select name from users where id = '$_GET[u_id]';";
+    		$result = sql($query);
+    		$username = mysql_fetch_array($result);
+    		echo $username[name] . "'s Profile";
+        ?> 
     </h1> 
     <p>
 		
@@ -106,11 +111,22 @@
 	if(isset($currentUser['id']) && $currentUser['id'] > 0)
     {
         $uid = $currentUser['id'];
-        
-        $query = "select id, title from albums where user_id='".$uid."';";
-        $result_albums = sql($query);
-        $query2 = "select a.id, a.title from albums a join shared on $uid = shared.user_id and shared.album_id = a.id;";
-        $shared_albums = sql($query2);
+        $prof_id = $_GET['u_id'];
+
+        if($uid == $prof_id)
+        {
+	        $query = "select id, title from albums where user_id='".$prof_id."';";
+	        $result_albums = sql($query);
+	        $query2 = "select a.id, a.title from albums a join shared on $prof_id = shared.user_id and shared.album_id = a.id;";
+	        $shared_albums = sql($query2);
+    	}
+    	else
+    	{
+    		$query = "select id, title from albums where user_id='".$prof_id."'and private = 0;";
+    		$result_albums = sql($query);
+	        $query2 = "select a.id, a.title from albums a join shared on $uid = shared.user_id and shared.album_id = a.id;";
+	        $shared_albums = sql($query2);
+    	}
     }
     else
     {
@@ -122,8 +138,13 @@
 
 <form id="MyAlbums" action="<?php echo $baseURL . 'album.photos.php' ?>" enctype="multipart/form-data" method="post"> 
  
-    <h1> 
-        My Albums 
+    <h1>
+    	<?php 
+    	if($uid == $prof_id)
+    		echo "My Albums";
+    	else
+    		echo "Albums";
+        ?> 
     </h1> 
      
     <p> 
@@ -148,7 +169,12 @@
 <form id="MySharedAlbums" action="<?php echo $baseURL . 'album.shared.photos.php' ?>" enctype="multipart/form-data" method="post"> 
  
     <h1> 
-        My Shared Albums 
+    	<?php 
+    	if($uid == $prof_id)
+    		echo "My Shared Albums";
+    	else
+    		echo "Albums Shared with Me";
+        ?> 
     </h1> 
      
     <p> 
