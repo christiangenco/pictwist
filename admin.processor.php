@@ -5,7 +5,6 @@
 	//echo "UID: " . $uid;
         connectToDb();
 	//require_once "password.php";
-echo "FUCK";
 	if(isset($_POST['submit']))
         {
             $setAdminID = mysql_real_escape_string($_POST['setAdminID']);
