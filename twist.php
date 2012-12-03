@@ -76,6 +76,7 @@
     </select>
     <br />
     <input type='hidden' name='file' id="file" />
+    <input type='hidden' name='parent_photo_id' id="parent_photo_id" value="<? echo $photo['id'] ?>" />
 
     <input type="submit" name="saveImage" id="saveImage" value="Save" onclick="saveImage;"> 
  

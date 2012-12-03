@@ -23,10 +23,9 @@
         //unset ($_REQUEST['album_id']);
         //unset ($_REQUEST['photo_path']);
 
-        if(isset($_SESSION['parent']))
+        if(isset($_REQUEST['parent_photo_id']))
         {
-            $query = "insert into photos(path, parent_photo_id, album_id) values('" . $pathname . "', " . $_SESSION['parent'] . ", " . $a_id . ");";
-            unset($_SESSION['parent']);
+            $query = "insert into photos(path, parent_photo_id, album_id) values('" . $pathname . "', " . $_REQUEST['parent_photo_id'] . ", " . $a_id . ");";
             //echo $query . "<br/>";
         }
         else
@@ -144,6 +143,7 @@
     <p>
         <input type="button" value="Add Another Tag" onclick="addTagField();">
     <p> 
+        <input type='hidden' name='parent_photo_id' id="parent_photo_id" value="<? echo $_REQUEST['parent_photo_id'] ?>" />
         <input type="submit" name="submit" value="Complete"> 
     </p> 
  

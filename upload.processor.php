@@ -69,12 +69,12 @@
 
     //$_SESSION['album_id'] = $album_id;
     //$_SESSION['photo_path'] = $pathname;
-    redirect($editURL."?a_id=".$album_id."&p_path=".$pathname);
+    redirect($editURL."?a_id=".$album_id."&p_path=".$pathname."&parent_photo_id=".$_REQUEST['parent_photo_id']);
     
     // The following function is an error handler which is used 
     // to output an HTML error page if the file upload fails 
     function error($error, $location, $seconds = 5) 
-    { 
+    {
         header("Refresh: $seconds; URL='$location'"); 
         echo '    <div id="Upload">'. 
         '        <h1>Upload failure</h1>'. 
