@@ -267,7 +267,7 @@ function getPhotoInfo($file)
 
 function getPhotoColors($file)
 {
-   $palette = colorPalette($file, 10, 10); 
+   $palette = colorPalette($file, 10, 3); 
    $colors = array();
    foreach($palette as $color) 
    { 

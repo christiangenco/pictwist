@@ -26,7 +26,7 @@
         // ######## add to views.php!!!!
         $query = "UPDATE photos SET views = views + 1 WHERE id = ".$photo_id.";";
         $result = sql($query);
-        $query = "select p.title, p.description, p.path, p.private, p.album_id, a.user_id AS user_id, a.title AS album_title from photos p JOIN albums a where a.id=p.album_id AND p.id = '".$photo_id."';";
+        $query = "select p.title, p.parent_id, p.description, p.path, p.private, p.album_id, a.user_id AS user_id, a.title AS album_title from photos p JOIN albums a where a.id=p.album_id AND p.id = '".$photo_id."';";
         $result_photo = sql($query);
         if($row = mysql_fetch_array($result_photo))
         {
@@ -37,6 +37,7 @@
             $description = $row["description"];
             $album_title = $row["album_title"];
             $owner = $row["user_id"];
+            $parent_id = $row["parent_id"];
         }
         $query = "select id, type, text from tags where photo_id = '".$photo_id."';";
         $result_tags = sql($query);
@@ -47,6 +48,9 @@
     
     
 ?>
+
+<?php if(isset($parent_id)):?>
+<?php endif;?>
 
 <div class="bigPhoto" >
   <div class="bigPhotoContainer">
@@ -125,7 +129,7 @@
         '<i class="icon-pencil"></i> Edit Photo</a>';
       }
 
-      if(isOwner($photo_id)){
+      if(isLoggedIn()){
         echo '<a class="m-btn" href="'.$updateProfilePictureHandlerURL.'?p_id='.$photo_id.'" target="_parent">'.
         '<i class="icon-pencil"></i> Make Profile Picture</a>';
       }

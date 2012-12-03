@@ -42,7 +42,7 @@
         if(isNotNull($_POST['description']))
         {
             $description = "\"".params('description')."\"";
-            $query = "Update photos SET description = '". $description . "' where id = " . $photo_id . ";";
+            $query = "Update photos SET description = ". $description . " where id = " . $photo_id . ";";
              echo "<br/>".$query;
             $result = sql($query);
         }
@@ -63,11 +63,22 @@
                         {
                             errorRedirect(TRUE, "Error! This user does not exist.", $editURL."?p_id=".$photo_id."&a_id=".$album_id);
                         }
+                         else
+                        {
+                            $query = "insert into tags(type, text, photo_id) values('".$type[$i]."', '" . $t . "', " . $photo_id . ");";
+                            echo "<br/>".$query;
+                            $result_temp = sql($query);
+                            //if(!$result_temp){$result++;}
+                        }
                     }
-                    $query = "insert into tags(type, text, photo_id) values('".$type[$i]."', '" . $t . "', " . $photo_id . ");";
-                     echo "<br/>".$query;
-                    $result_temp = sql($query);
-                    //if(!$result_temp){$result++;}
+                    else
+                    {
+                        $query = "insert into tags(type, text, photo_id) values('".$type[$i]."', '" . $t . "', " . $photo_id . ");";
+                        echo "<br/>".$query;
+                        $result_temp = sql($query);
+                        //if(!$result_temp){$result++;}
+                    }
+                    
                 }
                 
             }
