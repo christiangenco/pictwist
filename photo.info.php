@@ -165,12 +165,12 @@ function colorPalette($imageFile, $numColors, $granularity = 5)
    else if($mime_type == "image/png")
    {
       $img = @imagecreatefrompng($imageFile);
-      echo "<br/>png<br/>";
+      //echo "<br/>png<br/>";
    }
    else if($mime_type == "image/gif")
    {
       $img = @imagecreatefromgif($imageFile);
-      echo "<br/>gif<br/>";
+      //echo "<br/>gif<br/>";
    }
 
    if(!$img) 
