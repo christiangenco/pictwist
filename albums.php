@@ -80,7 +80,6 @@ EOT;
 
 <a class="returnLink" href="<?php echo $profileURL;?>">< Back to my profile</a>
 
-<form id="EditAlbums" action="<?php echo $baseURL . 'album.editor.php' ?>" enctype="multipart/form-data" method="post"> 
  
     <h1 class="inline"> 
        My Albums
@@ -130,6 +129,5 @@ EOT;
         ?>
     </p> 
  
-</form>
 
 <?php INCLUDE 'include/foot.php' ?>
