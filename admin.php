@@ -100,7 +100,7 @@
 						."<a href='".$flagClearURL."?fl_id=".$row2['id']."'>X </a>"
 						."<input type='text' value='".$row['text']."' name='comment'>"
 						."<input type='hidden' value='".$row['id']."' name='id'>"
-						."<input type='submit' value='sensor' name='submit'>"
+						//."<input type='submit' value='sensor' name='submit'>"
 
 						." on photo <a href='".$viewURL."?p_id=".$row['photo_id']."&a_id=".$row['album_id']."'>".$row['photo_id']."</a></p>";
 					}
