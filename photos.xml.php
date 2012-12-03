@@ -12,9 +12,10 @@ $result = sql("select * from photos where private=0 order by views, created_at d
 
 while($photo_data = mysql_fetch_array($result)){
   $photo = $photos->addChild('photo');
+  $path = str_replace(" ", "%20", $photo_data["path"]);
   $photo->addAttribute("name", $photo_data['title']);
-  $photo->addAttribute("src", $baseURL.$photo_data['path']);
-  $photo->addAttribute("thumb", $baseURL.$photo_data['path']);
+  $photo->addAttribute("src", $baseURL.$path);
+  $photo->addAttribute("thumb", $baseURL.$path);
   $photo->addAttribute("views", $photo_data['views']);
   $photo->addAttribute("updated_at", $photo_data['updated_at']);
   $photo->addAttribute("created_at", $photo_data['created_at']);
