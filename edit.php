@@ -114,8 +114,15 @@
             Description: <br/>
             <textarea type="textarea" name="description" value=<?php echo $description;?>></textarea><br/>
             Visibility: 
-            <a href="<?php echo $editHandlerURL.'?p_id='.$p_id.'&a_id='.$album_id.'&private=1'; ?>">private</a>
-            <a href="<?php echo $editHandlerURL.'?p_id='.$p_id.'&a_id='.$album_id.'&private=0'; ?>">public</a>
+            <? if($private==0): ?>
+                <a href="<?php echo $editHandlerURL.'?p_id='.$p_id.'&a_id='.$album_id.'&private=1'; ?>">private</a>
+                |
+                public
+            <? else: ?>
+                private
+                |
+                <a href="<?php echo $editHandlerURL.'?p_id='.$p_id.'&a_id='.$album_id.'&private=0'; ?>">public</a>
+            <? endif ?>
         </p>
     </div>
     <div id="tagsFields">
