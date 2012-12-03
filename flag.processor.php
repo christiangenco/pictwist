@@ -14,6 +14,9 @@
             //id was NOT found - therefore the user/email is not registered     
             $query = "INSERT into flagged(content_type, content_id) VALUES('tags', $t_id);";
             $result = sql($query);
+            $_SESSION['error'] = "This tag has been reported.";
+            $_SESSION['redirect'] = $viewURL."?p_id=".$p_id."&a_id=".$a_id;
+            redirect($errorURL);
         }
         else 
         {
