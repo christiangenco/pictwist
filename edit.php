@@ -109,7 +109,6 @@
     <div class="pic" ><!--style="float:top; float:left; padding:50px;"-->
         <img src="<?php echo $pathname;?>" alt="<?php echo $pathname;?>" width=400 height=400/>
         <p>
-            Album: <?php echo $album_id ?> <br/>
             Title: <input type="text" name="title" value="<?php echo $photo_title;?>"><br/>
             Description: <br/>
             <textarea type="textarea" name="description"><?php echo $description;?></textarea><br/>
