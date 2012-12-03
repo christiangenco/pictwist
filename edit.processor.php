@@ -13,7 +13,7 @@
     {
         $private = $_REQUEST['private'];
         $query = "Update photos SET private = ". $private . " where id = " . $photo_id . ";";
-         echo "<br/>".$query;
+        //echo "<br/>".$query;
         $result = sql($query);
         
         if(!$result)
@@ -33,7 +33,7 @@
         {
             $title = "\"".params('title')."\"";
             $query = "Update photos SET title = ". $title . " where id = " . $photo_id . ";";
-             echo "<br/>".$query;
+            //echo "<br/>".$query;
             $result = sql($query);
         }
         
@@ -43,7 +43,7 @@
         {
             $description = "\"".params('description')."\"";
             $query = "Update photos SET description = ". $description . " where id = " . $photo_id . ";";
-             echo "<br/>".$query;
+            //echo "<br/>".$query;
             $result = sql($query);
         }
 
@@ -66,7 +66,7 @@
                          else
                         {
                             $query = "insert into tags(type, text, photo_id) values('".$type[$i]."', '" . $t . "', " . $photo_id . ");";
-                            echo "<br/>".$query;
+                            //echo "<br/>".$query;
                             $result_temp = sql($query);
                             //if(!$result_temp){$result++;}
                         }
@@ -74,7 +74,7 @@
                     else
                     {
                         $query = "insert into tags(type, text, photo_id) values('".$type[$i]."', '" . $t . "', " . $photo_id . ");";
-                        echo "<br/>".$query;
+                        //echo "<br/>".$query;
                         $result_temp = sql($query);
                         //if(!$result_temp){$result++;}
                     }
@@ -119,14 +119,14 @@
         {
             $colors = $_SESSION['color'];
             unset($_SESSION['color']);
-            echo "colors: "; print_r($colors); echo " ".$colors[1]." ggg<br/>";
+            //echo "colors: "; print_r($colors); echo " ".$colors[1]." ggg<br/>";
             foreach($colors as $c)
             {
                 if($c != "")
                 {
 
                     $query = "insert into tags(type, text, photo_id) values('color', '" . $c . "', " . $photo_id . ");";
-                     echo "<br/>".$query;
+                    //echo "<br/>".$query;
                     $result_temp = sql($query);
                     //if(!$result_temp){$result++;}
                 }
@@ -143,21 +143,21 @@
             {
                 $i = $info['height'];
                 $query = "insert into tags(type, text, photo_id) values('height', '" . $i . "', " . $photo_id . ");";
-                echo "<br/>".$query;
+                //echo "<br/>".$query;
                 $result_temp = sql($query);
             }
             if(isNotNull($info['width']))
             {
                 $i = $info['width'];
                 $query = "insert into tags(type, text, photo_id) values('width', '" . $i . "', " . $photo_id . ");";
-                echo "<br/>".$query;
+                //echo "<br/>".$query;
                 $result_temp = sql($query);
             }
             if(isNotNull($info['camera_model']))
             {
                 $i = $info['camera_model'];
                 $query = "insert into tags(type, text, photo_id) values('camera', '" . $i . "', " . $photo_id . ");";
-                echo "<br/>".$query;
+                //echo "<br/>".$query;
                 $result_temp = sql($query);
             }
             /*

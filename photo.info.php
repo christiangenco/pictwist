@@ -240,8 +240,15 @@ foreach($palette as $color)
 
 function getPhotoInfo($file)
 {
-   list($mime, $width, $height) = getimagesize($file);
-
+   list($width, $height) = getimagesize($file);
+   $size = getimagesize($file);
+   $mime = $size['mime'];
+   /*
+   $size = getimagesize($file);
+   if(isset($size['width'])){$width = $size['width'];}
+   if(isset($size['height'])){$height = $size['height'];}
+   if(isset($size['mime'])){$mime = $size['mime'];}
+*/
    if($mime == "image/jpeg")
    {
       $exif = exif_read_data($file);
@@ -261,7 +268,9 @@ function getPhotoInfo($file)
             "width" => $width,
             "height" => $height
         );
+
    }
+   print_r($info); echo "<br/>";
     return $info;
 }
 
