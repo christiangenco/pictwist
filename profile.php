@@ -134,7 +134,7 @@
     <h1> 
         My Albums 
     </h1> 
-     
+     <img src="<? echo $currentUser['profile_picture_path'] ?>" width="300px" height="300px" alt="profile picture" />
     <p> 
         <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $max_file_size ?>"> 
     </p> 
