@@ -17,7 +17,7 @@
 			$adv_search = substr($adv_search, 1);
 			$search_tag = (explode("#", $adv_search));
 			
-			if($currentUser['admin'] == FALSE)
+			if(!isAdmin())
 			{
 				foreach ($search_tag as $index => $tags) {
 				$search_seg = (explode(":", $tags));
