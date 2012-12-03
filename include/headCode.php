@@ -153,7 +153,7 @@
       { return FALSE; }
   }
 
-  function redirect_if_not_logged_in($redirectURL, $msg="You must be logged in to view this page"){
+  function redirect_if_not_logged_in($redirectURL, $msg="You must be logged in to view this page", $parent=""){
     global $errorURL;
     if(!isLoggedIn()){
       $_SESSION['error'] = $msg;
@@ -256,6 +256,22 @@
     return TRUE;
   }
 
+  function isFavorite($photo_id)
+  {
+    global $currentUser;
+    $query = "SELECT photo_id, user_id FROM favorites WHERE photo_id = ".$photo_id." AND user_id = ".$currentUser['id'].";";
+    //echo $query . "<br/>";
+    $result = sql($query);
+    if(mysql_num_rows($result) === 0)
+    {
+      echo FALSE;
+    }
+    else
+    {
+      echo TRUE;
+    }
+  }
+
   function isPrivatePhoto($photo_id)
   {
     $query = "SELECT private from photos WHERE id = ".$photo_id.";";
@@ -329,13 +345,13 @@
   }
   
   // usage: redirect("http://google.com")
-  function redirect($url){
+  function redirect($url, $parent=""){
     //echo "redirecting to '$url'";
     header("HTTP/1.1 307 Temporary Redirect");
     header("Location: $url");
   }
 
-  function errorRedirect($condition, $error, $redirect){
+  function errorRedirect($condition, $error, $redirect, $parent=""){
     global $errorURL;
     //echo "start<br/>";
     if($condition == TRUE)

@@ -36,10 +36,11 @@
     //echo $query . "<br/><br/>";
 	//echo $query . '<br/><br/>';
 	$result_comments = sql($query);
- 
     
     
 ?>
+
+<?php echo isFavorite($photo_id);?>
 
 <script type="text/javascript">
 	setTitle("<?php echo $photo_title;?>");

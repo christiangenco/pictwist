@@ -24,21 +24,17 @@
 	setTitle("Album - <?php echo $title['title'] ?>");
 </script>
 
-<form id="AlbumPhotos" action="<?php echo $baseURL . 'album.photos.php?album_id=' . $a_id ?>" enctype="multipart/form-data" method="post"> 
+
+
  
-    <h1> 
-        <?php echo $title['title'] ?>
-    </h1> 
-     
-    <p> 
-        <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $max_file_size ?>"> 
-    </p> 
+<a class="returnLink" href="<?php echo $profileURL;?>">< Back to my profile</a>
+   
 
     <?php
         $query = "select a.title, p.id, p.path from albums a JOIN photos p where a.id = $a_id AND a.id = p.album_id AND user_id='$currentUser[id]' order by a.id desc;";
         $result = sql($query);
     
-        echo '<div class="imageList_title"></div><div class="imageList">';
+        echo '<div class="imageList_title">'.$title['title'].'</div><div class="imageList">';
         while($row = mysql_fetch_array($result))
         {
             echo '<a id="' . $row["id"] . '" class="fancybox-iframe" rel="g1" href="'.$viewLightBoxURL.'?p_id=' . $row["id"] . '&a_id=' . $a_id . '">'.
@@ -47,38 +43,38 @@
             echo '</div>';
     ?>
      
-</form>
+<div class="divider"></div>	 
+	 
+<div class="centerAlign">	 
 
-<form id="Add Photo" action="<?php echo $uploadURL ?>" enctype="multipart/form-data" method="post">
-    <p>
-        <input type="submit" name="Add Photo" value="Add Photo" />
-    </p> 
-</form> 
+	<a class="m-btn blue thinBorder" href="<? echo $uploadURL ?>"><i class="icon-plus icon-white"></i> Add Photo</a>
 
-<form id="EditAlbum" action="<?php echo $baseURL . 'album.editor.php?album_id=' . $a_id ?>" enctype="multipart/form-data" method="post"> 
-    <p>
-        <input type="submit" name="EditAlbum" value="Edit Album" />
-    </p>
-</form>
+	<a class="m-btn blue thinBorder" href="<?php echo $baseURL . 'album.editor.php?album_id=' . $a_id ?>"><i class="icon-pencil icon-white"></i> Edit Album</a>	 
 
-<form id="ShareAlbum" action="<?php echo $baseURL . 'album.share.php?album_id=' . $a_id ?>" enctype="multipart/form-data" method="post"> 
-    <h1> 
-        Share Album 
-    </h1> 
+	<a id="showShareAlbum" class="m-btn blue thinBorder" href="javascript:;"><i class="icon-share icon-white"></i> Share Album</a>	 
 
-    <p> 
-        <label for="User">Name of user with whom you would like to share the album:</label> 
-        <input id="user" type="text" name="username">
-    </p>
+	<div id="shareAlbum">
+		<div class="formContainer">
+		<form action="<?php echo $baseURL . 'album.share.php?album_id=' . $a_id ?>" enctype="multipart/form-data" method="post"> 
+		
+				<div class="centerAlign"><h4>Enter one</h4></div>
+			
+				<div class="m-input-prepend">
+					<span class="add-on"><label for="User">Name: </label></span>
+					<input class="m-wrap" id="user" type="text" name="username">
+				</div>				
+				<div class="centerAlign"><h4>OR</h4></div>
+				<div class="m-input-prepend">
+					<span class="add-on"><label for="User">Email:</label> </span>
+					<input class="m-wrap" id="user" type="text" name="useremail">
+				</div>				
 
-    <p> 
-        <label for="User">Email of user with whom you would like to share the album:</label> 
-        <input id="user" type="text" name="useremail">
-    </p>
-
-    <p>
-        <input type="submit" name="ShareAlbum" value="Share Album" />
-    </p>
-</form>
+				<input class="m-btn blue thinBorder" type="submit" name="ShareAlbum" value="Share" />
+				
+				
+		</form>
+		</div>
+	</div>
+</div>
 
 <?php INCLUDE 'include/foot.php' ?> 
