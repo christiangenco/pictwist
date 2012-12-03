@@ -135,7 +135,7 @@
         $uid = $currentUser['id'];
         $prof_id = $_GET['u_id'];
 
-        if($uid == $prof_id)
+        if($uid == $prof_id || isAdmin())
         {
 	        $query = "select id, title from albums where user_id='".$prof_id."';";
 	        $result_albums = sql($query);
@@ -152,8 +152,10 @@
     }
     else
     {
-            $_SESSION['error'] = 'Error! You must be logged in to view your albums!';
-            redirect($logoutURL);
+            $query = "select id, title from albums where user_id='".$prof_id."'and private = 0;";
+            $result_albums = sql($query);
+            //$query2 = "select a.id, a.title from albums a join shared on $uid = shared.user_id and shared.album_id = a.id;";
+            $shared_albums = 0;//sql($query2);
     } 
 
     #move query to album.photos.php to display photos query shared albums needs to update
