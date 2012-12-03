@@ -30,6 +30,7 @@
         $album_title = $row["album_title"];
     }
     //echo $query . "<br/><br/>";
+    $query = "select id, type, text from tags where photo_id = '".$photo_id."';";
     $result_tags = sql($query);
     $query = "select text, c.id, c.updated_at, u.name, u.id AS user_id from photos p JOIN comments c JOIN users u where p.id = ".$photo_id." AND p.id = c.photo_id AND u.id = c.user_id order by c.updated_at desc;";
     //echo $query . "<br/><br/>";
@@ -45,7 +46,7 @@
 
 <div class="bigPhoto" >
 
-	<div class="photoTitle"><a href="<?php echo $albumURL."?album_id=".$album_id;?>" target="_parent"><?php echo $album_title;?></a> &lt; <?php echo $photo_title;?>
+	<div class="photoTitle"><a href="<?php echo $albumURL."?album_id=".$album_id;?>" target="_parent"><?php echo $album_title;?></a> &gt; <?php echo $photo_title;?>
 	
 	<?php 
 			if (isFavorite($photo_id)) {

@@ -57,7 +57,7 @@
 <div class="bigPhoto" >
 	<div class="bigPhotoContainer">
 
-		<div class="photoTitle"><a href="<?php echo $albumURL."?album_id=".$album_id;?>" target="_parent"><?php echo $album_title;?></a> &lt; <?php echo $photo_title;?>
+		<div class="photoTitle"><a href="<?php echo $albumURL."?album_id=".$album_id;?>" target="_parent"><?php echo $album_title;?></a> &gt; <?php echo $photo_title;?>
 		
 		<?php 
 			if (isFavorite($photo_id)) {
