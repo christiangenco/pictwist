@@ -16,7 +16,7 @@
 	}
 		echo '</div>';
 
-	$query = "select title, id, album_id, views, path, created_at from photos order by views desc limit 0, 20;";
+	$query = "select p.title, p.id, p.album_id, p.views, p.path, p.created_at from photos p JOIN albums a WHERE p.album_id=a.id AND p.private=0 AND a.private=0 order by views desc limit 0, 20;";
 	$result = mysql_query($query);
 	
 	echo '<div class="imageList_title">Most Viewed</div><div class="imageList">';
@@ -27,7 +27,7 @@
 	}
 		echo '</div>';
 
-	$query = "select p.id, p.title, p.album_id, f.user_id, path, p.created_at from photos p JOIN favorites f WHERE p.id = f.photo_id GROUP BY p.id order by count(*) desc limit 0, 20;";
+	$query = "select p.id, p.title, p.album_id, f.user_id, path, p.created_at from photos p JOIN albums a JOIN favorites f WHERE a.id=p.album_id AND p.private=0 AND a.private=0 AND p.id = f.photo_id GROUP BY p.id order by count(*) desc limit 0, 20;";
 	$result = mysql_query($query);
 	
 	echo '<div class="imageList_title">Most Favorited</div><div class="imageList">';
