@@ -71,7 +71,7 @@
 				<span class="add-on"><label for="fCountry">Country: </label></span><input id="fCountry" class="m-wrap" type="text" name="country" value="<?php echo $country;?>">
 			</div>
 			<div class="m-input-prepend">
-				<span class="add-on"><label for="editBio">About Me:</label></span><textarea id="editBio" class="m-wrap" type="text" name="bio" value="<?php echo $bio;?>"></textarea>
+				<span class="add-on"><label for="editBio">About Me:</label></span><textarea id="editBio" class="m-wrap" type="text" name="bio"><?php echo $bio;?></textarea>
 			</div>
 			
 			<input class="m-btn thinShadow blue" type="submit" name="submit" value="Save Changes">
