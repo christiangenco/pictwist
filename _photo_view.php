@@ -86,7 +86,7 @@
       while($row = mysql_fetch_array($result_tags))
       {
         echo '<div class="tagContainer">';
-        echo '<a class="m-btn mini rnd tag"';
+        echo '<a class="m-btn mini rnd tag" target="_parent"';
         if(isAdmin() || isOwner($photo_id)){
           echo 'href='.$deleteTagURL.'?a_id='.$album_id.'&p_id='.$photo_id.'&t_id='.$row['id'];
         }
@@ -106,7 +106,7 @@
 
     <?php if(isLoggedIn()): ?>
     <div id="addTags">
-      <form id="addTagsForm" action="<?php echo $viewHandlerURL.'?p_id='.$photo_id.'&a_id='.$album_id ?>" enctype="multipart/form-data" method="post">
+      <form id="addTagsForm" action="<?php echo $viewHandlerURL.'?p_id='.$photo_id.'&a_id='.$album_id ?>" enctype="multipart/form-data" method="post" target="_parent">
       <select class="m-wrap m-ctrl-small" name='tag'>
         <option value='keyword'>Keyword</option>
         <option value='location'>Location</option>
@@ -114,7 +114,7 @@
       </select>
       <span class="m-input-append">
         <input type='text' class="m-wrap m-ctrl-small" name='tagContent' rows="1" cols="10" placeholder='Enter a tag'>
-        <a id="addTagBtn" href="javascript:;" class="m-btn icn-only black"><i class="icon-plus icon-white"></i></a>
+        <a id="addTagBtn" href="javascript:;" target="_parent" class="m-btn icn-only black"><i class="icon-plus icon-white"></i></a>
       </span>
       </form>
     </div>
