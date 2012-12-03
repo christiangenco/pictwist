@@ -163,21 +163,29 @@
   }
 
   function getCurrentUser(){
+    connectToDb();
+    
     // TODO: make this actually get the current user
-    if(isset($_SESSION['uid'])) { $uid = $_SESSION['uid']; }
-    else { $uid = -1; $_SESSION['uid'] = $uid;}
+    if(isset($_SESSION['uid'])) { 
+      $uid = $_SESSION['uid'];
+      $user_data = mysql_fetch_array(sql("SELECT * FROM users WHERE id=".escape($uid)));
 
-    if(isset($_SESSION['email'])) { $email = $_SESSION['email']; }
-    else { $email = "Visitor"; $_SESSION['email'] = $email;}
-
-    if(isset($_SESSION['name'])) { $name = $_SESSION['name']; }
-    else { $name = "Unknown"; $_SESSION['name'] = $name;}
-
-    if(isset($_SESSION['admin'])) {$admin = $_SESSION['admin'];}
-    else { $admin = FALSE; $_SESSION['admin'] = $admin;}
-
-    if(isset($_SESSION['profile_picture_path'])) {$profile_picture_path = $_SESSION['profile_picture_path'];}
-    else { $profile_picture_path = "img/default_pic.png";}
+      $email = $user_data["email"];
+      $name = $user_data["name"];
+      $admin = $user_data["admin"]==0;
+      $profile_picture_path = $user_data["profile_picture_path"];
+    }
+    else { 
+      $uid = -1;
+      $email = "Visitor";
+      $name = "Unknown";
+      $admin = FALSE;
+      $profile_picture_path = "img/default_pic.png";
+    }
+    $_SESSION['uid'] = $uid;
+    $_SESSION['email'] = $email;
+    $_SESSION['admin'] = $admin;
+    $_SESSION['profile_picture_path'] = $profile_picture_path;
 
     $currentUser = array("username" => $email, "id" => $uid, "name" => $name, "admin" => $admin, "profile_picture_path" => $profile_picture_path);
     
