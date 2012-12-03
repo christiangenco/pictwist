@@ -145,5 +145,5 @@
 		
 	</div>
 
-</html>
+<?php INCLUDE 'include/foot.php'; ?>
 
