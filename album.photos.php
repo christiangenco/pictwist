@@ -27,7 +27,7 @@
 
 
  
-<a class="returnLink" href="<?php echo $profileURL;?>">< Back to my profile</a></h2> 
+<a class="returnLink" href="<?php echo $profileURL;?>">< Back to my profile</a>
    
 
     <?php

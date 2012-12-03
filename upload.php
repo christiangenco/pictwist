@@ -14,36 +14,37 @@
     $result_albums = sql($query);
 ?>
 
-<form id="Upload" action="<?php echo $uploadHandlerURL ?>" enctype="multipart/form-data" method="post"> 
- 
-    <h1> 
-        Upload a Picture to 
-        <select name="a_id">
-            <?php
-                while($row = mysql_fetch_array($result_albums))
-                {
-                    echo '<option value="' . $row['id'] . '"';
-                    if($_GET['a_id']===$row['id']) {echo ' selected="selected" ';}
-                    echo '>' . $row['title'] . '</option>';
-                }
-            ?>
-        </select>
-        ! 
-    </h1> 
-     
-    <p> 
-        <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $max_file_size ?>" /> 
-    </p> 
-    
-    <p> 
-        <label for="file">Files to Upload:</label> 
-        <input id="file" type="file" name="file" /> 
-    </p> 
-             
-    <p> 
-        <input id="submit" type="submit" name="submit" value="Proceed" /> 
-    </p> 
- 
-</form>
+<a class="returnLink" href="<?php echo $profileURL;?>">< Back to my profile</a>
+
+<div class="centerBox">
+	<div class="formContainer">
+
+	<form id="Upload" action="<?php echo $uploadHandlerURL ?>" enctype="multipart/form-data" method="post"> 
+	 
+		<h1> 
+			Upload a Picture to 
+			<select name="a_id">
+				<?php
+					while($row = mysql_fetch_array($result_albums))
+					{
+						echo '<option value="' . $row['id'] . '"';
+						if($_SESSION['a_id']===$row['id']) {echo ' selected="selected" ';}
+						echo '>' . $row['title'] . '</option>';
+					}
+				?>
+			</select>
+			
+		</h1> 
+		 
+			<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $max_file_size ?>" /> 
+			<div id="chooseFile">
+				<input class="" id="file" type="file" name="file" /> 
+			</div>
+				 
+			<input class="m-btn blue thinBorder" id="submit" type="submit" name="submit" value="Upload" /> 	
+	 
+	</form>
+	</div>
+</div>
 
 <?php INCLUDE 'include/foot.php' ?>

@@ -1,48 +1,4 @@
-<?php INCLUDE_ONCE 'include/headCode.php'; ?>
-<head>
-<title>PicTwist</title>
-    <?php INCLUDE_ONCE 'include/cssAndJsIncludes.php'; ?>
-
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-    <script type="text/javascript" src="fancyBox/source/jquery.fancybox.pack.js?v=2.1.3"></script>
-    <script type="text/javascript" src="js/script.js"></script>
-    <link rel="stylesheet" href="fancyBox/source/jquery.fancybox.css?v=2.1.3" type="text/css" media="screen" />
-    <link href="styles/styles.css" rel="stylesheet" type="text/css">
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            //alert("Hey there");
-            $(".fancybox").fancybox();
-            
-            $(".fancybox-iframe").fancybox({
-                
-                type : 'iframe',
-                prevEffect : 'fade',
-                nextEffect : 'fade',
-                openEffect : 'none',
-                closeEffect : 'none',
-                margin : [20, 60, 20, 60],              
-                
-                closeBtn : true,
-                arrows : true,
-                nextClick : false,
-                
-                helpers: {
-                    title : {
-                        type : 'inside'
-                    }
-                },
-                
-                beforeShow: function() {
-                    this.width = 1000;
-                }
-                
-            });
-            //alert("leaving...");
-        });
-    </script>
-</head>
-<?php INCLUDE_ONCE 'include/headBody.php' ?>
+<?php INCLUDE_ONCE 'include/head.php'; ?>
 
 <?php
     connectToDb();
@@ -74,6 +30,10 @@
             redirect($logoutURL);
     } 
 ?>
+
+<script type="text/javascript">
+	setTitle("Album - My Favorites");
+</script>
 
 <form id="AlbumPhotos" action="<?php echo $baseURL . 'album.photos.php' ?>" enctype="multipart/form-data" method="post"> 
  
