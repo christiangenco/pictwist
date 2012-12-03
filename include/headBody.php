@@ -35,7 +35,7 @@
             <div id="userBadge">
               <img id="userPic" src="<? echo $currentUser['profile_picture_path'] ?>" width="150px" height="150px" />
               <div id="userInfo">
-                <a href="<? echo $profileURL ?>"><div id="userName"><?echo $currentUser['username'];?></div></a>
+                <a href="<? echo $profileURL ?>"><div id="userName"><?echo $currentUser['name'];?></div></a>
                 <div id="userLinks"><a href="<?php echo $albumsURL;?>">My Albums</a> | <a href="<?php echo $logoutURL;?>">Sign out</a></div>
               </div>
             </div>

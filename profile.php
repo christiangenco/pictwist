@@ -57,8 +57,8 @@
         $result_albums = sql($query);
         $query2 = "select a.id, a.title from albums a join shared on $uid = shared.user_id and shared.album_id = a.id;";
         $shared_albums = sql($query2);
-		//echo "timestamp: " . $tstamp;
-	}
+        //echo "timestamp: " . $tstamp;
+    }
     else
     {
         $_SESSION['error'] = 'Error! You must be logged in to view your albums!';
@@ -68,87 +68,82 @@
 <form id="myProfile" action="<?php echo $baseURL . 'profile.php' ?>" enctype="multipart/form-data" method="post"> 
 
     <h1> 
-    	<?php 
-    		$query = "select name from users where id = '$_GET[u_id]';";
-    		$result = sql($query);
-    		$username = mysql_fetch_array($result);
-    		echo $username[name] . "'s Profile";
-        ?> 
-    </h1> 
+        <? echo $name."'s Profile"; ?></h1> 
+     <img src="<? echo $currentUser['profile_picture_path'] ?>" width="300px" height="300px" alt="profile picture" />
     <p>
-		
-	<?php
-		echo "<br><b>Name: </b>" . $name;
-		if(!empty($city))
-		{
-			echo "<br><b>City: </b>" . $city;	
-		}
-		if(!empty($state))
-		{
-			echo "<br><b>State: </b>" . $state;
-		}
-		if(!empty($country))
-		{
-			echo "<br><b>Country: </b>" . $country;	
-		}
-		if(!empty($bio))
-		{
-			echo "<br><b>About me: </b>" . $bio;
-		}		
-		echo "<br><b>Member since </b>" . date("F j, Y", strtotime($tstamp));
-		echo "<br><b>Last login was </b>" . date("F j, Y", strtotime($lastUpdate)); 
+        
+    <?php
+        echo "<br><b>Name: </b>" . $name;
+        if(!empty($city))
+        {
+            echo "<br><b>City: </b>" . $city;   
+        }
+        if(!empty($state))
+        {
+            echo "<br><b>State: </b>" . $state;
+        }
+        if(!empty($country))
+        {
+            echo "<br><b>Country: </b>" . $country; 
+        }
+        if(!empty($bio))
+        {
+            echo "<br><b>About me: </b>" . $bio;
+        }       
+        echo "<br><b>Member since </b>" . date("F j, Y", strtotime($tstamp));
+        echo "<br><b>Last login was </b>" . date("F j, Y", strtotime($lastUpdate)); 
 
 
         echo '<br/><a href="'.$flagContentURL.'?u_id='.$id.'">Report User</a>';
         echo '<br/><a href="'.$subscriptionHandlerURL.'?u_id='.$id.'">Subscribe</a>';
 
         ?>
-	<br/>
+    <br/>
     </p>  
 </form>
-	<form method="post" action="editInfo.php">
-		<input type="submit" value="Edit My Account">
-	</form>
-	<?php
-		if($admin == 1)
-		{
-			?>
-	<form method="post" action="admin.php">
-		<input type="submit" value="Administrator">
-	</form>
-	<?php } ?>
-	
+    <form method="post" action="editInfo.php">
+        <input type="submit" value="Edit My Account">
+    </form>
+    <?php
+        if($admin == 1)
+        {
+            ?>
+    <form method="post" action="admin.php">
+        <input type="submit" value="Administrator">
+    </form>
+    <?php } ?>
+    
 </div>
 <div id="album info">
 <?php
-	connectToDb();
-	//$query = "select p.album_id, a.title, p.id, p.path from albums a JOIN photos p where a.id = p.album_id AND user_id='$currentUser[id]' order by a.id desc;";
-	//$result = mysql_query($query);
-	//while($row = mysql_fetch_array($result))
-	//{
-	//	echo '<a id="' . $row["id"] . '" class="fancybox-iframe" rel="g1" href="'.$viewLightBoxURL.'?p_id=' . $row["id"] . '&a_id=' . $row["album_id"] . '">'.
-	//		'<img src="'.$row["path"].'" height=100 width=100 alt="'.$row["title"].'"></a>';
-	//}
+    connectToDb();
+    //$query = "select p.album_id, a.title, p.id, p.path from albums a JOIN photos p where a.id = p.album_id AND user_id='$currentUser[id]' order by a.id desc;";
+    //$result = mysql_query($query);
+    //while($row = mysql_fetch_array($result))
+    //{
+    //  echo '<a id="' . $row["id"] . '" class="fancybox-iframe" rel="g1" href="'.$viewLightBoxURL.'?p_id=' . $row["id"] . '&a_id=' . $row["album_id"] . '">'.
+    //      '<img src="'.$row["path"].'" height=100 width=100 alt="'.$row["title"].'"></a>';
+    //}
 
-	if(isset($currentUser['id']) && $currentUser['id'] > 0)
+    if(isset($currentUser['id']) && $currentUser['id'] > 0)
     {
         $uid = $currentUser['id'];
         $prof_id = $_GET['u_id'];
 
         if($uid == $prof_id || isAdmin())
         {
-	        $query = "select id, title from albums where user_id='".$prof_id."';";
-	        $result_albums = sql($query);
-	        $query2 = "select a.id, a.title from albums a join shared on $prof_id = shared.user_id and shared.album_id = a.id;";
-	        $shared_albums = sql($query2);
-    	}
-    	else
-    	{
-    		$query = "select id, title from albums where user_id='".$prof_id."'and private = 0;";
-    		$result_albums = sql($query);
-	        $query2 = "select a.id, a.title from albums a join shared on $uid = shared.user_id and shared.album_id = a.id;";
-	        $shared_albums = sql($query2);
-    	}
+            $query = "select id, title from albums where user_id='".$prof_id."';";
+            $result_albums = sql($query);
+            $query2 = "select a.id, a.title from albums a join shared on $prof_id = shared.user_id and shared.album_id = a.id;";
+            $shared_albums = sql($query2);
+        }
+        else
+        {
+            $query = "select id, title from albums where user_id='".$prof_id."'and private = 0;";
+            $result_albums = sql($query);
+            $query2 = "select a.id, a.title from albums a join shared on $uid = shared.user_id and shared.album_id = a.id;";
+            $shared_albums = sql($query2);
+        }
     }
     else
     {
@@ -164,14 +159,13 @@
 <form id="MyAlbums" action="<?php echo $baseURL . 'album.photos.php' ?>" enctype="multipart/form-data" method="post"> 
  
     <h1>
-    	<?php 
-    	if($uid == $prof_id)
-    		echo "My Albums";
-    	else
-    		echo "Albums";
+        <?php 
+        if($uid == $prof_id)
+            echo "My Albums";
+        else
+            echo "Albums";
         ?> 
     </h1> 
-     
     <p> 
         <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $max_file_size ?>"> 
     </p> 

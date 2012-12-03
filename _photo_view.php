@@ -111,9 +111,14 @@
   <div id="photoOptions">
     <div class="m-btn-group">
       <?php
-      if(false){
+      if(true){
         echo '<a class="m-btn" id="' . $photo_id . '" href="'.$editURL.'?p_id='.$photo_id.'&a_id='.$album_id . '" target="_parent">'.
         '<i class="icon-pencil"></i> Edit Photo</a>';
+      }
+
+      if(true){
+        echo '<a class="m-btn" href="'.$updateProfilePictureHandlerURL.'?p_id='.$photo_id.'" target="_parent">'.
+        '<i class="icon-pencil"></i> Make Profile Picture</a>';
       }
 
       if (isFavorite($photo_id)) {  
@@ -128,8 +133,11 @@
         'Twist!</a>';
       echo '<a class="m-btn" id="' . $photo_id . '" href="'.$twistHistoryURL.'?p_id='.$photo_id.'&a_id='.$album_id. '" target="_parent");">'.
         '<i class="icon-time"></i> View Twist History</a>';
-      echo '<a class="m-btn" id="' . $photo_id . '" href="'.$deleteHandlerURL.'?p_id='.$photo_id.'&a_id='.$album_id. '" target="_parent");">'.
+
+      if(true){
+        echo '<a class="m-btn" id="' . $photo_id . '" href="'.$deleteHandlerURL.'?p_id='.$photo_id.'&a_id='.$album_id. '" target="_parent");">'.
         '<i class="icon-trash"></i> Delete Photo</a>';
+      }
       echo '<a class="m-btn" id="' . $photo_id . '" href="'.$flagContentURL.'?p_id='.$photo_id.'&a_id='.$album_id. '" target="_parent">'.
         '<i class="icon-flag"></i> Flag Photo</a>';
       ?>
