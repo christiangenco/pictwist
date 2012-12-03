@@ -69,7 +69,7 @@
 
     <h1> 
         <? echo $name."'s Profile"; ?></h1> 
-     <img src="<? echo $currentUser['profile_picture_path'] ?>" width="300px" height="300px" alt="profile picture" />
+     <img src="<? echo $currentUser['profile_picture_path'] ?>" width="300px" height="300px" alt="profile picture" style="float:right" />
     <p>
         
     <?php
