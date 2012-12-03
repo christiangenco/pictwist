@@ -226,7 +226,7 @@
 					    $query = $query . " OR ";
 					}
 					//echo '<br/>pre-subquery:<br/>' . $query . '<br/>k: ' . $q . '<br/>';
-					if(!$currentUser['admin'])
+					if(!isAdmin())
 					{
 						$query = $query . " (id IN (SELECT p.id FROM photos p LEFT JOIN tags t ON p.id = t.photo_id JOIN albums a LEFT JOIN shared s ON a.id=s.album_id"
 										." WHERE p.album_id = a.id AND (t.text LIKE '%".$q."%' OR p.title LIKE '%".$q."%' OR p.description LIKE '%".$q."%') AND"
@@ -239,7 +239,7 @@
 										." ORDER BY count(p.id) desc))";
 					}
 
-					else
+					else if(isAdmin())
 					{
 						echo "<br/>admin<br/>";
 						$query = $query . " (id IN (SELECT p.id FROM photos p LEFT JOIN tags t ON p.id = t.photo_id"
