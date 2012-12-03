@@ -13,11 +13,13 @@
         $query = "select id, title from photos where album_id='".$a_id."';";
         $result_photos = sql($query);
     }
+    /*
     else
     {
             $_SESSION['error'] = 'Error! You must be logged in to view your photos!';
             redirect($logoutURL);
     } 
+    */
 ?>
 
 <script type="text/javascript">
