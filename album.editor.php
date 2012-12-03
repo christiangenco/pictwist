@@ -11,7 +11,7 @@
         $query = "SELECT title, private from albums where id = $a_id;";
         $result = sql($query);
         $row = mysql_fetch_array($result);
-        if($row[title] == "Default")
+        if($row['title'] == "Default")
         {
             $_SESSION['error'] = "You cannot edit your Default album";
             redirect($albumsURL);
@@ -24,33 +24,44 @@
     }
 ?>
 
-<form id="Edit Album" action="<?php echo $baseURL . 'album.edit.processor.php?album_id=' . $a_id ?>" enctype="multipart/form-data" method="post"> 
+<a class="returnLink" href="<?php echo $albumsURL;?>">< Back to my albums</a>
+   
+
+<div class="centerBox">
+
+	<form id="Edit Album" action="<?php echo $baseURL . 'album.edit.processor.php?album_id=' . $a_id ?>" enctype="multipart/form-data" method="post"> 
  
-    <h1> 
-        Edit Album Info
-    </h1> 
+		<h1> 
+			Edit Album Info
+		</h1> 
+	
+		<div class="formContainer">
 
-    <p> 
-        <label for="title">New Album Title:</label> 
-        <input id="title" type="text" value= "<?php echo $row['title']; ?>" name="title">
-    </p>
+			<div class="m-input-prepend">
+				<span class="add-on"><label for="title">Album Name:</label></span>
+				<input class="m-wrap" id="title" type="text" value= "<?php echo $row['title']; ?>" name="title">
+			</div>
+		
+			<select class="m-wrap m-ctrl-small" name="PrivateRadio">
+				<option value="Public">Public</option>
+				<option value="Private" <?php echo ($row['private'] == '1')?'selected':' ' ?>>Private</option>
+			</select>
+			<br />
+				
+			<input class="m-btn blue thinBorder" type="submit" name="AlbumSubmit" value="Submit" />		 
 
-    <p>
-        <lable for="PrivateRadio">Would you like this album to be: </label>
-        <input type="radio" name="PrivateRadio" value="Public" <?php echo ($row['private'] == '0')?'checked':' ' ?>/> Public
-        <input type="radio" name="PrivateRadio" value="Private" <?php echo ($row['private'] == '1')?'checked':' ' ?>/> Private
-    </p>
-
-    <p>
-        <input type="submit" name="AlbumSubmit" value="Submit" />
-    </p> 
- 
-</form>
-
-<form id="Delete Album" action="<?php echo $baseURL . 'album.deletion.php?album_id=' . $a_id ?>" enctype="multipart/form-data" method="post">
-    <p>
-        <input type="submit" name="DeleteAlbum" value="Delete Album" />
-    </p> 
-</form> 
+		</div>
+	
+	</form>
+	
+	<div class="boxDivider"></div>
+	
+	<form id="Delete Album" action="<?php echo $baseURL . 'album.deletion.php?album_id=' . $a_id ?>" enctype="multipart/form-data" method="post">
+	
+		<input class="m-btn red thinBorder" type="submit" name="DeleteAlbum" value="Delete Album" />
+	
+	</form>
+	
+</div>
 
 <?php INCLUDE 'include/foot.php' ?>
