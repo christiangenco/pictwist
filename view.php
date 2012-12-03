@@ -159,7 +159,7 @@
 		<?php
 		if($currentUser['id'] > 0)
 		{
-			echo '<form method="post" action="' . $viewHandlerURL.'?p_id='.$photo_id.'&a_id='.$album_id. '">'.
+			echo '<form method="post" target="_parent" action="' . $viewHandlerURL.'?p_id='.$photo_id.'&a_id='.$album_id. '">'.
 				'<textarea class="m-wrap" type="textarea" name="comment" rows="2" placeholder="Add a comment"></textarea><br/>'.
 				'<input class="m-btn thinBorder_light" type="submit" name="submit" value="Submit Comment">'.
 				'</form>';
