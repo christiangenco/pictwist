@@ -290,6 +290,11 @@ h4 {
 	
 }
 
+.returnLink + .centerBox {
+	top: 0;
+	margin-bottom: 0;
+}
+
 .box {
 	text-align: center;	
 	background-color: rgba(8, 105, 137, .5);
