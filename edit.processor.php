@@ -141,14 +141,14 @@
             //echo "colors: "; print_r($colors); echo " ".$colors[1]." ggg<br/>";
             if(isNotNull($info['height']))
             {
-                $i = '$info['height']';
+                $i = $info['height'];
                 $query = "insert into tags(type, text, photo_id) values('height', '" . $i . "', " . $photo_id . ");";
                 echo "<br/>".$query;
                 $result_temp = sql($query);
             }
             if(isNotNull($info['width']))
             {
-                $i = '$info['width']';
+                $i = $info['width'];
                 $query = "insert into tags(type, text, photo_id) values('width', '" . $i . "', " . $photo_id . ");";
                 echo "<br/>".$query;
                 $result_temp = sql($query);
