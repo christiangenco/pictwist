@@ -56,6 +56,10 @@ $(document).ready(function() {
 		$("#shareAlbum").fadeToggle();	
 	});	
 	
+	setupSwapFade("#albums_newAlbumToggle", "#albums_newAlbumToggle", "#albums_newAlbum");
+	
+	
+	
 });
 
 

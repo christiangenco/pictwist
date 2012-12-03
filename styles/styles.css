@@ -233,6 +233,11 @@ a:hover {
 ******************* General ***************************
 *****************************************************/
 
+.inline {
+	display: inline;
+}
+
+
 h1 {
 	padding: 0;
 	margin: 18px;
@@ -260,9 +265,6 @@ h4 {
 
 .fRight {
 	float: right;
-}
-
-.fLeft, .fRight {
 }
 
 
@@ -353,6 +355,58 @@ h4 {
 	display: none;
 }
 
+.albumContainer {
+	float: left;
+	margin: 10px;
+}
+
+.albumTitle {
+	font-size: 18px;
+	padding: 5px;
+}
+
+.album {
+	padding: 5px;
+	width: 165px;
+	height: 165px;
+	background-color: rgba(0, 0, 0, 0);
+	-webkit-box-shadow: 0 0 3px 1px rgba(0, 0, 0, 1);
+	position: relative;
+}
+
+.album img {
+	margin: auto;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+.noPhoto {
+	position: absolute;
+	top: 78px;
+	left: 67px;
+	font-style: italic;
+	color: #888;
+}
+
+.album img {	
+	max-width: 165px;
+}
+
+
+#albums_newAlbumContainer {
+	float: right;
+	padding: 5px 10px 0 0;
+}
+
+#albums_newAlbumToggle {
+}
+
+#albums_newAlbum {
+	display: none;
+}
 
 /*************************************************/
 
