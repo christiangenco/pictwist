@@ -162,9 +162,11 @@
                 	//fixes earlier problem
                     echo '<a href="album.photos.php?u_id='.$prof_id.'&album_id=' . $row["id"] . '">' . $row["title"] . '</a><br/>';
                 }
-                    echo '<a href="favorite.display.php">Favorites</a><br/>';
-                    echo '<a href="albums.php">Add a new album</a><br/>';
-            ?>
+                ?>
+                <?php if($uid == $prof_id): ?>
+                    <a href="favorite.display.php">Favorites</a><br/>
+                    <a href="albums.php">Add a new album</a><br/>
+                <?php endif;?>
 
         <br/>
     </p> 
