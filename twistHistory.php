@@ -52,7 +52,7 @@
 
 	// select child ids
 	// select child info
-	$query = "SELECT id, title, path FROM photos WHERE parent_photo_id = ".$_REQUEST['p_id'].";";
+	$query = "SELECT id, title, path, album_id FROM photos WHERE parent_photo_id = ".$_REQUEST['p_id'].";";
 	$result_children = sql($query);
 
 	echo "<br/><p>Child Photos</p>";
