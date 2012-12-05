@@ -160,7 +160,7 @@
                 while($row = mysql_fetch_array($result_albums))
                 {
                 	//fixes earlier problem
-                    echo '<a href="album.photos.php?album_id=' . $row["id"] . '">' . $row["title"] . '</a><br/>';
+                    echo '<a href="album.photos.php?u_id='.$prof_id.'&album_id=' . $row["id"] . '">' . $row["title"] . '</a><br/>';
                 }
                     echo '<a href="favorite.display.php">Favorites</a><br/>';
                     echo '<a href="albums.php">Add a new album</a><br/>';
