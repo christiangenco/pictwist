@@ -56,7 +56,7 @@
     }
     else if(isset($_REQUEST['u_id']) && !isLoggedIn())
     {
-        $prof_id = params('uid');
+        $prof_id = params('u_id');
         $uid = -1;
 
         $query = "SELECT a.id, a.title FROM albums a where a.private=0 AND a.user_id=".$prof_id.";";
